@@ -1,12 +1,36 @@
+#import per crawl4ai
 import asyncio
-from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
+from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
+
+#import per pulizia md
+import re  
+
 
 async def main():
+
+
+    
+
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
 
-    #configuro il tipo di richiesta, bypassando la cache         #questa parte per avere un testo più pulito.
-    crawler_config = CrawlerRunConfig(cache_mode=CacheMode.BYPASS,css_selector="#mw-content-text")
+
+
+    #generatore per migliorare il Markdown creato
+    md_generator = DefaultMarkdownGenerator(
+        options={
+            "ignore_links": True,
+            "escape_html": False,
+            "ignore_images": True
+        }
+    )
+
+
+    #configuro il tipo di richiesta, bypassando la cache         
+    crawler_config = CrawlerRunConfig(
+                                      cache_mode=CacheMode.BYPASS,
+                                      css_selector="#mw-content-text", # questa parte per avere un testo più pulito.
+                                      markdown_generator=md_generator) # questo per generare markdown con personalizzazione
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
@@ -21,9 +45,23 @@ async def main():
     #result.cleaned_html
     #result.html
 
+    
+    ##########################  PULIZIA DEL MARKDOWN  ##########################
+    
+    ris = re.sub("\[[1-9]\]|\[edit\]", "", result.markdown)
+    
+    
+    #####################################################################################
+
+
+
+    ##########################  SCRITTURA IN FILE  ##########################
+    
     #print(result.markdown)
     with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(result.markdown)
+        file.write(ris)
     print("Scrittura completata! File salvato come 'risultato.markdown'.")
+
+    #####################################################################################
 
 asyncio.run(main())
