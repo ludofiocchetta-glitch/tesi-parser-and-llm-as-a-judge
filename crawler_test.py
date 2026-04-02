@@ -25,12 +25,20 @@ async def main():
         }
     )
 
+    #javascript snippet per togliere l'infobox
+    remove_infobox_js = """
+        const infoboxes = document.querySelectorAll('.infobox');
+        infoboxes.forEach(box => box.remove());
+    """
+
 
     #configuro il tipo di richiesta, bypassando la cache         
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
                                       css_selector="#mw-content-text", # questa parte per avere un testo più pulito.
-                                      markdown_generator=md_generator) # questo per generare markdown con personalizzazione
+                                      markdown_generator=md_generator, # questo per generare markdown con personalizzazione
+                                      js_code= remove_infobox_js
+                                    )
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
@@ -48,7 +56,8 @@ async def main():
     
     ##########################  PULIZIA DEL MARKDOWN  ##########################
     
-    ris = re.sub(r"\[\d+\]|\[edit\]", "", result.markdown)
+    ris = re.sub(r"\[\d+\]|\[edit\]|(\*\*|_)(.*?)\1'", "", result.markdown)
+    ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
     testo = re.split(r"##\s*References", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
     
