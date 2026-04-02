@@ -25,9 +25,9 @@ async def main():
         }
     )
 
-    #javascript snippet per togliere l'infobox
+    #javascript snippet per togliere l'infobox,sidebar,hatnote...
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.infobox');
+        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .hatnote, .toc');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -42,7 +42,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
-        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/TonyPitony", config=crawler_config)
+        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/Donald_Trump", config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -58,9 +58,9 @@ async def main():
     
     ris = re.sub(r"\[\d+\]|\[edit\]|(\*\*|_)(.*?)\1'", "", result.markdown)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
-    testo = re.split(r"##\s*References", ris, flags=re.IGNORECASE)
+    testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
-    
+
     
     #####################################################################################
 
