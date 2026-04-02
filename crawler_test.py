@@ -48,7 +48,9 @@ async def main():
     
     ##########################  PULIZIA DEL MARKDOWN  ##########################
     
-    ris = re.sub("\[[1-9]\]|\[edit\]", "", result.markdown)
+    ris = re.sub("\[\d+\]|\[edit\]", "", result.markdown)
+    testo = re.split(r"##\s*References", ris, flags=re.IGNORECASE)
+    ris = testo[0].strip()
     
     
     #####################################################################################
