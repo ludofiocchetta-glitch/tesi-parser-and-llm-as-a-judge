@@ -5,6 +5,9 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 #import per pulizia md
 import re  
 
+#import per formato json
+import json
+
 
 async def main():
 
@@ -42,7 +45,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
-        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/TonyPitony", config=crawler_config)
+        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/Donald_Trump", config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -64,17 +67,6 @@ async def main():
     
     #####################################################################################
 
-
-<<<<<<< Updated upstream
-    ##########################  SCRITTURA IN FILE  ##########################
-    
-    #print(result.markdown)
-    with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(ris)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
-
-    #####################################################################################
-
     ##########################  SCRITTURA JSON     ###################################
     
     #estraggo il titolo
@@ -87,7 +79,7 @@ async def main():
     #creo il dizionario
 
     dati_estratti = {
-        "url": "https://en.wikipedia.org/wiki/TonyPitony",
+        "url": "https://en.wikipedia.org/wiki/Donald_Trump",
         "domain": "en.wikipedia.org",
         "title": titolo_pag,
         "html_text": result.html,
@@ -99,15 +91,6 @@ async def main():
     with open("risultato.json", "w", encoding="utf-8") as file:
         json.dump(dati_estratti,file,indent=4, ensure_ascii=False)
     print("Scrittura completata! File salvato come 'risultato.json'.")
-=======
-
-    ##########################  SCRITTURA IN FILE  ##########################
-    
-    #print(result.markdown)
-    with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(ris)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
->>>>>>> Stashed changes
 
     #####################################################################################
 
