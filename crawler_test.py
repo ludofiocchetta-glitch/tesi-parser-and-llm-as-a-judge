@@ -5,6 +5,9 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 #import per pulizia md
 import re  
 
+#import per formato json
+import json
+
 
 async def main():
 
@@ -64,14 +67,30 @@ async def main():
     
     #####################################################################################
 
-
-
-    ##########################  SCRITTURA IN FILE  ##########################
+    ##########################  SCRITTURA JSON     ###################################
     
-    #print(result.markdown)
-    with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(ris)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
+    #estraggo il titolo
+    titolo_match=re.search(r'<title>(.*?)</title>',result.html,re.IGNORECASE)
+    if titolo_match:
+        titolo_pag=titolo_match.group(1)
+    else:
+        titolo_pag="titolo non trovato"
+
+    #creo il dizionario
+
+    dati_estratti = {
+        "url": "https://en.wikipedia.org/wiki/Donald_Trump",
+        "domain": "en.wikipedia.org",
+        "title": titolo_pag,
+        "html_text": result.html,
+        "parsed_text": ris 
+    }
+
+    #salvo in un file json
+
+    with open("risultato.json", "w", encoding="utf-8") as file:
+        json.dump(dati_estratti,file,indent=4, ensure_ascii=False)
+    print("Scrittura completata! File salvato come 'risultato.json'.")
 
     #####################################################################################
 
