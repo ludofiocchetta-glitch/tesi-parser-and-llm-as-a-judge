@@ -45,7 +45,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
-        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/Donald_Trump", config=crawler_config)
+        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/TonyPitony", config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -67,6 +67,16 @@ async def main():
     
     #####################################################################################
 
+
+    ##########################  SCRITTURA IN FILE  ##########################
+    
+    #print(result.markdown)
+    with open("risultato.md", "w", encoding="utf-8") as file:
+        file.write(ris)
+    print("Scrittura completata! File salvato come 'risultato.markdown'.")
+
+    #####################################################################################
+
     ##########################  SCRITTURA JSON     ###################################
     
     #estraggo il titolo
@@ -79,7 +89,7 @@ async def main():
     #creo il dizionario
 
     dati_estratti = {
-        "url": "https://en.wikipedia.org/wiki/Donald_Trump",
+        "url": "https://en.wikipedia.org/wiki/TonyPitony",
         "domain": "en.wikipedia.org",
         "title": titolo_pag,
         "html_text": result.html,
