@@ -45,8 +45,8 @@ async def main():
                                     )
 
     #struttura tipo open file
-    async with AsyncWebCrawler(config=browser_config) as luridoverme:
-        result = await luridoverme.arun(url=link, config=crawler_config)
+    async with AsyncWebCrawler(config=browser_config) as pippo:
+        result = await pippo.arun(url=link, config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -68,44 +68,45 @@ async def main():
     
     #####################################################################################
 
-
-    ##########################  SCRITTURA IN FILE  ##########################
-    
-    #print(result.markdown)
-    with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(ris)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
-
-    with open("risultatoraw.md", "w", encoding="utf-8") as file:
-        file.write(result.markdown)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
-
-    #####################################################################################
-
     ##########################  SCRITTURA JSON     ###################################
     
     #estraggo il titolo
     titolo_match=re.search(r'<title>(.*?)</title>',result.html,re.IGNORECASE)
     if titolo_match:
-        titolo_pag=titolo_match.group(1)
+        titolo_pag= titolo_match.group(1).replace( " - Wikipedia","")
+        titolo_file= titolo_pag.lower().replace(" ", "_")
     else:
         titolo_pag="titolo non trovato"
+        titolo_file= "titolo_non_trovato"
 
     #creo il dizionario
 
     dati_estratti = {
         "url": link,
         "domain": "en.wikipedia.org",
-        "title": titolo_pag.replace( " - Wikipedia",""),
+        "title": titolo_pag,
         "html_text": result.html,
         "parsed_text": ris 
     }
 
     #salvo in un file json
 
-    with open("risultato.json", "w", encoding="utf-8") as file:
-        json.dump(dati_estratti,file,indent=4, ensure_ascii=False)
-    print("Scrittura completata! File salvato come 'risultato.json'.")
+    with open(f"{titolo_file}.json", "w", encoding="utf-8") as file:
+        json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
+    print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
+
+    #####################################################################################
+
+
+    ##########################  SCRITTURA IN FILE  ##########################
+    
+    with open(f"{titolo_file}.md", "w", encoding="utf-8") as file:
+        file.write(ris)
+    print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
+
+    #with open(f"{titolo_file}_raw.md", "w", encoding="utf-8") as file:
+    #   file.write(result.markdown)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}_raw.md'.")
 
     #####################################################################################
 
