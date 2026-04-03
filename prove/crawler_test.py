@@ -5,11 +5,14 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 #import per pulizia md
 import re  
 
+#import per formato json
+import json
+
 
 async def main():
 
 
-    
+    link = "https://en.wikipedia.org/wiki/Donald_Trump"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -32,17 +35,18 @@ async def main():
     """
 
 
+    css_list = ["h1#firstHeading","#mw-content-text"]
     #configuro il tipo di richiesta, bypassando la cache         
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
-                                      css_selector="#mw-content-text", # questa parte per avere un testo più pulito.
+                                      target_elements=css_list, # questa parte per avere un testo più pulito.
                                       markdown_generator=md_generator, # questo per generare markdown con personalizzazione
                                       js_code= remove_infobox_js
                                     )
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as luridoverme:
-        result = await luridoverme.arun(url="https://en.wikipedia.org/wiki/TonyPitony", config=crawler_config)
+        result = await luridoverme.arun(url=link, config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -56,7 +60,7 @@ async def main():
     
     ##########################  PULIZIA DEL MARKDOWN  ##########################
     
-    ris = re.sub(r"\[\d+\]|\[edit\]|(\*\*|_)(.*?)\1'", "", result.markdown)
+    ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|(\*\*|_)(.*?)\1'", "", result.markdown)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
     testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
@@ -65,12 +69,15 @@ async def main():
     #####################################################################################
 
 
-<<<<<<< Updated upstream
     ##########################  SCRITTURA IN FILE  ##########################
     
     #print(result.markdown)
     with open("risultato.md", "w", encoding="utf-8") as file:
         file.write(ris)
+    print("Scrittura completata! File salvato come 'risultato.markdown'.")
+
+    with open("risultatoraw.md", "w", encoding="utf-8") as file:
+        file.write(result.markdown)
     print("Scrittura completata! File salvato come 'risultato.markdown'.")
 
     #####################################################################################
@@ -87,9 +94,9 @@ async def main():
     #creo il dizionario
 
     dati_estratti = {
-        "url": "https://en.wikipedia.org/wiki/TonyPitony",
+        "url": link,
         "domain": "en.wikipedia.org",
-        "title": titolo_pag,
+        "title": titolo_pag.replace( " - Wikipedia",""),
         "html_text": result.html,
         "parsed_text": ris 
     }
@@ -99,15 +106,6 @@ async def main():
     with open("risultato.json", "w", encoding="utf-8") as file:
         json.dump(dati_estratti,file,indent=4, ensure_ascii=False)
     print("Scrittura completata! File salvato come 'risultato.json'.")
-=======
-
-    ##########################  SCRITTURA IN FILE  ##########################
-    
-    #print(result.markdown)
-    with open("risultato.md", "w", encoding="utf-8") as file:
-        file.write(ris)
-    print("Scrittura completata! File salvato come 'risultato.markdown'.")
->>>>>>> Stashed changes
 
     #####################################################################################
 
