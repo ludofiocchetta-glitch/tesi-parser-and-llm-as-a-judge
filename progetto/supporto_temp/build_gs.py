@@ -2,8 +2,10 @@ import json
 import os
 
 def create_gold_standard_entry():
-    html_file_path = "donald_trump.html"
-    testo_pulito_path = "donald_trump_gs.txt"
+    link="https://en.wikipedia.org/wiki/Artificial_intelligence"
+    link1="https://en.wikipedia.org/wiki/Donald_Trump"
+    html_file_path = "artificial_intelligence.html"
+    testo_pulito_path = "artificial_intelligence_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/en.wikipedia.org_gs.json"
@@ -23,9 +25,9 @@ def create_gold_standard_entry():
         return
 
     gs_entry = {
-        "url": "https://en.wikipedia.org/wiki/Donald_Trump",
+        "url": link,
         "domain": "en.wikipedia.org",
-        "title": "Donald Trump",
+        "title": "Artificial intelligence",
         "html_text": html_content,
         "gold_text": clean_text
     }

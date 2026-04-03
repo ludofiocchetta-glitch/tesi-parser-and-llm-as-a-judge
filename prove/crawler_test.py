@@ -11,8 +11,10 @@ import json
 
 async def main():
 
-
-    link = "https://en.wikipedia.org/wiki/Donald_Trump"
+    link="https://en.wikipedia.org/wiki/Artificial_intelligence"
+    
+    link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
+    
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
