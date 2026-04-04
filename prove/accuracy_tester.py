@@ -1,6 +1,6 @@
-title = "artificial_intelligence"
+title = "alfa_romeo_159"
 parsed_mk = f"{title}.md"
-gs_path = f"..\progetto\supporto_temp\{title}_gs.txt"
+gs_path = f"../progetto/supporto_temp/{title}_gs.txt"
 
 token_estratti = set()
 token_gs = set()

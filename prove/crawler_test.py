@@ -11,13 +11,13 @@ import json
 
 async def main():
 
-    link="https://en.wikipedia.org/wiki/Lanzarote"
+    link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
 
 
     link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
     link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
     link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    
+    link4="https://en.wikipedia.org/wiki/Lanzarote"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -35,7 +35,7 @@ async def main():
 
     #javascript snippet per togliere l'infobox,sidebar,hatnote...
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .hatnote, .toc, .metadata, .ambox, .wikitable, .hatnote, .shortdescription');
+        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription');
         infoboxes.forEach(box => box.remove());
     """
 
