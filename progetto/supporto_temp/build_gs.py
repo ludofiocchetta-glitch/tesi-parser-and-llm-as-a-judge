@@ -2,11 +2,11 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link = "https://en.wikipedia.org/wiki/Moon_landing"
+    link = "https://en.wikipedia.org/wiki/Charles_Darwin"
     #link="https://en.wikipedia.org/wiki/Artificial_intelligence"
     #link1="https://en.wikipedia.org/wiki/Donald_Trump"
-    html_file_path = "moon_landing.html"
-    testo_pulito_path = "moon_landing_gs.txt"
+    html_file_path = "charles_darwin.html"
+    testo_pulito_path = "charles_darwin_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/en.wikipedia.org_gs.json"
