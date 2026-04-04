@@ -11,7 +11,8 @@ import json
 
 async def main():
 
-    link="https://en.wikipedia.org/wiki/Artificial_intelligence"
+    link = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
     
     link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
     
