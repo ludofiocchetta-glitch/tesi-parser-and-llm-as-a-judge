@@ -1,4 +1,4 @@
-title = "charles_darwin"
+title = "artificial_intelligence"
 parsed_mk = f"{title}.md"
 gs_path = f"..\progetto\supporto_temp\{title}_gs.txt"
 

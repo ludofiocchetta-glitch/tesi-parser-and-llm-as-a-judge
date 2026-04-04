@@ -11,10 +11,12 @@ import json
 
 async def main():
 
-    link = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    
+    link="https://en.wikipedia.org/wiki/Lanzarote"
+
+
     link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
+    link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
+    link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
     
 
     #configuro il browser
@@ -33,7 +35,7 @@ async def main():
 
     #javascript snippet per togliere l'infobox,sidebar,hatnote...
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .hatnote, .toc');
+        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .hatnote, .toc, .metadata, .ambox, .wikitable, .hatnote, .shortdescription');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -63,8 +65,9 @@ async def main():
     
     ##########################  PULIZIA DEL MARKDOWN  ##########################
     
-    ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|(\*\*|_)(.*?)\1'", "", result.markdown)
+    ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|\[show\]|\[update\]|\[\s*\]|ⓘ", "", result.markdown)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
+    ris=re.sub(r"\[citation needed\]|\[clarification needed\]","",ris)
     testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
 
