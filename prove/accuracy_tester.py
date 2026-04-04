@@ -1,4 +1,4 @@
-title = "lanzarote"
+title = "artificial_intelligence"
 parsed_mk = f"{title}.md"
 gs_path = f"..\progetto\supporto_temp\{title}_gs.txt"
 
@@ -17,11 +17,17 @@ with open(gs_path,encoding="utf-8") as f:
         for word in words:
             token_gs.add(word)
 
-precision = len(token_estratti & token_gs)/len(token_estratti)
-recall = len(token_estratti & token_gs)/len(token_gs)
+intersection = token_estratti & token_gs
+union = token_estratti | token_gs
+
+
+precision = len(intersection)/len(token_estratti)
+recall = len(intersection)/len(token_gs)
 f1 = (2*precision*recall)/(precision+recall)
+jaccard_similarity = len(intersection)/len(union)
 
 print(f"Risultati per {title}:")
 print("Precision: " + str(precision))
 print("Recall: " + str(recall))
 print("F1: " + str(f1))
+print("Jaccard Similarity: " + str(jaccard_similarity))
