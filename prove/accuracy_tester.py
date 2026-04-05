@@ -1,4 +1,4 @@
-title = "alfa_romeo_159"
+title = "charles_darwin"
 parsed_mk = f"{title}.md"
 gs_path = f"../progetto/supporto_temp/{title}_gs.txt"
 

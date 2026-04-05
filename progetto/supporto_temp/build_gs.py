@@ -2,13 +2,13 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
+    #link5 = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
     #link4="https://en.wikipedia.org/wiki/Lanzarote"
-    #link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    link = "https://en.wikipedia.org/wiki/Charles_Darwin"
     #link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
     #link1="https://en.wikipedia.org/wiki/Donald_Trump"
-    html_file_path = "alfa_romeo_159.html"
-    testo_pulito_path = "alfa_romeo_159_gs.txt"
+    html_file_path = "charles_darwin.html"
+    testo_pulito_path = "charles_darwin_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/en.wikipedia.org_gs.json"
@@ -30,7 +30,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "en.wikipedia.org",
-        "title": "Alfa Romeo 159",
+        "title": "Charles Darwin",
         "html_text": html_content,
         "gold_text": clean_text
     }

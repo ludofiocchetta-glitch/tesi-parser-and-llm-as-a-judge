@@ -16,7 +16,7 @@ async def main():
 
     link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
     link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    link5 = "https://en.wikipedia.org/wiki/Charles_Darwin"
     link4="https://en.wikipedia.org/wiki/Lanzarote"
 
     #configuro il browser
@@ -67,7 +67,7 @@ async def main():
     
     ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|\[show\]|\[update\]|\[\s*\]|ⓘ", "", result.markdown)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
-    ris=re.sub(r"\[citation needed\]|\[clarification needed\]","",ris)
+    ris=re.sub(r"\[citation needed\]|\[clarification needed\]|\[supporting\]|\[[A-Z]+\]","",ris)
     testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
 

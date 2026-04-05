@@ -21,7 +21,161 @@ Atlantic Ocean at Los Picollos, Lanzarote
 Lanzarote is located 125 kilometres (80 miles) north-west of Africa, 11 km (7 mi) north-east of Fuerteventura and just over 1 km (5⁄8 mi) from La Graciosa. The dimensions of the island are 60 km (37 mi) from north to south and 25 km (16 mi) from west to east. Lanzarote has 213 kilometres (132 miles) of coastline, of which 10 km (6 mi) are sand, 16.5 km (10+1⁄4 mi) are beach, and the remainder is rocky. Its landscape includes the mountain ranges of Famara (671 metres or 2,201 feet) in the north and Ajaches (608 metres or 1,995 feet) to the south. South of the Famara massif is the El Jable desert, which separates Famara and Montañas del Fuego. The highest peak is Peñas del Chache, rising to 670 metres (2,200 feet) above sea level. The "Tunnel of Atlantis", the largest underwater volcanic tunnel in the world, is part of the Cueva de los Verdes lava tube.
 ### Climate
 
-Often called the "Island of Eternal Spring", Lanzarote has a subtropical hot desert climate (BWh) according to the Köppen climatic classification. The small amount of precipitation is mainly concentrated in the winter. Rainfall during summer is a rare phenomenon and very often summers are completely dry without any precipitation. On average the island receives approximately 16 days of precipitation between December and February. Sometimes, the hot sirocco wind prevails, causing dry and dusty conditions across the island. Average precipitation in June and August is less than 0.5 millimetres (0.020 inches). 
+Often called the "Island of Eternal Spring", Lanzarote has a subtropical hot desert climate (BWh) according to the Köppen climatic classification. The small amount of precipitation is mainly concentrated in the winter. Rainfall during summer is a rare phenomenon and very often summers are completely dry without any precipitation. On average the island receives approximately 16 days of precipitation between December and February. Sometimes, the hot sirocco wind prevails, causing dry and dusty conditions across the island. Average precipitation in June and August is less than 0.5 millimetres (0.020 inches).   
+|  showClimate data for Lanzarote Airport (1991–2020 normals)   |  
+| --- |  
+| Month   | Jan   | Feb   | Mar   | Apr   | May   | Jun   | Jul   | Aug   | Sep   | Oct   | Nov   | Dec   | Year   |  
+| Mean daily maximum °C (°F)   | 21.7  
+(71.1)   | 22.2  
+(72.0)   | 23.6  
+(74.5)   | 24.4  
+(75.9)   | 25.8  
+(78.4)   | 27.3  
+(81.1)   | 28.9  
+(84.0)   | 29.9  
+(85.8)   | 29.0  
+(84.2)   | 27.5  
+(81.5)   | 24.9  
+(76.8)   | 22.7  
+(72.9)   | 25.7  
+(78.3)   |  
+| Daily mean °C (°F)   | 17.6  
+(63.7)   | 18.0  
+(64.4)   | 19.1  
+(66.4)   | 20.0  
+(68.0)   | 21.3  
+(70.3)   | 23.0  
+(73.4)   | 24.5  
+(76.1)   | 25.5  
+(77.9)   | 24.8  
+(76.6)   | 23.3  
+(73.9)   | 20.9  
+(69.6)   | 18.8  
+(65.8)   | 21.4  
+(70.5)   |  
+| Mean daily minimum °C (°F)   | 13.6  
+(56.5)   | 13.8  
+(56.8)   | 14.6  
+(58.3)   | 15.5  
+(59.9)   | 16.9  
+(62.4)   | 18.7  
+(65.7)   | 20.2  
+(68.4)   | 21.0  
+(69.8)   | 20.5  
+(68.9)   | 19.1  
+(66.4)   | 16.8  
+(62.2)   | 14.9  
+(58.8)   | 17.1  
+(62.8)   |  
+| Average precipitation mm (inches)   | 15.4  
+(0.61)   | 16.1  
+(0.63)   | 10.9  
+(0.43)   | 4.1  
+(0.16)   | 1.2  
+(0.05)   | 0.1  
+(0.00)   | 0.0  
+(0.0)   | 0.5  
+(0.02)   | 1.8  
+(0.07)   | 12.8  
+(0.50)   | 15.5  
+(0.61)   | 21.4  
+(0.84)   | 99.8  
+(3.93)   |  
+| Average precipitation days (≥ 1.0 mm)  | 2.8   | 2.5   | 2.2   | 0.9   | 0.3   | trace   | 0.0   | 0.1   | 0.4   | 2.1   | 3.0   | 3.2   | 17.5   |  
+| Average relative humidity (%)   | 68.0   | 67.6   | 67.1   | 66.2   | 66.1   | 67.0   | 67.8   | 68.7   | 70.6   | 70.6   | 69.0   | 70.2   | 68.2   |  
+| Mean monthly sunshine hours  | 212.5   | 208.5   | 256.6   | 264.8   | 300.0   | 297.3   | 320.3   | 309.1   | 267.1   | 240.3   | 208.4   | 207.7   | 3,092.6   |  
+| Source: NOAA/NCEI  |  
+|  showClimate data for Lanzarote Airport (altitude 14m, 1981–2010 normals, extremes 1972–present)  |  
+| --- |  
+| Month   | Jan   | Feb   | Mar   | Apr   | May   | Jun   | Jul   | Aug   | Sep   | Oct   | Nov   | Dec   | Year   |  
+| Record high °C (°F)   | 27.9  
+(82.2)   | 29.4  
+(84.9)   | 34.4  
+(93.9)   | 36.3  
+(97.3)   | 42.6  
+(108.7)   | 40.7  
+(105.3)   | 43.4  
+(110.1)   | 43.6  
+(110.5)   | 40.5  
+(104.9)   | 37.3  
+(99.1)   | 34.2  
+(93.6)   | 27.5  
+(81.5)   | 43.6  
+(110.5)   |  
+| Mean daily maximum °C (°F)   | 20.7  
+(69.3)   | 21.3  
+(70.3)   | 22.9  
+(73.2)   | 23.5  
+(74.3)   | 24.6  
+(76.3)   | 26.3  
+(79.3)   | 28.2  
+(82.8)   | 29.1  
+(84.4)   | 28.6  
+(83.5)   | 26.7  
+(80.1)   | 24.2  
+(75.6)   | 21.8  
+(71.2)   | 24.8  
+(76.6)   |  
+| Daily mean °C (°F)   | 17.4  
+(63.3)   | 17.9  
+(64.2)   | 19.0  
+(66.2)   | 19.6  
+(67.3)   | 20.8  
+(69.4)   | 22.6  
+(72.7)   | 24.3  
+(75.7)   | 25.2  
+(77.4)   | 24.7  
+(76.5)   | 23.0  
+(73.4)   | 20.7  
+(69.3)   | 18.6  
+(65.5)   | 21.1  
+(70.0)   |  
+| Mean daily minimum °C (°F)   | 14.0  
+(57.2)   | 14.3  
+(57.7)   | 15.0  
+(59.0)   | 15.7  
+(60.3)   | 16.8  
+(62.2)   | 18.8  
+(65.8)   | 20.4  
+(68.7)   | 21.2  
+(70.2)   | 20.8  
+(69.4)   | 19.4  
+(66.9)   | 17.2  
+(63.0)   | 15.4  
+(59.7)   | 17.4  
+(63.3)   |  
+| Record low °C (°F)   | 8.0  
+(46.4)   | 7.6  
+(45.7)   | 8.3  
+(46.9)   | 9.5  
+(49.1)   | 11.5  
+(52.7)   | 12.4  
+(54.3)   | 15.4  
+(59.7)   | 16.6  
+(61.9)   | 15.5  
+(59.9)   | 12.0  
+(53.6)   | 10.9  
+(51.6)   | 9.0  
+(48.2)   | 7.6  
+(45.7)   |  
+| Average precipitation mm (inches)   | 16  
+(0.6)   | 18  
+(0.7)   | 12  
+(0.5)   | 5  
+(0.2)   | 2  
+(0.1)   | 0  
+(0)   | 0  
+(0)   | trace   | 2  
+(0.1)   | 10  
+(0.4)   | 15  
+(0.6)   | 29  
+(1.1)   | 111  
+(4.4)   |  
+| Average precipitation days (≥ 1.0 mm)  | 3.2   | 2.7   | 2.4   | 1.3   | 0.4   | 0.0   | 0.0   | 0.1   | 0.4   | 1.9   | 3.0   | 3.8   | 19.0   |  
+| Average relative humidity (%)   | 68   | 68   | 66   | 66   | 66   | 66   | 68   | 68   | 70   | 71   | 69   | 71   | 68   |  
+| Mean monthly sunshine hours  | 203   | 201   | 241   | 255   | 297   | 292   | 308   | 295   | 248   | 235   | 207   | 196   | 2,986   |  
+| Average ultraviolet index  | 4   | 5   | 7   | 9   | 10   | 11   | 11   | 10   | 9   | 7   | 5   | 4   | 8   |  
+| Source: Agencia Estatal de Meteorología  |  
 ## Geology
 
 Caldera de Los Cuervos in Los Volcanes Natural Park Montaña Colorada in Los Volcanes Natural Park
@@ -50,10 +204,33 @@ The official natural symbols associated with Lanzarote are Munidopsis polymorpha
 ## Demographics
 
 Papagayo Beach
-As of 2024, 163230 people live on Lanzarote, an increase of 4.6% from the previous year (156112). The seat of the island government (Cabildo insular) is in the capital, Arrecife, which has a population of 68025 in 2024. According to the 2024 census, the majority of the inhabitants are Spanish (76.1%) with a sizeable number of residents of other nationalities, notably Colombians (4.4%), Britons (3.8%), Italians (2.6%), Moroccans (2.4%) and Germans (1.4%).
+As of 2024, 163230 people live on Lanzarote, an increase of 4.6% from the previous year (156112). The seat of the island government (Cabildo insular) is in the capital, Arrecife, which has a population of 68025 in 2024. According to the 2024 census, the majority of the inhabitants are Spanish (76.1%) with a sizeable number of residents of other nationalities, notably Colombians (4.4%), Britons (3.8%), Italians (2.6%), Moroccans (2.4%) and Germans (1.4%).  
+| Nationality   | Population   | Percentage   |  
+| --- | --- | --- |  
+|  Spanish  |  124174  |  76.1%  |  
+|  Colombian  |  7121  |  4.4%  |  
+|  British  |  6254  |  3.8%  |  
+|  Italian  |  4317  |  2.6%  |  
+|  Moroccan  |  3870  |  2.4%  |  
+|  German  |  2243  |  1.4%  |  
+| Other nationalities   |  15251  |  9.3%  |  
 ## Administration
 
-Lanzarote is part of the province of Las Palmas, and is divided into seven municipalities: 
+Lanzarote is part of the province of Las Palmas, and is divided into seven municipalities:   
+| Name   | Area  
+(km2)   | Census Population   | Estimated  
+Population  
+(2024)  |  
+| --- | --- | --- | --- |  
+| 2001  | 2011  | 2021  |  
+|  Arrecife  | 22.72   | 44,980   | 55,381   | 64,278   | 68,025   |  
+|  Haría  | 106.59   | 4,027   | 5,054   | 5,395   | 5,590   |  
+|  San Bartolomé  | 40.89   | 13,030   | 18,118   | 19,305   | 19,664   |  
+|  Teguise  | 263.98   | 12,392   | 20,294   | 22,976   | 23,762   |  
+|  Tías  | 64.61   | 12,820   | 19,148   | 20,469   | 21,456   |  
+|  Tinajo  | 135.28   | 4,512   | 5,738   | 6,441   | 6,832   |  
+|  Yaiza  | 211.85   | 5,020   | 14,468   | 17,080   | 17,901   |  
+| Totals   | 845.92   | 96,781   | 138,201   | 155,944   | 163,230   |  
 ## Transport
 
 Lanzarote Airport
