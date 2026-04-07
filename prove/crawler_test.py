@@ -11,13 +11,13 @@ import json
 
 async def main():
 
-    link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-
-
+    
     link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
     link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    link5 = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
     link4="https://en.wikipedia.org/wiki/Lanzarote"
+    link5 = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
+    link = "https://en.wikipedia.org/wiki/Scooby-Doo"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
