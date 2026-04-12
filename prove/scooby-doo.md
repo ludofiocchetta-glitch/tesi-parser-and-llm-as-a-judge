@@ -4,106 +4,7 @@ Scooby-Doo was originally broadcast on CBS from 1969 to 1976, when it moved to A
 In 2013, TV Guide ranked Scooby-Doo the fifth-greatest TV cartoon of all time.
 ## Development
   
-Release timeline  
-| 1969  | Scooby-Doo, Where Are You!  |  
-| --- | --- |  
-| 1970 |  
-| 1971 |  
-| 1972  | The New Scooby-Doo Movies  |  
-| 1973 |  
-| 1974 |  
-| 1975 |  
-| 1976  | The Scooby-Doo Show  |  
-| 1977 |  
-| 1978 |  
-| 1979  | Scooby Goes Hollywood  |  
-| Scooby-Doo and Scrappy-Doo (1979 TV series) |  
-| 1980  | Scooby-Doo and Scrappy-Doo (1980 TV series)  |  
-| 1981 |  
-| 1982  | The Scooby& Scrappy-Doo/Puppy Hour  |  
-| 1983  | The New Scooby and Scrappy-Doo Show  |  
-| 1984  | The New Scooby-Doo Mysteries  |  
-| Scary Scooby Funnies |  
-| 1985  | The 13 Ghosts of Scooby-Doo  |  
-| 1986  | Scooby-Doo  |  
-| 1987  | Scooby-Doo Meets the Boo Brothers  |  
-| 1988  | Scooby-Doo and the Ghoul School  |  
-| Scooby-Doo! and the Reluctant Werewolf |  
-| A Pup Named Scooby-Doo |  
-| 1989 |  
-| 1990 |  
-| 1991  | Scooby-Doo and Scrappy-Doo (1991 video game)  |  
-| 1992 |  
-| 1993 |  
-| 1994  | Arabian Nights  |  
-| 1995  | Scooby-Doo Mystery  |  
-| 1996 |  
-| 1997 |  
-| 1998  | Scooby-Doo on Zombie Island  |  
-| 1999  | Scooby-Doo! and the Witch's Ghost  |  
-| 2000  | Scooby-Doo and the Alien Invaders  |  
-| 2001  | Scooby-Doo and the Cyber Chase  |  
-| 2002  | Scooby-Doo  |  
-| Scooby-Doo! Night of 100 Frights |  
-| What's New, Scooby-Doo? |  
-| 2003  | Scooby-Doo! and the Legend of the Vampire  |  
-| Scooby-Doo! and the Monster of Mexico |  
-| Scooby-Doo! Mystery Mayhem |  
-| 2004  | Scooby-Doo! and the Loch Ness Monster  |  
-| Scooby-Doo 2: Monsters Unleashed |  
-| 2005  | Aloha, Scooby-Doo!  |  
-| Scooby-Doo! in Where's My Mummy? |  
-| Scooby-Doo! Unmasked |  
-| 2006  | Scooby-Doo! Pirates Ahoy!  |  
-| Shaggy& Scooby-Doo Get a Clue! |  
-| 2007  | Chill Out, Scooby-Doo!  |  
-| 2008  | Scooby-Doo! and the Goblin King  |  
-| 2009  | Scooby-Doo! and the Samurai Sword  |  
-| Scooby-Doo! The Mystery Begins |  
-| Scooby-Doo! First Frights |  
-| 2010  | Scooby-Doo! Abracadabra-Doo  |  
-| Scooby-Doo! and the Spooky Swamp |  
-| Scooby-Doo! Camp Scare |  
-| Scooby-Doo! Curse of the Lake Monster |  
-| Scooby-Doo! Mystery Incorporated |  
-| 2011  | Scooby-Doo! Legend of the Phantosaur  |  
-| 2012  | Scooby-Doo! Music of the Vampire  |  
-| Scooby-Doo! Spooky Games |  
-| Big Top Scooby-Doo! |  
-| Scooby-Doo! Haunted Holidays |  
-| 2013  | Scooby-Doo! Mask of the Blue Falcon  |  
-| Scooby-Doo! Adventures: The Mystery Map |  
-| Scooby-Doo! Stage Fright |  
-| Scooby-Doo! and the Spooky Scarecrow |  
-| Scooby-Doo! Mecha Mutt Menace |  
-| 2014  | Scooby-Doo! Ghastly Goals  |  
-| Scooby-Doo! WrestleMania Mystery |  
-| Scooby-Doo! Frankencreepy |  
-| 2015  | Scooby-Doo! Moon Monster Madness  |  
-| Scooby-Doo! and the Beach Beastie |  
-| Be Cool, Scooby-Doo! |  
-| Scooby-Doo! and Kiss: Rock and Roll Mystery |  
-| Lego Scooby-Doo! Knight Time Terror |  
-| 2016  | Lego Scooby-Doo! Haunted Hollywood  |  
-| Scooby-Doo! and WWE: Curse of the Speed Demon |  
-| 2017  | Scooby-Doo! Shaggy's Showdown  |  
-| Lego Scooby-Doo! Blowout Beach Bash |  
-| 2018  | Scooby-Doo!& Batman: The Brave and the Bold  |  
-| Scooby-Doo! and the Gourmet Ghost |  
-| Daphne& Velma |  
-| 2019  | Scooby-Doo! and the Curse of the 13th Ghost  |  
-| Scooby-Doo! Return to Zombie Island |  
-| Scooby-Doo and Guess Who? |  
-| 2020  | Scoob!  |  
-| Happy Halloween, Scooby-Doo! |  
-| 2021  | Scooby-Doo! The Sword and the Scoob  |  
-| Straight Outta Nowhere: Scooby-Doo! Meets Courage the Cowardly Dog |  
-| Scooby-Doo, Where Are You Now! |  
-| 2022  | Trick or Treat Scooby-Doo!  |  
-| 2023  | Velma  |  
-| Scooby-Doo! and Krypto, Too! |  
-| 2024  | Velma: This Halloween Needs To Be More Special!  |  
-In 1968, parent-run organizations, particularly Action for Children's Television (ACT), began protesting what they perceived as excessive violence in Saturday-morning cartoons. Most of these shows were Hanna-Barbera action cartoons such as Space Ghost , The Herculoids , and Birdman and the Galaxy Trio , and virtually all of them were canceled by 1969 because of pressure from the parent groups. Members of these watch groups served as advisers to Hanna-Barbera and other animation studios to ensure that new programs would be safe for children. 
+Release timeline 1969 Scooby-Doo, Where Are You! 1970  1971  1972 The New Scooby-Doo Movies  1973  1974  1975  1976 The Scooby-Doo Show  1977  1978  1979 Scooby Goes Hollywood  Scooby-Doo and Scrappy-Doo (1979 TV series)  1980 Scooby-Doo and Scrappy-Doo (1980 TV series)  1981  1982 The Scooby& Scrappy-Doo/Puppy Hour  1983 The New Scooby and Scrappy-Doo Show  1984 The New Scooby-Doo Mysteries  Scary Scooby Funnies  1985 The 13 Ghosts of Scooby-Doo  1986 Scooby-Doo  1987 Scooby-Doo Meets the Boo Brothers  1988 Scooby-Doo and the Ghoul School  Scooby-Doo! and the Reluctant Werewolf  A Pup Named Scooby-Doo  1989  1990  1991 Scooby-Doo and Scrappy-Doo (1991 video game)  1992  1993  1994 Arabian Nights  1995 Scooby-Doo Mystery  1996  1997  1998 Scooby-Doo on Zombie Island  1999 Scooby-Doo! and the Witch's Ghost  2000 Scooby-Doo and the Alien Invaders  2001 Scooby-Doo and the Cyber Chase  2002 Scooby-Doo  Scooby-Doo! Night of 100 Frights  What's New, Scooby-Doo?  2003 Scooby-Doo! and the Legend of the Vampire  Scooby-Doo! and the Monster of Mexico  Scooby-Doo! Mystery Mayhem  2004 Scooby-Doo! and the Loch Ness Monster  Scooby-Doo 2: Monsters Unleashed  2005 Aloha, Scooby-Doo!  Scooby-Doo! in Where's My Mummy?  Scooby-Doo! Unmasked  2006 Scooby-Doo! Pirates Ahoy!  Shaggy& Scooby-Doo Get a Clue!  2007 Chill Out, Scooby-Doo!  2008 Scooby-Doo! and the Goblin King  2009 Scooby-Doo! and the Samurai Sword  Scooby-Doo! The Mystery Begins  Scooby-Doo! First Frights  2010 Scooby-Doo! Abracadabra-Doo  Scooby-Doo! and the Spooky Swamp  Scooby-Doo! Camp Scare  Scooby-Doo! Curse of the Lake Monster  Scooby-Doo! Mystery Incorporated  2011 Scooby-Doo! Legend of the Phantosaur  2012 Scooby-Doo! Music of the Vampire  Scooby-Doo! Spooky Games  Big Top Scooby-Doo!  Scooby-Doo! Haunted Holidays  2013 Scooby-Doo! Mask of the Blue Falcon  Scooby-Doo! Adventures: The Mystery Map  Scooby-Doo! Stage Fright  Scooby-Doo! and the Spooky Scarecrow  Scooby-Doo! Mecha Mutt Menace  2014 Scooby-Doo! Ghastly Goals  Scooby-Doo! WrestleMania Mystery  Scooby-Doo! Frankencreepy  2015 Scooby-Doo! Moon Monster Madness  Scooby-Doo! and the Beach Beastie  Be Cool, Scooby-Doo!  Scooby-Doo! and Kiss: Rock and Roll Mystery  Lego Scooby-Doo! Knight Time Terror  2016 Lego Scooby-Doo! Haunted Hollywood  Scooby-Doo! and WWE: Curse of the Speed Demon  2017 Scooby-Doo! Shaggy's Showdown  Lego Scooby-Doo! Blowout Beach Bash  2018 Scooby-Doo!& Batman: The Brave and the Bold  Scooby-Doo! and the Gourmet Ghost  Daphne& Velma  2019 Scooby-Doo! and the Curse of the 13th Ghost  Scooby-Doo! Return to Zombie Island  Scooby-Doo and Guess Who?  2020 Scoob!  Happy Halloween, Scooby-Doo!  2021 Scooby-Doo! The Sword and the Scoob  Straight Outta Nowhere: Scooby-Doo! Meets Courage the Cowardly Dog  Scooby-Doo, Where Are You Now!  2022 Trick or Treat Scooby-Doo!  2023 Velma  Scooby-Doo! and Krypto, Too!  2024 Velma: This Halloween Needs To Be More Special! In 1968, parent-run organizations, particularly Action for Children's Television (ACT), began protesting what they perceived as excessive violence in Saturday-morning cartoons. Most of these shows were Hanna-Barbera action cartoons such as Space Ghost , The Herculoids , and Birdman and the Galaxy Trio , and virtually all of them were canceled by 1969 because of pressure from the parent groups. Members of these watch groups served as advisers to Hanna-Barbera and other animation studios to ensure that new programs would be safe for children. 
 Fred Silverman, an executive for daytime programming at CBS, was then looking for a show that would both revitalize his Saturday-morning line and please the watch groups. The result was The Archie Show from Filmation, based on Bob Montana's teenage humor comic book Archie. Also successful were the musical numbers The Archies performed during each program (one of which, "Sugar, Sugar", was the most successful Billboard number-one hit of 1969). Eager to build upon this success, Silverman contacted producers William Hanna and Joseph Barbera about creating another show based on a teenage rock group, this time featuring teens who solved mysteries between gigs. Silverman envisioned the show as a cross between the popular I Love a Mystery radio serials of the 1940s and the Archie characters or the popular early 1960s television series The Many Loves of Dobie Gillis.
 After attempting to develop his version of the show, called House of Mystery , Barbera, who developed and sold Hanna-Barbera shows while Hanna produced them, passed the task along to story writers Joe Ruby and Ken Spears, as well as artist/character designer Iwao Takamoto. Their treatment, based in part on The Archie Show , was titled Mysteries Five and featured five teenagers: Geoff, Mike, Kelly, Linda, and Linda's brother W.W., along with their bongo-playing dog, Too Much, who collectively formed the band Mysteries Five. When The Mysteries Five were not performing at gigs, they were out solving spooky mysteries involving ghosts, zombies, and other supernatural creatures. Ruby and Spears were unable to decide whether Too Much would be a large cowardly dog or a small feisty one. When the former was chosen, Ruby and Spears wrote Too Much as a Great Dane but revised the dog character to a large sheepdog (similar to the Archies' sheepdog, Hot Dog) just before their presentation to Silverman, as Ruby feared the character would be too similar to the comic strip character Marmaduke. Silverman rejected their initial pitch, and after consulting with Barbera on next steps, got Barbera's permission to go ahead with Too Much being a Great Dane instead of a sheepdog.
 During the design phase, lead character designer Takamoto consulted a studio colleague who was a breeder of Great Danes. After learning the characteristics of a prize-winning Great Dane from her, Takamoto proceeded to break most of the rules and designed Too Much with overly bowed legs, a double chin, and a sloped back, among other abnormalities.
@@ -112,7 +13,6 @@ The revised show was re-pitched to Silverman, who liked the material but, dislik
 Now without a centerpiece for the upcoming season's programming, Silverman had Ruby, Spears, and the Hanna-Barbera staff revise the treatments and presentation materials to tone down the show and better reflect its comedy elements. The rock band element was dropped, and more attention was focused on Shaggy and Too Much. According to Ruby and Spears, Silverman was inspired by Frank Sinatra's scat "doo-be-doo-be-doo" at the end of his recording of "Strangers in the Night" on a red-eye flight to one of the development meetings, and decided to rename the dog "Scooby-Doo" and retitled the show "Scooby-Doo, Where Are You! ". The revised show was re-presented to CBS executives, who approved it for production. 
 ##  CBS years (1969–76)
 
-Every episode of the original Scooby-Doo format contains a penultimate scene in which the heroes unmask the seemingly supernatural antagonist to reveal a real person in a costume, as in this scene from "Nowhere to Hyde", an episode of Scooby-Doo, Where Are You! , originally aired on CBS on September 12, 1970.
 ###  Scooby-Doo, Where Are You!
 
 The first episode of Scooby-Doo, Where Are You! , "What a Night for a Knight", debuted on the CBS network Saturday, September 13, 1969, at 10:30 AM Eastern Time. The original voice cast featured Don Messick as Scooby-Doo, Casey Kasem as Shaggy, Frank Welker as Fred, actress Nicole Jaffe as Velma, and Indira Stefanianna as Daphne. Scooby's speech patterns closely resembled an earlier cartoon dog, Astro from The Jetsons (1962–63), also voiced by Messick. Seventeen episodes of Scooby-Doo Where Are You! were produced in 1969–70. The series theme song was written by David Mook and Ben Raleigh, and performed by Larry Marks. 
@@ -202,17 +102,14 @@ Beginning in 2012, Warner Bros. Animation began producing direct-to-video specia
 The direct-to-video series' 34th installment, Trick or Treat Scooby-Doo! (2022), made headlines for portraying Velma as a lesbian (by showing her "crushing big time" on a female guest character), which was in accordance with long-held fan speculation but had never previously been depicted.
 ### Live-action films
 
-Scooby-Doo (2002) logo
 A feature-length live-action film version of Scooby-Doo was released by Warner Bros. Pictures on June 14, 2002. Directed by Raja Gosnell, the film starred Freddie Prinze Jr. as Fred, Sarah Michelle Gellar as Daphne, Matthew Lillard as Shaggy, and Linda Cardellini as Velma. Scooby-Doo, voiced by Neil Fanning, was created on-screen by computer-generated special effects. Scooby-Doo was a financially successful release, with a domestic box office gross of over US$130 million, despite poor reviews from critics. 
 A sequel, Scooby-Doo 2: Monsters Unleashed , followed in March 2004 with the same cast and director. Scooby-Doo 2 earned US$84 (€55.98) million at the U.S. box office. A third film was planned, but later scrapped following Warner Bros.' disappointment at the returns from Scooby-Doo 2.
 In addition, a live-action television film, Scooby-Doo! The Mystery Begins , was released on DVD and simultaneously aired on Cartoon Network on September 13, 2009, the 40th anniversary of the series' debut. The film starred Nick Palatas as Shaggy, Robbie Amell as Fred, Kate Melton as Daphne, Hayley Kiyoko as Velma, and Frank Welker as the voice of Scooby-Doo. A second live-action TV movie, Scooby-Doo! Curse of the Lake Monster , retained the same cast and aired on October 16, 2010, and a direct-to-video spin-off Daphne& Velma in 2018. The Mystery Begins and Curse of the Lake Monster served as a reboot series to the franchise, while Daphne and Velma serves as a spin-off/prequel. 
 ### Theatrical animated film
 
-Scoob! (2020) logo
 In 2013, Warner Bros. Pictures was developing a fully animated Scooby-Doo feature film with Warner Animation Group. Charles Roven and Richard Suckle, who produced the first two live-action films, were producing the animated film, and Matt Lieberman was writing the film. In 2014, Warner Bros. was restarting the film series with Randall Green writing a new movie. In 2015, Warner Bros. had Tony Cervone lined up to direct an animated film, with Allison Abbate as producer and Dan Povenmire as executive producer. Originally planned for a September 21, 2018 release, it was later pushed back to May 15, 2020, with Dax Shepard co-directing and co-writing. The Hollywood Reporter announced that Frank Welker will be reprising his voice role as Scooby, and that he will be joined by Will Forte and Gina Rodriguez voicing Shaggy and Velma, while Tracy Morgan will be voicing Captain Caveman, from the Hanna-Barbera series Captain Caveman and the Teen Angels and Deadline reported that Zac Efron and Amanda Seyfried will voice Fred and Daphne. In addition, Ken Jeong will be voicing Dynomutt, Dog Wonder from Hanna-Barbera series of the same name and Kiersey Clemons will voice Dee Dee Skyes, a character from Captain Caveman and the Teen Angels. Blue Falcon, from Dynomutt, Dog Wonder voiced by Mark Wahlberg and Dick Dastardly, from Hanna-Barbera's Wacky Races , will be the film's main antagonist, voiced by Jason Isaacs. In March 2020, the film's theatrical release was delayed indefinitely due to the COVID-19 pandemic. On April 22, 2020, Warner Bros. announced that due to movie theater closures the theatrical release for Scoob! had been cancelled, with the film released instead on Premium video on demand in the United States and Canada on May 15, 2020, the original date of release. In July 2020, Warner Bros. confirmed the film would still play in theaters in select countries with relaxed COVID-19 restrictions. The film subsequently received a secondary theatrical release in the United States beginning on May 21, 2021, in selected markets. 
 ## Cast
 
-A scene from "What a Night for a Knight", the first episode of Scooby-Doo, Where Are You!. Clockwise from top: Shaggy Rogers, Fred Jones, Scooby-Doo, Velma Dinkley, and Daphne Blake.
   * Scooby-Doo : Don Messick was the original voice of Scooby-Doo from 1969 until 1995. Hadley Kay performed the voice for the Johnny Bravo episodes "Bravo Dooby-Doo" and "'Twas the Night", as well as in commercials, in 1997. Scott Innes was the voice of Scooby-Doo from 1998 to 2002. Neil Fanning voiced Scooby-Doo in the live-action Warner Bros. theatrical films produced in 2002 and 2004. Frank Welker is the current voice of Scooby-Doo, having taken over the role from Innes in 2002, although Innes voiced the character in video game projects (including PC, DVD and board games), commercials and some toys until 2008. Dave Coulier (2005) and Seth Green (2007, 2012, 2018) voiced Scooby in the Robot Chicken parodies.
   * Norville "Shaggy" Rogers : Casey Kasem was the original voice of Shaggy from 1969 until 1997. Billy West voiced Shaggy in Scooby-Doo on Zombie Island and Scooby-Doo: Behind the Scenes in 1998. Scott Innes voiced the character from 1999 to 2002 and he continued to voice Shaggy in video game projects (including PC, DVD and board games), commercials and some toys until 2009. Casey Kasem returned to the voice role in 2002 and continued as Shaggy until 2009. In 2006, Kasem continued to voice Shaggy only in the direct-to-video film series until 2009, while Scott Menville performed the voice of Shaggy in the 2006–08 CW series Shaggy& Scooby-Doo Get a Clue!. Matthew Lillard appeared as Shaggy in the live action 2002 and 2004 theatrical films, and took over as the voice of the animated character in 2010. He also voiced Shaggy in four stop-motion parody sketches for the Adult Swim show Robot Chicken. Nick Palatas appeared as Shaggy in the 2009 and 2010 live-action TV movies. Will Forte voices Shaggy as an adult with Iain Armitage voicing his younger self in the theatrical animated film Scoob!.
   * Fred Jones : Frank Welker has always performed the voice of the animated versions of Fred since 1969, with the exception of the 1988–91 ABC series A Pup Named Scooby-Doo , where Carl Steven performed the voice of preteen Fred. Freddie Prinze Jr. appears as Fred in the live-action theatrical films and voiced the character in the Robot Chicken parodies. Robbie Amell played Fred in the live-action TV movies. Zac Efron voices Fred as an adult with Pierce Gagnon voicing his younger self in the theatrical animated film Scoob!.
@@ -223,7 +120,6 @@ A scene from "What a Night for a Knight", the first episode of Scooby-Doo, Where
 
 ## Comic books
 
-A 1968 Chevrolet Sportvan 108 painted to look like The Mystery Machine from Scooby-Doo. A number of Scooby fans have decorated vans in this fashion.
 Gold Key Comics began publication of Scooby-Doo, Where Are You! comic books in March 1970. The comics initially contained adaptations of episodes of the television show drawn by Phil DeLara, Jack Manning and Warren Tufts. The comic books later moved to all-original stories until ending with issue #30 in 1974. Several of these issues were written by Mark Evanier and drawn by Dan Spiegle. Charlton published Scooby comics, many drawn by Bill Williams, for 11 issues in 1975. From 1977 to 1979, Marvel Comics published nine issues of Scooby-Doo , all written by Evanier and drawn by Spiegel. Harvey Comics published reprints of the Charlton comics, as well as a handful of special issues, between 1993 and 1994. 
 In 1995, Archie Comics began publishing a monthly Scooby-Doo comic book, the first year of which featured Scrappy-Doo among its cast. Evanier and Spiegel worked on three issues of the series, which ended after 21 issues in 1997 when Warner Bros.' DC Comics acquired the rights to publish comics based on Hanna-Barbera characters. DC's Scooby-Doo series continues publication to this day. In 2013, DC began a digital bi-monthly comic book titled Scooby-Doo Team-Up , crossing over Mystery Inc. with other DC and Hanna-Barbera characters. Since then, the series has become a monthly comic book available in print. 
 In 2004, a limited series of a 100 comic books called Scooby-Doo! World of Mystery was released. In each issue, Mystery Inc. go from country to country solving mysteries. Each issue came with a pack of exclusive cards, with 350 in total able to be collected.
@@ -235,74 +131,20 @@ From 1990 to 2002, Shaggy and Scooby-Doo appeared as characters in the Funtastic
 In 2001, Scooby-Doo in Stagefright , a live stage play based upon the series, began touring across the world. A follow-up, Scooby-Doo and the Pirate Ghost , followed in 2009. 
 The Mystery Machine has been used as the basis for many die-cast models and toys, such as from Hot Wheels. 
 The brand made $800 million in retail sales in 1999. In 2004, Scooby-Doo merchandise had generated $1 billion in retail sales Licensed merchandise also sold $496 million in 2015, $501 million in 2016, and $353 million in 2017.
-### Tabletop games
-  
-| Title   | Type   | Manufacturer   | Year   |  
-| --- | --- | --- | --- |  
-|  Scooby-Doo... Where Are You! Game  | Board game   |  Milton Bradley  | 1973   |  
-|  Scooby-Doo.. och Monstret  |  Alga  | 1978   |  
-|  Scooby-Doo Game  |  Milton Bradley  | 1980   |  
-|  Scooby-Doo and Scrappy-Doo Game  | 1983   |  
-|  Clue: Scooby-Doo! Where Are You?  |  Parker Brothers  | 1999  
-2019 (reprint)   |  
-|  Scooby-Doo! Mystery Card Game  | Card game   |  United States Playing Card Company  | 1999   |  
-|  Scooby-Doo! Betrayal at Mystery Mansion  | Board game   |  Avalon Hill  | 2020   |  
-|  Scooby-Doo: Escape from the Haunted Mansion  |  USAopoly  | 2020   |  
-## Overview of television series
-  
-| Series  | Season  | Series/  
-package  | Episodes  | Originally aired   |  
-| --- | --- | --- | --- | --- |  
-| Season premiere  | Season finale  | Network   |  
-|   | 1  |  1  | Scooby-Doo, Where Are You!  | 17  | September 13, 1969 (1969-09-13)  | January 17, 1970 (1970-01-17)  |  CBS  |  
-|  2  | 8  | September 12, 1970 (1970-09-12)  | October 31, 1970 (1970-10-31)  |  
-|   | 2  |  1  | The New Scooby-Doo Movies  | 16  | September 9, 1972 (1972-09-09)  | December 23, 1972 (1972-12-23)  |  
-|  2  | 8  | September 8, 1973 (1973-09-08)  | October 27, 1973 (1973-10-27)  |  
-|   | 3  |  1  |  The Scooby-Doo Show /  
-The Scooby/Dynomutt Hour  | 16  | September 11, 1976  | December 18, 1976  |  ABC  |  
-|  2  |  The Scooby-Doo Show /  
-All-Star Laff-A-Lympics  | 8  | September 10, 1977  | October 29, 1977   |  
-|  3  |  The Scooby-Doo Show /  
-Where Are You!  | 16  | 9  | September 9, 1978  | November 4, 1978   |  
-|  The Scooby-Doo Show /  
-All-Star Laff-A-Lympics  | 7  | November 11, 1978  | December 23, 1978   |  
-|   | 4  |  1  | Scooby-Doo and Scrappy-Doo ('79)  | 16  | September 22, 1979  | January 5, 1980   |  
-|   | 5  |  1  |  Scooby-Doo and Scrappy-Doo ('80) /  
-The Richie/Scooby Show  | 13  | November 8, 1980  | January 31, 1981   |  
-|  2  | 7  | September 19, 1981  | October 31, 1981   |  
-|  3  |  Scooby-Doo and Scrappy-Doo ('80) /  
-The Scooby& Scrappy/Puppy Hour  | 13  | September 25, 1982  | December 18, 1982   |  
-|   | 6  |  1  | The New Scooby and Scrappy Show  | September 10, 1983  | December 10, 1983   |  
-|  2  |  The New Scooby and Scrappy Show /  
-The New Scooby-Doo Mysteries  | September 8, 1984  | December 1, 1984   |  
-|   | 7  |  1  | The 13 Ghosts of Scooby-Doo  | September 7, 1985  | December 7, 1985   |  
-|   | 8  |  1  |  A Pup Named Scooby-Doo  | September 10, 1988   | December 10, 1988   |  
-|  2  | 8  | September 9, 1989  | November 4, 1989   |  
-|  3  | 3  | September 8, 1990  | November 3, 1990   |  
-|  4  | August 3, 1991  | August 17, 1991   |  
-|   | 9  |  1  | What's New, Scooby-Doo?  | 14  | September 14, 2002  | March 22, 2003  |  The WB  |  
-|  2  | September 13, 2003  | March 27, 2004   |  
-|  3  | 14  | 13  | January 29, 2005  | April 16, 2006   |  
-| 1  | July 21, 2006  |  Cartoon Network  |  
-|   | 10  |  1  | Shaggy& Scooby-Doo Get a Clue!  | 13  | September 23, 2006  | May 5, 2007  |  The CW  |  
-|  2  | September 22, 2007  | March 15, 2008   |  
-|   | 11  |  1  | Scooby-Doo! Mystery Incorporated  | 26  | April 5, 2010  | July 26, 2011  | Cartoon Network   |  
-|  2  | July 30, 2012  | April 5, 2013   |  
-|   | 12  |  1  | Be Cool, Scooby-Doo!  | 26  | 20  | October 5, 2015  | March 12, 2016   |  
-| 6  | June 20, 2017  |  Boomerang  |  
-|  2  | 26  | 15  | September 28, 2017  | December 22, 2017  | Boomerang SVOD  |  
-| 11  | March 8, 2018  | March 18, 2018  | Boomerang   |  
-|   | 13  |  1  | Scooby-Doo and Guess Who?  | 26  | 13  | June 27, 2019  | September 19, 2019 (2019-09-19)  | Boomerang SVOD  
+### Tabletop games Title Type Manufacturer Year Scooby-Doo... Where Are You! Game Board game Milton Bradley 1973  Scooby-Doo.. och Monstret Alga 1978  Scooby-Doo Game Milton Bradley 1980  Scooby-Doo and Scrappy-Doo Game 1983  Clue: Scooby-Doo! Where Are You? Parker Brothers 1999  
+2019 (reprint)  Scooby-Doo! Mystery Card Game Card game United States Playing Card Company 1999  Scooby-Doo! Betrayal at Mystery Mansion Board game Avalon Hill 2020  Scooby-Doo: Escape from the Haunted Mansion USAopoly 2020 ## Overview of television series Series Season Series/  
+package Episodes Originally aired Season premiere Season finale Network 1 1 Scooby-Doo, Where Are You! 17 September 13, 1969 (1969-09-13) January 17, 1970 (1970-01-17) CBS  2 8 September 12, 1970 (1970-09-12) October 31, 1970 (1970-10-31) 2 1 The New Scooby-Doo Movies 16 September 9, 1972 (1972-09-09) December 23, 1972 (1972-12-23)  2 8 September 8, 1973 (1973-09-08) October 27, 1973 (1973-10-27) 3 1 The Scooby-Doo Show /  
+The Scooby/Dynomutt Hour 16 September 11, 1976 December 18, 1976 ABC  2 The Scooby-Doo Show /  
+All-Star Laff-A-Lympics 8 September 10, 1977 October 29, 1977  3 The Scooby-Doo Show /  
+Where Are You! 16 9 September 9, 1978 November 4, 1978  The Scooby-Doo Show /  
+All-Star Laff-A-Lympics 7 November 11, 1978 December 23, 1978 4 1 Scooby-Doo and Scrappy-Doo ('79) 16 September 22, 1979 January 5, 1980 5 1 Scooby-Doo and Scrappy-Doo ('80) /  
+The Richie/Scooby Show 13 November 8, 1980 January 31, 1981  2 7 September 19, 1981 October 31, 1981  3 Scooby-Doo and Scrappy-Doo ('80) /  
+The Scooby& Scrappy/Puppy Hour 13 September 25, 1982 December 18, 1982 6 1 The New Scooby and Scrappy Show September 10, 1983 December 10, 1983  2 The New Scooby and Scrappy Show /  
+The New Scooby-Doo Mysteries September 8, 1984 December 1, 1984 7 1 The 13 Ghosts of Scooby-Doo September 7, 1985 December 7, 1985 8 1 A Pup Named Scooby-Doo September 10, 1988 December 10, 1988  2 8 September 9, 1989 November 4, 1989  3 3 September 8, 1990 November 3, 1990  4 August 3, 1991 August 17, 1991 9 1 What's New, Scooby-Doo? 14 September 14, 2002 March 22, 2003 The WB  2 September 13, 2003 March 27, 2004  3 14 13 January 29, 2005 April 16, 2006  1 July 21, 2006 Cartoon Network 10 1 Shaggy& Scooby-Doo Get a Clue! 13 September 23, 2006 May 5, 2007 The CW  2 September 22, 2007 March 15, 2008 11 1 Scooby-Doo! Mystery Incorporated 26 April 5, 2010 July 26, 2011 Cartoon Network  2 July 30, 2012 April 5, 2013 12 1 Be Cool, Scooby-Doo! 26 20 October 5, 2015 March 12, 2016  6 June 20, 2017 Boomerang  2 26 15 September 28, 2017 December 22, 2017 Boomerang SVOD  11 March 8, 2018 March 18, 2018 Boomerang 13 1 Scooby-Doo and Guess Who? 26 13 June 27, 2019 September 19, 2019 (2019-09-19) Boomerang SVOD  
 (episodes 1–41)  
-HBO Max (episodes 42–52)   |  
-| 13  | July 2, 2020   |  
-|  2  | 26   | October 1, 2020 (2020-10-01)  | October 1, 2021 (2021-10-01)  |  
-|   | 14  |  1  | Velma  | 10  | January 12, 2023  | February 9, 2023  | HBO Max (season 1)  
-Max (season 2)   |  
-| 2   | 10  | April 25, 2024  |  
-## Reception and legacy
+HBO Max (episodes 42–52)  13 July 2, 2020  2 26 October 1, 2020 (2020-10-01) October 1, 2021 (2021-10-01) 14 1 Velma 10 January 12, 2023 February 9, 2023 HBO Max (season 1)  
+Max (season 2)  2 10 April 25, 2024 ## Reception and legacy
 
-The Mystery Machine at San Diego Comic-Con in 2013
 During its five-decade broadcast history, Scooby-Doo has received two Emmy nominations: a 1989 Daytime Emmy nomination for A Pup Named Scooby-Doo , and a 2003 Daytime Emmy nomination for What's New, Scooby-Doo 's Mindy Cohn in the "Outstanding Performer in an Animated Program" category. Science advocate Carl Sagan favorably compared the predominantly skeptic oriented formula to that of most television dealing with paranormal themes, and considered that an adult analogue to Scooby-Doo would be a great public service.
 Scooby-Doo has maintained a significant fan base, which has grown steadily since the 1990s due to the show's popularity among both young children and nostalgic adults who grew up with the series. Several television critics have stated that the show's mix of the comedy-adventure and horror genres was the reason for its widespread success. As Fred Silverman and the Hanna-Barbera staff had planned when they first began producing the series, Scooby-Doo 's ghosts, monsters and spooky locales tend more towards humor than horror, making them easily accessible to younger children. "Overall, [Scooby-Doo is] just not a show that is going to overstimulate kids' emotions and tensions," offered American Center for Children and Media executive director David Kleeman in a 2002 interview. "It creates just enough fun to make it fun without getting them worried or giving them nightmares.
 Older teenagers and adults have admitted to enjoying Scooby-Doo because of presumed subversive themes which involve theories of drug use and sexuality, in particular that Shaggy is assumed to be a user of cannabis and Velma is assumed to be a lesbian. Such themes were pervasive enough in popular culture to find their way into Warner Bros.' initial Scooby-Doo feature film in 2002, though several of the scenes were edited before release to secure a family-friendly "PG" rating. Series creators Joe Ruby and Ken Spears reported that they "took umbrage" to the inclusion of such themes in the Scooby-Doo feature and other places, and denied intending their characters to be drug users in any way.
@@ -311,23 +153,7 @@ By the 2000s, Scooby-Doo had received recognition for its popularity by placing 
 In January 2009, entertainment website IGN named Scooby-Doo #24 on its list of the Top 100 Best Animated TV Shows. Writing in 2020, Christopher Orr of The Atlantic queried why the franchise had remained popular for several decades, concluding that it was primarily due to the many differing ways in which the relationship between the main characters could be interpreted or used as a metaphor.
 ### Accolades
   
-Awards and nominations received by the Scooby-Doo franchise   
-|  Year  |  Title  |  Daytime Emmy Awards  |  Children's & Family Emmy Awards  |  Annie Awards  |  
-| --- | --- | --- | --- | --- |  
-| Nominations   | Wins   | Nominations   | Wins   | Nominations   | Wins   |  
-| Animated Television Series   |  
-| 1990   |  A Pup Named Scooby-Doo  | 2   |   |   |   |   |   |  
-| 2003   |  What's New, Scooby-Doo?  | 1   |   |   |   |   |   |  
-| 2007   |  Shaggy& Scooby-Doo Get a Clue!  | 3   |   |   |   |   |   |  
-| 2022   |  Scooby-Doo and Guess Who?  |   |   | 1   |   |   |   |  
-| Animated Special Projects   |  
-| 2000   |  The Scooby-Doo Project  |   |   |   |   | 1   | 1   |  
-| Television and Direct-to-Video Animated Films   |  
-| 1999   |  Scooby-Doo on Zombie Island  |   |   |   |   | 1   |   |  
-| 2000   |  Scooby-Doo and the Witch's Ghost  |   |   |   |   | 1   |   |  
-| 2004   |  Scooby-Doo and the Loch Ness Monster  |   |   |   |   | 1   |   |  
-| Total   | 6   |   | 1   |   | 4   | 1   |  
-## Five College folklore
+Awards and nominations received by the Scooby-Doo franchise Year Title Daytime Emmy Awards Children's & Family Emmy Awards Annie Awards Nominations Wins Nominations Wins Nominations Wins  Animated Television Series  1990 A Pup Named Scooby-Doo 2       2003 What's New, Scooby-Doo? 1       2007 Shaggy& Scooby-Doo Get a Clue! 3       2022 Scooby-Doo and Guess Who?   1     Animated Special Projects  2000 The Scooby-Doo Project     1 1  Television and Direct-to-Video Animated Films  1999 Scooby-Doo on Zombie Island     1   2000 Scooby-Doo and the Witch's Ghost     1   2004 Scooby-Doo and the Loch Ness Monster     1   Total 6  1  4 1 ## Five College folklore
 
 A popular urban legend among Five College students holds that the characters on Scooby-Doo represent the five colleges. The legend has Velma representing Smith College and Daphne as Mount Holyoke College (or vice-versa), Fred as Amherst College, Shaggy as Hampshire College, and Scooby as UMass Amherst. Hanna-Barbera Productions, CBS executive Fred Silverman, and Mark Evanier, one of the show's writers, have stated that the legend is false. Moreover, Scooby-Doo creators Joe Ruby and Ken Spears have been explicit in the cartoon show being based on the radio program I Love a Mystery and the TV sitcom The Many Loves of Dobie Gillis , with the four teenagers being based directly on characters from Dobie Gillis. In addition, Scooby-Doo made its television debut in 1969, one year before Hampshire College opened.
 ## In popular culture

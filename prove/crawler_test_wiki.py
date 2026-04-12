@@ -34,9 +34,12 @@ async def main():
     )
 
     #javascript snippet per togliere l'infobox,sidebar,hatnote...
+    #e le descrizioni sotto le immagini
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription');
+        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription, .figcaption');
         infoboxes.forEach(box => box.remove());
+        const figures = document.querySelectorAll('figure'); 
+        figures.forEach(f => f.remove());
     """
 
 
@@ -68,6 +71,9 @@ async def main():
     ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|\[show\]|\[update\]|\[\s*\]|ⓘ", "", result.markdown)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
     ris=re.sub(r"\[citation needed\]|\[clarification needed\]|\[supporting\]|\[[A-Z]+\]","",ris)
+    # rimuove separatori delle wikitable
+    ris = re.sub(r"^\|[-:\s|]+\|\n?", "", ris, flags=re.MULTILINE)
+    ris = re.sub(r"\s*\|\s*", " ", ris)
     testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
 
