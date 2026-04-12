@@ -27,9 +27,9 @@ async def main():
         }
     )
 
-    #javascript snippet per togliere l'infobox,sidebar,hatnote...
+    #javascript snippet
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.ad, .newsletter, .content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer');
+        const infoboxes = document.querySelectorAll('.ad, .newsletter, .content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper');
         infoboxes.forEach(box => box.remove());
     """
 

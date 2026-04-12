@@ -2,17 +2,13 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link = "https://en.wikipedia.org/wiki/Scooby-Doo"
-    #link5 = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-    #link4="https://en.wikipedia.org/wiki/Lanzarote"
-    #link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    #link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    #link1="https://en.wikipedia.org/wiki/Donald_Trump"
-    html_file_path = "scooby-doo.html"
-    testo_pulito_path = "scooby-doo_gs.txt"
+    link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+
+    html_file_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot.html"
+    testo_pulito_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/en.wikipedia.org_gs.json"
+    output_json_path = "../gs_data/cbsnews.com_gs.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:
@@ -30,8 +26,8 @@ def create_gold_standard_entry():
 
     gs_entry = {
         "url": link,
-        "domain": "en.wikipedia.org",
-        "title": "Charles Darwin",
+        "domain": "cbsnews.com",
+        "title": "Artemis II astronauts welcomed home to Houston after historic moonshot",
         "html_text": html_content,
         "gold_text": clean_text
     }
