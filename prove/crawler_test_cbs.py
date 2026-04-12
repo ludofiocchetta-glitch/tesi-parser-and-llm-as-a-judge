@@ -11,7 +11,8 @@ import json
 
 async def main():
 
-    link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+    link="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
+    link1="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -29,7 +30,7 @@ async def main():
 
     #javascript snippet
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.ad, .newsletter, .content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper');
+        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux');
         infoboxes.forEach(box => box.remove());
     """
 
