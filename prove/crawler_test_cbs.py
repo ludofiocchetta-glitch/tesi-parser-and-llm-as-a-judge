@@ -11,7 +11,7 @@ import json
 
 async def main():
 
-    link="https://www.cbsnews.com/live-updates/artemis-ii-splashdown-return/"
+    link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -29,7 +29,7 @@ async def main():
 
     #javascript snippet per togliere l'infobox,sidebar,hatnote...
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.ad,.newsletter,.content__grid,.content__google');
+        const infoboxes = document.querySelectorAll('.ad, .newsletter, .content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -68,7 +68,7 @@ async def main():
     ##########################  SCRITTURA JSON     ###################################
     
     #estraggo il titolo
-    titolo_match=re.search(r'<title>(.*?)</title>',result.html,re.IGNORECASE)
+    titolo_match=re.search(r'<h1 class="content__title">(.*?)</h1>',result.html,re.IGNORECASE)
     if titolo_match:
         titolo_pag= titolo_match.group(1).replace( " - CBS News","")
         titolo_file= titolo_pag.lower().replace(" ", "_")
