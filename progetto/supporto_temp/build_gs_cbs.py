@@ -2,8 +2,8 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
-    link1="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+    link1="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
+    link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
     html_file_path = "winehouse_not_guilty_for_punching_fan_in_the_face.html"
     testo_pulito_path = "winehouse_not_guilty_for_punching_fan_in_the_face_gs.txt"

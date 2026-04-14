@@ -1,4 +1,3 @@
-# Artemis II astronauts welcomed home to Houston after historic moonshot
 The four Artemis II astronauts, freshly back from a historic trip around the moon, flew back to NASA's Johnson Space Center in Houston Saturday to cheers and applause from family members and hundreds of space center workers who gathered to welcome them home.
 Artemis II commander Reid Wiseman, Victor Glover, Christina Koch and Canadian astronaut Jeremy Hansen splashed down in the Pacific Ocean southwest of San Diego Friday evening to close out a nine-day mission, the first piloted flight to the moon and back since the end of the Apollo program a half century ago.
 After medical checks and phone calls home to family and friends, all four boarded a NASA jet and flew back to Ellington Field a few miles from the space center. A raucous crowd awaited them in a nearby hangar, including the crew's families.
@@ -27,7 +26,3 @@ Before launch, the science team helped identify a few relatively fresh craters t
 At the welcome home ceremony Saturday, Hansen spoke last, saying the mission showed him a successful crew had three essential ingredients. The first is gratitude for the opportunity and the support of thousands who made the flight possible. The second was sharing the joy of the experience.
 Then he called Wiseman, Glover and Koch to him for a group hug, adding, "The last one is love."
 "What you saw was a group of people who loved contributing and extracting joy out of that," Hansen said. "And what we've been hearing is that was something special for you to witness. And the reason I had them form up here with me is because I would suggest to you that when you look up here, you're not looking at us. We are a mirror reflecting you. And if you like what you see, then just look a little deeper. This is you."
-#### 9 highlights from Artemis II's epic journey around the moon
-#### Meet the Pittsburgh native who was the voice of Artemis II's historic launch
-#### What's Artemis II mission mean for space travel? MIT professor explains.
-#### Welcome Home, Artemis II

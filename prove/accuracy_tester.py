@@ -1,6 +1,6 @@
 import math
 
-title = "scooby-doo"
+title = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot"
 parsed_mk = f"{title}.md"
 gs_path = f"../progetto/supporto_temp/{title}_gs.txt"
 

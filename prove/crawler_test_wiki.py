@@ -12,12 +12,12 @@ import json
 async def main():
 
     
-    link1 = "https://en.wikipedia.org/wiki/Donald_Trump"
+    link1= "https://en.wikipedia.org/wiki/Donald_Trump"
     link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
     link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
     link4="https://en.wikipedia.org/wiki/Lanzarote"
-    link5 = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-    link = "https://en.wikipedia.org/wiki/Scooby-Doo"
+    link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
+    link6 = "https://en.wikipedia.org/wiki/Scooby-Doo"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -36,7 +36,7 @@ async def main():
     #javascript snippet per togliere l'infobox,sidebar,hatnote...
     #e le descrizioni sotto le immagini
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription, .figcaption');
+        const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription, .figcaption, .thumbcaption');
         infoboxes.forEach(box => box.remove());
         const figures = document.querySelectorAll('figure'); 
         figures.forEach(f => f.remove());
@@ -74,6 +74,7 @@ async def main():
     # rimuove separatori delle wikitable
     ris = re.sub(r"^\|[-:\s|]+\|\n?", "", ris, flags=re.MULTILINE)
     ris = re.sub(r"\s*\|\s*", " ", ris)
+    ris=re.sub(r"\*\*","",ris)
     testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
     ris = testo[0].strip()
 
@@ -91,6 +92,7 @@ async def main():
         titolo_pag="titolo non trovato"
         titolo_file= "titolo_non_trovato"
 
+    ris="\n".join(ris.splitlines()[1:])
     #creo il dizionario
 
     dati_estratti = {

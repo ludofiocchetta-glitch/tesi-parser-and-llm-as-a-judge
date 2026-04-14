@@ -30,7 +30,7 @@ async def main():
 
     #javascript snippet
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux');
+        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux, .component__item-recirc');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -76,6 +76,8 @@ async def main():
     else:
         titolo_pag="titolo non trovato"
         titolo_file= "titolo_non_trovato"
+    
+    ris="\n".join(ris.splitlines()[1:])
 
     #creo il dizionario
 

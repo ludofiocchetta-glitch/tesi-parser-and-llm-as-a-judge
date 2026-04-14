@@ -1,4 +1,3 @@
-# Winehouse Not Guilty for Punching Fan in the Face
 Singer Amy Winehouse enters court in London to face assault charges on July 23, 2009.
 LONDON (AP) A judge acquitted Amy Winehouse on Friday of assaulting a fan who asked to take her picture.
 District Judge Timothy Workman found the 25-year-old singer not guilty of punching dancer Sherene Flash in the eye after the fan asked to take her picture following a charity ball in September.
