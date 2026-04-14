@@ -9,7 +9,7 @@ def create_gold_standard_entry():
     testo_pulito_path = "us_begins_blockade_in_strait_of_hormuz_trump_warns_iran_attack_ships_to_stay_away_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/cnbc.com_gs.json"
+    output_json_path = "../gs_data/cnbc.com.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:

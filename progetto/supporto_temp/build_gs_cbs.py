@@ -11,7 +11,7 @@ def create_gold_standard_entry():
     testo_pulito_path = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/cbsnews.com_gs.json"
+    output_json_path = "../gs_data/cbsnews.com.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:

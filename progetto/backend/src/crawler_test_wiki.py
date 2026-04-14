@@ -13,8 +13,6 @@ import os
 
 
 async def parser_wiki(url:str):
-
-    
     #link1= "https://en.wikipedia.org/wiki/Donald_Trump"
     #link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
     #link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
@@ -129,6 +127,7 @@ async def parser_wiki(url:str):
     #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
 
     ####################################################################################
+    
     return dati_estratti
 
 #asyncio.run(main())
