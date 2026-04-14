@@ -12,15 +12,15 @@ import json
 import os
 
 
-async def main():
+async def parser_wiki(url:str):
 
     
-    link1= "https://en.wikipedia.org/wiki/Donald_Trump"
-    link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    link4="https://en.wikipedia.org/wiki/Lanzarote"
-    link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-    link6 = "https://en.wikipedia.org/wiki/Scooby-Doo"
+    #link1= "https://en.wikipedia.org/wiki/Donald_Trump"
+    #link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
+    #link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    #link4="https://en.wikipedia.org/wiki/Lanzarote"
+    #link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
+    #link6 = "https://en.wikipedia.org/wiki/Scooby-Doo"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -57,7 +57,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=link, config=crawler_config)
+        result = await pippo.arun(url=url, config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -99,7 +99,7 @@ async def main():
     #creo il dizionario
 
     dati_estratti = {
-        "url": link,
+        "url": url,
         "domain": "en.wikipedia.org",
         "title": titolo_pag,
         "html_text": result.html,
@@ -107,27 +107,28 @@ async def main():
     }
 
     ##########################  PATH  ##################################################
-    dest_json = "./json_garbage/wikipedia" 
-    dest_md = "./md_garbage/wikipedia"
+    #dest_json = "./json_garbage/wikipedia" 
+    #dest_md = "./md_garbage/wikipedia"
     
-    os.makedirs(dest_json, exist_ok=True)
-    os.makedirs(dest_md, exist_ok=True)
+    #os.makedirs(dest_json, exist_ok=True)
+    #os.makedirs(dest_md, exist_ok=True)
 
-    path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    path_md = os.path.join(dest_md, f"{titolo_file}.md")
+    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
+    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
 
     ##########################  SCRITTURA IN JSON  #####################################
 
-    with open(path_json, "w", encoding="utf-8") as file:
-        json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
+    #with open(path_json, "w", encoding="utf-8") as file:
+        #json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
 
     ##########################  SCRITTURA IN MD  #######################################
     
-    with open(path_md, "w", encoding="utf-8") as file:
-        file.write(ris)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
+    #with open(path_md, "w", encoding="utf-8") as file:
+        #file.write(ris)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
 
     ####################################################################################
+    return dati_estratti
 
-asyncio.run(main())
+#asyncio.run(main())
