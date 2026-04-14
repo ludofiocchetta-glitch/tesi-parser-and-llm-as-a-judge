@@ -5,8 +5,8 @@ def create_gold_standard_entry():
     link1="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
-    html_file_path = "winehouse_not_guilty_for_punching_fan_in_the_face.html"
-    testo_pulito_path = "winehouse_not_guilty_for_punching_fan_in_the_face_gs.txt"
+    html_file_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot.html"
+    testo_pulito_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/cbsnews.com_gs.json"

@@ -11,7 +11,8 @@ import json
 
 async def main():
 
-    link="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
+    link="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
+    link2="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     link1="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
     #configuro il browser
@@ -77,7 +78,9 @@ async def main():
         titolo_pag="titolo non trovato"
         titolo_file= "titolo_non_trovato"
     
+    
     ris="\n".join(ris.splitlines()[1:])
+    titolo_file = re.sub(r'[\\/*?:"<>|]', "", titolo_file)
 
     #creo il dizionario
 
