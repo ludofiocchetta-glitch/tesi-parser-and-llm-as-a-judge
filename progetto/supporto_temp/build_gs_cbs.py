@@ -3,10 +3,12 @@ import os
 
 def create_gold_standard_entry():
     link1="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
-    link="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+    link2="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+    link="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
 
-    html_file_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot.html"
-    testo_pulito_path = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot_gs.txt"
+    
+    html_file_path = "trump_won't_back_down_from_pope_leo_feud_sparked_by_60_minutes_report,_tells_cbs_news_pontiff_should_stay_out_of_politics.html"
+    testo_pulito_path = "trump_won't_back_down_from_pope_leo_feud_sparked_by_60_minutes_report,_tells_cbs_news_pontiff_should_stay_out_of_politics_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/cbsnews.com_gs.json"
