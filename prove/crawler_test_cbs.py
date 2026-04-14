@@ -73,14 +73,13 @@ async def main():
     titolo_match=re.search(r'<h1 class="content__title">(.*?)</h1>',result.html,re.IGNORECASE)
     if titolo_match:
         titolo_pag= titolo_match.group(1).replace( " - CBS News","")
-        titolo_file= titolo_pag.lower().replace(" ", "_")
     else:
         titolo_pag="titolo non trovato"
-        titolo_file= "titolo_non_trovato"
     
+    titolo_safe = re.sub(r'[^\w\s]', '', titolo_pag)
+    titolo_file = re.sub(r'_+', '_', titolo_safe.lower().replace(" ", "_"))
     
     ris="\n".join(ris.splitlines()[1:])
-    titolo_file = re.sub(r'[\\/*?:"<>|]', "", titolo_file)
 
     #creo il dizionario
 

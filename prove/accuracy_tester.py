@@ -1,6 +1,7 @@
 import math
 
-title = "trump_won't_back_down_from_pope_leo_feud_sparked_by_60_minutes_report,_tells_cbs_news_pontiff_should_stay_out_of_politics"
+
+title = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics"
 parsed_mk = f"{title}.md"
 gs_path = f"../progetto/supporto_temp/{title}_gs.txt"
 

@@ -7,8 +7,8 @@ def create_gold_standard_entry():
     link="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
 
     
-    html_file_path = "trump_won't_back_down_from_pope_leo_feud_sparked_by_60_minutes_report,_tells_cbs_news_pontiff_should_stay_out_of_politics.html"
-    testo_pulito_path = "trump_won't_back_down_from_pope_leo_feud_sparked_by_60_minutes_report,_tells_cbs_news_pontiff_should_stay_out_of_politics_gs.txt"
+    html_file_path = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics.html"
+    testo_pulito_path = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/cbsnews.com_gs.json"
@@ -30,7 +30,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "cbsnews.com",
-        "title": "Winehouse Not Guilty for Punching Fan in the Face",
+        "title": "Trump Won't Back Down From Pope Leo Feud Sparked by '60 Minutes' Report, Tells CBS News Pontiff Should Stay Out of Politics",
         "html_text": html_content,
         "gold_text": clean_text
     }

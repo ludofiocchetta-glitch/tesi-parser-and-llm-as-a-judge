@@ -28,7 +28,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "cnbc.com",
-        "title": "Bitcoin BTC Bull Market May Not Return Until 2024, Huobi Co-Founder Says",
+        "title": "US Begins Blockade in Strait of Hormuz, Trump Warns Iran Attack Ships to Stay Away",
         "html_text": html_content,
         "gold_text": clean_text
     }

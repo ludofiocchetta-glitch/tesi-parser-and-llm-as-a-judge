@@ -48,8 +48,6 @@ async def main():
         });
     """
 
-
-    css_list = [".ArticleBody-articleBody"]
     #configuro il tipo di richiesta, bypassando la cache         
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
