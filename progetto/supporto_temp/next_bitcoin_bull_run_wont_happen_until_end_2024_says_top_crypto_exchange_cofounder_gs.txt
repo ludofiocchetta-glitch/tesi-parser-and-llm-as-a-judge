@@ -1,0 +1,10 @@
+Bitcoin may not see a bull market until late 2024 or the beginning of 2025, if past price cycles are any indication, according to the co-founder of Huobi, one of the world’s largest cryptocurrency exchanges.
+Du Jun told CNBC that bitcoin bull markets are closely tied to a process called halving, which occurs every few years.
+This relates to so-called miners on the bitcoin network, which run powerful specialized computers to solve complex mathematical puzzles to validate transactions on the bitcoin network. Miners are rewarded in bitcoin as a result.
+Halving is written into bitcoin’s underlying code and cuts in half the reward that so-called miners get for validating transactions on the cryptocurrency’s network. It occurs roughly every four years.
+The last halving took place in May 2020, and in 2021, bitcoin topped an all-time high above $68,000. A similar occurrence happened when halving took place in 2016. The following year, bitcoin hit what was at the time a record high.
+Following both those peaks, bitcoin tumbled. Currently, bitcoin is sat nearly 40% off its record high from November, though it’s still off some of the lows seen in January. The next halving event is scheduled to take place in 2024.
+“If this circle continues, we are now at the early stage of a bear market,” Du said, according to a CNBC translation of his comments in Mandarin.
+“It is really hard to predict exactly because there are so many other factors which can affect the market as well — such as geopolitical issues including war, or recent Covid, also affect the market,” he said.
+“Following this cycle, it won’t be until end of 2024 to beginning of 2025 that we can welcome next bull market on bitcoin.”
+The recent price drop in cryptocurrency has got some market participants worried that a so-called “crypto winter,” or an extended period of bearishness, could be imminent. During such times, bitcoin may trade in a sideways pattern.
