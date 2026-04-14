@@ -4,11 +4,11 @@ import os
 def create_gold_standard_entry():
     link1="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     link2="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
-    link="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
-
+    link3="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
+    link="https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
     
-    html_file_path = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics.html"
-    testo_pulito_path = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics.txt"
+    html_file_path = "what_to_know_about_a_new_study_on_coffee_tea_caffeine_and_dementia_risk.html"
+    testo_pulito_path = "what_to_know_about_a_new_study_on_coffee_tea_caffeine_and_dementia_risk_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/cbsnews.com.json"
@@ -30,7 +30,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "cbsnews.com",
-        "title": "Trump Won't Back Down From Pope Leo Feud Sparked by '60 Minutes' Report, Tells CBS News Pontiff Should Stay Out of Politics",
+        "title": "What to know about a new study on coffee, tea, caffeine and dementia risk",
         "html_text": html_content,
         "gold_text": clean_text
     }

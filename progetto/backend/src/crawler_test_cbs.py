@@ -14,7 +14,9 @@ import os
 
 async def main():
 
-    link="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
+    link="https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
+    link4="https://www.cbsnews.com/news/taxes-file-irs-americans-feel-they-pay-too-much/"
+    link3="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
     link2="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     link1="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
@@ -34,7 +36,7 @@ async def main():
 
     #javascript snippet
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux, .component__item-recirc');
+        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux, .component__item-recirc, .content__body--footer');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -67,6 +69,7 @@ async def main():
     ris = result.markdown
     ris = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", ris)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
+    ris = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", ris, flags=re.IGNORECASE)
     
     #####################################################################################
 
