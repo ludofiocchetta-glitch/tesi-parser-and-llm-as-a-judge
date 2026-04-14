@@ -8,6 +8,9 @@ import re
 #import per formato json
 import json
 
+#import per gestione file
+import os
+
 
 async def main():
 
@@ -81,7 +84,7 @@ async def main():
     
     #####################################################################################
 
-    ##########################  SCRITTURA JSON     ###################################
+    ##########################  CREAZIONE JSON     ###################################
     
     #estraggo il titolo
     titolo_match=re.search(r'<title>(.*?)</title>',result.html,re.IGNORECASE)
@@ -103,25 +106,28 @@ async def main():
         "parsed_text": ris 
     }
 
-    #salvo in un file json
+    ##########################  PATH  ##################################################
+    dest_json = "./json_garbage/wikipedia" 
+    dest_md = "./md_garbage/wikipedia"
+    
+    os.makedirs(dest_json, exist_ok=True)
+    os.makedirs(dest_md, exist_ok=True)
 
-    with open(f"{titolo_file}.json", "w", encoding="utf-8") as file:
+    path_json = os.path.join(dest_json, f"{titolo_file}.json")
+    path_md = os.path.join(dest_md, f"{titolo_file}.md")
+
+    ##########################  SCRITTURA IN JSON  #####################################
+
+    with open(path_json, "w", encoding="utf-8") as file:
         json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
     print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
 
-    #####################################################################################
-
-
-    ##########################  SCRITTURA IN FILE  ##########################
+    ##########################  SCRITTURA IN MD  #######################################
     
-    with open(f"{titolo_file}.md", "w", encoding="utf-8") as file:
+    with open(path_md, "w", encoding="utf-8") as file:
         file.write(ris)
     print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
 
-    #with open(f"{titolo_file}_raw.md", "w", encoding="utf-8") as file:
-    #   file.write(result.markdown)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}_raw.md'.")
-
-    #####################################################################################
+    ####################################################################################
 
 asyncio.run(main())
