@@ -2,11 +2,16 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link ="https://www.viaggi-usa.it/passaporto-per-usa/"
+
+    #link ="https://www.viaggi-usa.it/passaporto-per-usa/"
     #link="https://www.viaggi-usa.it/eventi-san-diego/"
 
-    html_file_path = "passaporto_per_usa_documenti_pratiche_e_tempi_rilascio.html"
-    testo_pulito_path = "passaporto_per_usa_documenti_pratiche_e_tempi_rilascio_gs.txt"
+
+
+    link ="https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
+
+    html_file_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona.html"
+    testo_pulito_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/viaggi-usa.it.json"

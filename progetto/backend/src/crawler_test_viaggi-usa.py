@@ -54,7 +54,11 @@ async def main():
         '.su-spoiler', 
         '.su-spoiler-content',
         '.su-u-clearfix',
-        '.su-u-trim'
+        '.su-u-trim',
+        '.has-text-align-center',
+        '.featured-links',
+        'p:has(> .featured-links)',
+        'p.has-text-align-center:has(a.featured-links)'
     ];
     
     patterns.forEach(selector => {
@@ -68,6 +72,7 @@ async def main():
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
                                       target_elements=css_list, # questa parte per avere un testo più pulito.
+                                      
                                       markdown_generator=md_generator, # questo per generare markdown con personalizzazione
                                       js_code= remove_infobox_js
                                     )
