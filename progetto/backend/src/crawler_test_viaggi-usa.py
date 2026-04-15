@@ -14,8 +14,8 @@ import os
 
 async def main():
     #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
-    link="https://www.viaggi-usa.it/eventi-san-diego/"
-
+    #link="https://www.viaggi-usa.it/eventi-san-diego/"
+    link="https://www.viaggi-usa.it/passaporto-per-usa/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -54,7 +54,7 @@ async def main():
         '.su-spoiler', 
         '.su-spoiler-content',
         '.su-u-clearfix',
-        '.su-u-trim',
+        '.su-u-trim'
     ];
     
     patterns.forEach(selector => {

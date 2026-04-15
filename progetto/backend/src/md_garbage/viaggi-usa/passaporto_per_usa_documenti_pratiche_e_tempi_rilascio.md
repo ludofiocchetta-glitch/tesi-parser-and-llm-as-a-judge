@@ -1,0 +1,44 @@
+Se avete intenzione di recarvi negli States per una vacanza, un viaggio di studio o per lavoro sicuramente avrete già messo in conto di dover sbrigare un po’ di pratiche burocratiche. Fra i vari documenti per gli USA, la trafila per ottenere il passaporto è quella un po’ più lunga ma non fatevi comunque spaventare, non si tratta di niente di insormontabile e con un po’ di pazienza otterrete il vostro lasciapassare per l’estero.
+ Dove recarsi
+La prima cosa da tenere presente è che in Italia gli uffici preposti al rilascio del passaporto sono le questure, gli uffici passaporti dei commissariati di pubblica sicurezza e le stazioni dei Carabinieri.
+Se ne avete la possibilità però vi consigliamo di recarvi presso una Questura, così facendo risparmierete un po’ di tempo nell’elaborazione delle pratiche.  
+Un altro utile consiglio per velocizzare i tempi è quello di completare tutta la trafila nel luogo in cui siete residenti. Se il vostro domicilio è diverso dalla residenza infatti, prima di procedere, si dovrà in primo luogo dimostrare di essere impossibilitati a fare domanda presso il proprio comune e secondariamente attendere il nulla osta della rispettiva Questura, procedimento che, come capirete, aumenterà i tempi di rilascio.
+Per evitare lunghe attese, molte Questure si sono dotate di un comodo metodo di prenotazione on line. Per poterne usufruire per prima cosa vi dovrete registrare presso questo sito e, una volta verificata la disponibilità, potrete procedere con la prenotazione e recarvi in Questura nel giorno e nell’orario prestabilito.
+ Documenti per passaporto USA
+Per poter completare con successo la procedura per il rilascio del passaporto valido per USA è necessario avere con sé la seguente documentazione:
+> Vi invitiamo comunque a verificare queste ultime informazioni anche sul sito della Polizia di Stato in caso con il tempo dovessero subire dei cambiamenti.
+  * Compilare il modulo per la richiesta di rilascio che potrete trovare sul sito internet della Polizia di Stato
+  * Portare con sé un proprio documento di riconoscimento sia in originale che in fotocopia
+  * Avere due foto recenti. Per essere sicuri che le foto che avete vadano bene questa guida può essere molto utile.
+  * Presentare la ricevuta del pagamento effettuato tramite bollettino di conto corrente di 42,50 euro [intestato a “Ministero dell’Economia e delle Finanze – Dipartimento del Tesoro” con la seguente causale: “importo per il rilascio del passaporto elettronico”]
+  * Un contrassegno telematico del valore di 73,50 euro acquistabile presso le rivendite di valori bollati.
+  * La stampa della prenotazione on line se si è utilizzato il servizio
+  * Se avete un figlio minorenne vi sarà richiesto anche l’assenso dell’altro genitore (indipendentemente dallo stato civile); se quest’ultimo non può presentarsi con voi potete consegnare in questura un apposito modulo debitamente compilato e firmato allegando fotocopia di un documento. In caso non sia possibile ottenere l’assenso dovrà essere richiesto il nullaosta al Giudice Tutelare.
+
+
+Inoltre essendo necessaria l’acquisizione delle vostre impronte digitali si ricorda che queste possono essere rilevate soltanto presso gli uffici della Polizia di Stato.
+ Passaporto per figli minorenni
+Una cosa da tenere presente, se avete intenzione di recarvi all’estero insieme ai vostri figli, è che, anche se minorenni, avranno bisogno comunque di un passaporto. Si dovrà compilare il modulo apposito e sarà necessario il consenso di entrambi i genitori. Se uno dei due non può essere presente sarà sufficiente allegare alla domanda di presentazione una fotocopia firmata in originale del documento del genitore assente insieme ad una dichiarazione scritta di assenso all’espatrio. Per tutti i dettagli sulla procedura leggete la nostra guida su come fare il passaporto per minorenni valido per gli USA.
+ Ritiro e consegna
+Dopo la verifica della domanda, se tutta la procedura è andata a buon fine, dopo pochi giorni il passaporto verrà rilasciato e potrà essere ritirato anche da un’altra persona tramite apposita delega.  
+Inoltre dall’ottobre del 2014, tramite un servizio in collaborazione con le Poste Italiane, c’è la possibilità di farsi recapitare il passaporto direttamente a casa vostra. L’unica cosa da ricordarsi di fare per poter ottenere questo servizio è di farsi consegnare una busta di Poste Italiane che il richiedente dovrà compilare avendo cura di inserire correttamente i suoi dati. Questo servizio ha un costo di 8,50 euro da pagare in contrassegno al momento della consegna.  
+Finalmente entrati in possesso del vostro passaporto è importante ricordare che esso avrà una validità di 10 anni al termine dei quali non si potrà fare un rinnovo ma si dovrà richiederne direttamente uno nuovo.
+ Tempi di rilascio passaporto
+Le fonti ufficiali sostengono che il passaporto possa essere rilasciato anche a vista (a noi sembra un caso abbastanza raro!) o che, più ragionevolmente possano essere necessari alcuni giorni (15-20), ma – proprio perché i tempi possono variare da questura a questura – il nostro consiglio è comunque quello di non ridurvi mai all’ultimo momento, ma di considerare per sicurezzaalmeno un mese per poter portare a termine con successo tutti i passaggi necessari. Se avrete un’urgenza particolare, un consiglio che possiamo darvi è quello di chiamare in questura chiedendo i tempi medi di rilascio del documento, così da potervi organizzare meglio per la partenza.
+Esiste la possibilità di far ritirare il proprio passaporto a terzi, grazie alla Legge Bassanini (Legge n. 445 del 2000). Occorrerà che il delegato sia di maggiore età e abbia con sé i seguenti documenti:
+  * proprio documento di riconoscimento
+  * fotocopia del documento della persona che richiede il passaporto
+  * delega redatta in carta semplice, autenticata da un notaio oppure da un ufficiale dell’anagrafe.
+
+
+ Passaporto per USA
+Per potersi recare negli Stati Uniti senza bisogno di richiedere un visto USA, usufruendo così del  Visa Waiver Program, ricordiamo che solo i seguenti passaporti sono validi:
+  * Il passaporto elettronico, ovvero con microchip inserito nella copertina, che fortunatamente è l’unico tipo che viene rilasciato in Italia dal 26 ottobre del 2006
+  * Il passaporto a lettura ottica rilasciato prima del 26 ottobre 2005
+  * Il passaporto con foto digitale rilasciato fra il 26 ottobre 2005 e il 26 ottobre 2006
+
+
+ATTENZIONE: Fino a qualche tempo fa era necessario che il passaporto avesse una validità di 6 mesi oltre la data di partenza dagli Stati Uniti, ma possiamo rassicurarvi che tale regola non sussiste più, come certifica questo documento ufficiale secondo il quale l’Italia risulta rientrare in una lista di paesi che sono esentati dalla regola dei 6 mesi.
+  
+  
+

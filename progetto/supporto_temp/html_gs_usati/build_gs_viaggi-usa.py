@@ -2,10 +2,11 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link ="https://www.viaggi-usa.it/eventi-san-diego/"
+    link ="https://www.viaggi-usa.it/passaporto-per-usa/"
+    #link="https://www.viaggi-usa.it/eventi-san-diego/"
 
-    html_file_path = "gli_eventi_di_san_diego_non_solo_comiccon_ma_anche_sport_e_concerti.html"
-    testo_pulito_path = "gli_eventi_di_san_diego_non_solo_comiccon_ma_anche_sport_e_concerti_gs.txt"
+    html_file_path = "passaporto_per_usa_documenti_pratiche_e_tempi_rilascio.html"
+    testo_pulito_path = "passaporto_per_usa_documenti_pratiche_e_tempi_rilascio_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/viaggi-usa.it.json"
@@ -27,7 +28,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "viaggi-usa.it",
-        "title": "Gli eventi di San Diego: non solo Comic-Con ma anche sport e concerti",
+        "title": "Passaporto per USA: documenti, pratiche e tempi rilascio",
         "html_text": html_content,
         "gold_text": clean_text
     }

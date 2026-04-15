@@ -1,7 +1,7 @@
 import math
 
 
-title = "gli_eventi_di_san_diego_non_solo_comiccon_ma_anche_sport_e_concerti"
+title = "grand_canyon_guida_al_meraviglioso_parco_dellarizona"
 parsed_mk = f"./md_garbage/viaggi-usa/{title}.md"
 gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 
