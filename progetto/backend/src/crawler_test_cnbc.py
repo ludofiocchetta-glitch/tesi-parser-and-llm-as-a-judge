@@ -12,10 +12,14 @@ import json
 import os
 
 
-async def main():
+async def parser_cnbc(url:str):
 
-    link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
-    link1 = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
+    #link="https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
+    #link5="https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
+    #link4="https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
+    #link3="https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
+    #link2 = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
+    #link1 = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -61,7 +65,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=link, config=crawler_config)
+        result = await pippo.arun(url=url, config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -81,6 +85,7 @@ async def main():
     ris = re.sub(r'Choose CNBC as your preferred source on Google.*?business news\.', '', ris, flags=re.DOTALL | re.IGNORECASE)
     ris = ris.replace("'", "’")
     ris = re.sub(r'"([^"]*)"', r'“\1”', ris)
+    ris = re.sub(r"^Watch:\s*.*$", "", ris, flags=re.MULTILINE | re.IGNORECASE)
     ris = re.sub(r'\n{3,}', '\n\n', ris).strip()
     
     #####################################################################################
@@ -104,7 +109,7 @@ async def main():
 
     #creo il dizionario
     dati_estratti = {
-        "url": link,
+        "url": url,
         "domain": "cnbc.com",
         "title": titolo_pag,
         "html_text": result.html,
@@ -112,27 +117,29 @@ async def main():
     }
 
     ##########################  PATH  ##################################################
-    dest_json = "./json_garbage/cnbc" 
-    dest_md = "./md_garbage/cnbc"
+    #dest_json = "./json_garbage/cnbc" 
+    #dest_md = "./md_garbage/cnbc"
     
-    os.makedirs(dest_json, exist_ok=True)
-    os.makedirs(dest_md, exist_ok=True)
+    #os.makedirs(dest_json, exist_ok=True)
+    #os.makedirs(dest_md, exist_ok=True)
 
-    path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    path_md = os.path.join(dest_md, f"{titolo_file}.md")
+    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
+    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
 
     ##########################  SCRITTURA IN JSON  #####################################
 
-    with open(path_json, "w", encoding="utf-8") as file:
-        json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
+    #with open(path_json, "w", encoding="utf-8") as file:
+        #json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
 
     ##########################  SCRITTURA IN MD  #######################################
     
-    with open(path_md, "w", encoding="utf-8") as file:
-        file.write(ris)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
+    #with open(path_md, "w", encoding="utf-8") as file:
+        #file.write(ris)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
 
     ####################################################################################
 
-asyncio.run(main())
+    return dati_estratti
+
+#asyncio.run(main())

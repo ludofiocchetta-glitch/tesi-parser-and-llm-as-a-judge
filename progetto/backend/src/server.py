@@ -6,7 +6,7 @@ import os
 import json
 
 from crawler_test_cbs import parser_cbs
-#from crawler_test_cnbc import parser_cnbc
+from crawler_test_cnbc import parser_cnbc
 from crawler_test_wiki import parser_wiki
 
 app = FastAPI(title="Web Scraper API")
@@ -67,9 +67,9 @@ async def parse_article(url: str = Query(..., description="L'URL dell'articolo d
         risultato = await parser_cbs(url)
         return risultato
         
-    #elif domain == "cnbc.com":
-        #risultato = await parser_cnbc(url)
-        #return risultato
+    elif domain == "cnbc.com":
+        risultato = await parser_cnbc(url)
+        return risultato
         
     else:
         raise HTTPException(status_code=400, detail=f"Dominio non supportato: {domain}")

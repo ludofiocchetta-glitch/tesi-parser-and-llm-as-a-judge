@@ -1,8 +1,8 @@
 import math
 
 
-title = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot"
-parsed_mk = f"./md_garbage/cbs/{title}.md"
+title = "eric_swalwell_investigated_for_alleged_rape_of_lonna_drewes_la_county_sheriffs_dept_says"
+parsed_mk = f"./md_garbage/cnbc/{title}.md"
 gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 
 token_estratti = set()
