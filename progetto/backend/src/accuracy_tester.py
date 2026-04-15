@@ -1,9 +1,9 @@
 import math
 
 
-title = "trump_wont_back_down_from_pope_leo_feud_sparked_by_60_minutes_report_tells_cbs_news_pontiff_should_stay_out_of_politics"
-parsed_mk = f"{title}.md"
-gs_path = f"../progetto/supporto_temp/{title}_gs.txt"
+title = "artemis_ii_astronauts_welcomed_home_to_houston_after_historic_moonshot"
+parsed_mk = f"./md_garbage/cbs/{title}.md"
+gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 
 token_estratti = set()
 token_gs = set()

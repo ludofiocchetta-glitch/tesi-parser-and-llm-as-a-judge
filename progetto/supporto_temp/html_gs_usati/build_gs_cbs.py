@@ -5,10 +5,11 @@ def create_gold_standard_entry():
     link1="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     link2="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
     link3="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
-    link="https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
+    link4="https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
+    link="https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-rising/"
     
-    html_file_path = "what_to_know_about_a_new_study_on_coffee_tea_caffeine_and_dementia_risk.html"
-    testo_pulito_path = "what_to_know_about_a_new_study_on_coffee_tea_caffeine_and_dementia_risk_gs.txt"
+    html_file_path = "woman_killed_by_police_at_omaha_walmart_after_allegedly_kidnapping_slashing_child.html"
+    testo_pulito_path = "woman_killed_by_police_at_omaha_walmart_after_allegedly_kidnapping_slashing_child_gs.txt"
     
     os.makedirs("../gs_data", exist_ok=True)
     output_json_path = "../gs_data/cbsnews.com.json"
@@ -30,7 +31,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "cbsnews.com",
-        "title": "What to know about a new study on coffee, tea, caffeine and dementia risk",
+        "title": "Woman killed by police at Omaha Walmart after allegedly kidnapping, slashing child",
         "html_text": html_content,
         "gold_text": clean_text
     }
