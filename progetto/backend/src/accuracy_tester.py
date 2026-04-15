@@ -1,8 +1,8 @@
 import math
 
 
-title = "eric_swalwell_investigated_for_alleged_rape_of_lonna_drewes_la_county_sheriffs_dept_says"
-parsed_mk = f"./md_garbage/cnbc/{title}.md"
+title = "gli_eventi_di_san_diego_non_solo_comiccon_ma_anche_sport_e_concerti"
+parsed_mk = f"./md_garbage/viaggi-usa/{title}.md"
 gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 
 token_estratti = set()

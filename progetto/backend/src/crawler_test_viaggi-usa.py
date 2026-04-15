@@ -13,7 +13,7 @@ import os
 
 
 async def main():
-
+    #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
     link="https://www.viaggi-usa.it/eventi-san-diego/"
 
 
@@ -43,9 +43,7 @@ async def main():
         'h2[class*="gb-headline"]',
         'h3[class*="gb-headline"]',
         //
-        '.RelatedQuotes-relatedQuotes', 
         '.PlaceHolder-wrapper',        
-        '.ArticleBody-googlePreferredSourceContainer',
         '.InlineImage-imageEmbedCaption', 
         '.InlineImage-imageEmbedCredit',
         '.RelatedContent-container',
@@ -94,6 +92,9 @@ async def main():
     ris = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", ris)
     ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
     ris = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", ris, flags=re.IGNORECASE)
+    ris = re.sub(r'#',"",ris)
+    ris = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', ris)
+    ris = re.sub(r'\s+([,.;!?])', r'\1', ris)
     
     #####################################################################################
 
@@ -109,13 +110,12 @@ async def main():
     titolo_safe = re.sub(r'[^\w\s]', '', titolo_pag)
     titolo_file = re.sub(r'_+', '_', titolo_safe.lower().replace(" ", "_"))
     
-    ris="\n".join(ris.splitlines()[1:])
 
     #creo il dizionario
 
     dati_estratti = {
         "url": link,
-        "domain": "cbsnews.com",
+        "domain": "viaggi-usa.it",
         "title": titolo_pag,
         "html_text": result.html,
         "parsed_text": ris 
