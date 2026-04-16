@@ -1,7 +1,7 @@
 import math
 
 
-title = "grand_canyon_guida_al_meraviglioso_parco_dellarizona"
+title = "route_66_storia_di_una_strada_leggendaria"
 parsed_mk = f"./md_garbage/viaggi-usa/{title}.md"
 gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 

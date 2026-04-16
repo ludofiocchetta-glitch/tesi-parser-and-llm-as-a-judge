@@ -15,7 +15,8 @@ import os
 async def main():
     #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
     #link="https://www.viaggi-usa.it/eventi-san-diego/"
-    link="https://www.viaggi-usa.it/passaporto-per-usa/"
+    #link="https://www.viaggi-usa.it/passaporto-per-usa/"
+    link="https://www.viaggi-usa.it/route-66-storia/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -57,6 +58,7 @@ async def main():
         '.su-u-trim',
         '.has-text-align-center',
         '.featured-links',
+        '.wp-block-list',
         'p:has(> .featured-links)',
         'p.has-text-align-center:has(a.featured-links)'
     ];
@@ -100,6 +102,7 @@ async def main():
     ris = re.sub(r'#',"",ris)
     ris = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', ris)
     ris = re.sub(r'\s+([,.;!?])', r'\1', ris)
+    ris = re.sub(r'Ecco quindi tutti i nostri articoli dedicati a.*?(?:[:\.])',"",ris,flags=re.IGNORECASE | re.DOTALL)
     
     #####################################################################################
 

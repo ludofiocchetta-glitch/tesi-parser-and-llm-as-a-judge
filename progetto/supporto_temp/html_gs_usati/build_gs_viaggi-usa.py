@@ -5,13 +5,11 @@ def create_gold_standard_entry():
 
     #link ="https://www.viaggi-usa.it/passaporto-per-usa/"
     #link="https://www.viaggi-usa.it/eventi-san-diego/"
+    #link ="https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
+    link="https://www.viaggi-usa.it/route-66-storia/"
 
-
-
-    link ="https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
-
-    html_file_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona.html"
-    testo_pulito_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona_gs.txt"
+    html_file_path = "route_66_storia_di_una_strada_leggendaria.html"
+    testo_pulito_path = "route_66_storia_di_una_strada_leggendaria_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/viaggi-usa.it.json"
