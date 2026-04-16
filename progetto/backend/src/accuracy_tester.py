@@ -1,7 +1,7 @@
 import math
 
 
-title = "route_66_storia_di_una_strada_leggendaria"
+title = "isola_di_oahu_cosa_vedere_e_come_organizzare_le_vacanze"
 parsed_mk = f"./md_garbage/viaggi-usa/{title}.md"
 gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
 

@@ -14,9 +14,12 @@ import os
 
 async def main():
     #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
-    #link="https://www.viaggi-usa.it/eventi-san-diego/"
-    #link="https://www.viaggi-usa.it/passaporto-per-usa/"
-    link="https://www.viaggi-usa.it/route-66-storia/"
+    #link = "https://www.viaggi-usa.it/eventi-san-diego/"
+    #link = "https://www.viaggi-usa.it/passaporto-per-usa/"
+    #link = "https://www.viaggi-usa.it/route-66-storia/"
+    #link = "https://www.viaggi-usa.it/four-mile-old-west-town-museum/"
+    link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
+
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
@@ -58,9 +61,11 @@ async def main():
         '.su-u-trim',
         '.has-text-align-center',
         '.featured-links',
-        '.wp-block-list',
+        //'.wp-block-list',
         'p:has(> .featured-links)',
-        'p.has-text-align-center:has(a.featured-links)'
+        'p.has-text-align-center:has(a.featured-links)',
+        '.wp-element-caption',
+        '.has-text-align-center'
     ];
     
     patterns.forEach(selector => {
@@ -103,6 +108,9 @@ async def main():
     ris = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', ris)
     ris = re.sub(r'\s+([,.;!?])', r'\1', ris)
     ris = re.sub(r'Ecco quindi tutti i nostri articoli dedicati a.*?(?:[:\.])',"",ris,flags=re.IGNORECASE | re.DOTALL)
+    ris = re.sub(r'_(.*?)_', r'\1', ris) 
+    ris = re.sub(r'(\*\*|__)(.*?)\1', r'\2', ris)
+    ris = re.sub(r'\* ','',ris)
     
     #####################################################################################
 

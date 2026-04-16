@@ -4,12 +4,14 @@ import os
 def create_gold_standard_entry():
 
     #link ="https://www.viaggi-usa.it/passaporto-per-usa/"
-    #link="https://www.viaggi-usa.it/eventi-san-diego/"
+    #link = "https://www.viaggi-usa.it/eventi-san-diego/"
     #link ="https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
-    link="https://www.viaggi-usa.it/route-66-storia/"
+    #link = "https://www.viaggi-usa.it/route-66-storia/"
+    #link = "https://www.viaggi-usa.it/four-mile-old-west-town-museum/"
+    link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
 
-    html_file_path = "route_66_storia_di_una_strada_leggendaria.html"
-    testo_pulito_path = "route_66_storia_di_una_strada_leggendaria_gs.txt"
+    html_file_path = "isola_di_oahu_cosa_vedere_e_come_organizzare_le_vacanze.html"
+    testo_pulito_path = "isola_di_oahu_cosa_vedere_e_come_organizzare_le_vacanze_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/viaggi-usa.it.json"
@@ -31,7 +33,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "viaggi-usa.it",
-        "title": "Passaporto per USA: documenti, pratiche e tempi rilascio",
+        "title": "Isola di Oahu: cosa vedere e come organizzare le vacanze",
         "html_text": html_content,
         "gold_text": clean_text
     }

@@ -12,7 +12,7 @@ Durante i primi anni della sua esistenza, la Route 66 però non era completament
 Lungo il tragitto della Route 66 si incrociavano quindi numerose storie ed esperienze che furono raccontate e rese immortali da John Steinbeck nel romanzo Furore, uno dei suoi più grandi successi. Il romanzo narra infatti la storia della famiglia Joad, che lascia l’Oklahoma devastato dalla Dust Bowl per cercare una nuova vita in California.
 Proprio a Steinbeck si deve il soprannome più conosciuto della Route 66 che fu ribattezzata Mother Road, un nome che per molti rappresentava quello che cercavano percorrendola: sicurezza e speranza.
 Durante la Seconda Guerra Mondiale la strada divenne sempre più utilizzata a causa delle necessità militari degli Stati Uniti e il traffico si intensificò talmente tanto che per la prima volta a Washington si iniziò a pensare ad una soluzione che rendesse più agevoli gli spostamenti attraverso gli States.
-Furono gli anni dell’immediato dopoguerra che sancirono definitivamente la fama della _Mother Road_, alla quale fu dedicata la canzone (Get your Kicks) ok Route 66, inizialmente interpretata da Bobby Troup e poi ripresa da numerosi artisti fra i quali Chuck Berry, i Rolling Stones e Nat King Cole.
+Furono gli anni dell’immediato dopoguerra che sancirono definitivamente la fama della Mother Road, alla quale fu dedicata la canzone (Get your Kicks) ok Route 66, inizialmente interpretata da Bobby Troup e poi ripresa da numerosi artisti fra i quali Chuck Berry, i Rolling Stones e Nat King Cole.
 Sempre in questo periodo lungo il percorso nacquero e si svilupparono numerosi business quali motel, stazioni di servizio, drive in e trappole per turisti che fecero dell’illuminazione al neon il loro marchio di fabbrica che li rese e li rende immediatamente riconoscibili tutt’oggi.
 La notorietà della Route 66 fu confermata e ampliata perfino da una serie televisiva omonima che iniziò ad essere trasmessa agli inizi degli anni ’60.
 È lungo la Route 66 che si è sviluppata l’industria del fast-food, con esempi emblematici come il Red Giant Hamburgs a Springfield, Missouri, uno dei primi drive-in, e il primo McDonald’s a San Bernardino, California. In realtà, il primo locale della famiglia McDonald’s era nato nel 1937 a Monrovia in California, e si chiamava “The Airdrome”. 
@@ -29,7 +29,17 @@ Forse non tutti sanno, però, che esiste anche una “Madre della Mother Road �
 Lucille divenne una leggenda della Route 66 per i viaggiatori, poiché offriva ospitalità a chiunque non avesse denaro per pagarsi un pasto o un posto letto. Il suo altruismo fu ripagato anni dopo, quando fu inserita nella Oklahoma Route 66 Hall of Fame, riconoscimento del suo contributo e della sua dedizione ai viaggiatori della storica strada
  Cosa rimane oggi
 Anche se rimangono larghi tratti del tracciato originale oggi la Ruote 66, almeno ufficialmente, non esiste più. Su alcune cartine stradali infatti non la vedrete neanche indicata perché una nuova numerazione ha preso il posto di quella vecchia. Quello che era la Route 66 oggi è essenzialmente un mix discontinuo di manto stradale originale, successive modifiche, sovrapposizioni con le Interstate e tratti ormai ridotti a sentieri o del tutto abbandonati.
-Non fatevi comunque scoraggiare da quanto detto perché localizzare il percorso della _Mother Road_ non è un’impresa proibitiva ma alla portata di tutti e vi assicuriamo che vi potrà garantire grandi soddisfazioni. Più dell’ottanta percento del tracciato originale infatti è ancora facilmente percorribile e attraverso le guide che abbiamo pubblicato potrete scoprire la magia della Route 66. 
+Non fatevi comunque scoraggiare da quanto detto perché localizzare il percorso della Mother Road non è un’impresa proibitiva ma alla portata di tutti e vi assicuriamo che vi potrà garantire grandi soddisfazioni. Più dell’ottanta percento del tracciato originale infatti è ancora facilmente percorribile e attraverso le guide che abbiamo pubblicato potrete scoprire la magia della Route 66. 
+
+  * Route 66 in Illinois
+  * Route 66 in Missouri
+  * Route 66 in Kansas
+  * Route 66 in Oklahoma
+  * Route 66 in Texas
+  * Route 66 in New Mexico
+  * Route 66 in Arizona
+  * Route 66 in California
+
 
 
   
