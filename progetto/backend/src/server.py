@@ -5,9 +5,10 @@ from typing import List, Dict, Optional
 import os
 import json
 
-from crawler_test_cbs import parser_cbs
-from crawler_test_cnbc import parser_cnbc
-from crawler_test_wiki import parser_wiki
+from src.crawler_test_cbs import parser_cbs
+from src.crawler_test_cnbc import parser_cnbc
+from src.crawler_test_wiki import parser_wiki
+from src.crawler_test_viaggi_usa import parser_viaggi_usa
 
 app = FastAPI(title="Web Scraper API")
 
@@ -70,6 +71,10 @@ async def parse_article(url: str = Query(..., description="L'URL dell'articolo d
     elif domain == "cnbc.com":
         risultato = await parser_cnbc(url)
         return risultato
+    
+    elif domain == "viaggi-usa.it":
+        risultato = await parser_viaggi_usa(url)
+        return risultato
         
     else:
         raise HTTPException(status_code=400, detail=f"Dominio non supportato: {domain}")
@@ -79,7 +84,7 @@ async def parse_article(url: str = Query(..., description="L'URL dell'articolo d
 
 @app.get("/domains", response_model=DomainsResponse)
 async def get_supported_domains():
-    file_path = f"../../domains.json"
+    file_path = f"../domains.json"
 
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail=f"domains.json not exists")
@@ -97,7 +102,7 @@ async def get_single_gold_standard(url: str):
     parsed_uri = urlparse(url)
     domain = parsed_uri.netloc.replace("www.", "")
     
-    file_path = f"../../gs_data/{domain}.json"
+    file_path = f"../gs_data/{domain}.json"
     
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="Dominio non presente nel Gold Standard.")
@@ -116,7 +121,7 @@ async def get_single_gold_standard(url: str):
 
 @app.get("/full_gold_standard", response_model=List[GoldStandardEntry])
 async def get_full_gold_standard(domain: str):
-    file_path = f"../../gs_data/{domain}.json"
+    file_path = f"../gs_data/{domain}.json"
     
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail=f"Gold standard per il dominio {domain} non trovato.")
@@ -127,14 +132,11 @@ async def get_full_gold_standard(domain: str):
     return data
 
 
-
 ################### EVALUATE ###################
 
 @app.post("/evaluate", response_model=EvaluateResponse)
 async def evaluate_text(data: EvaluateRequest):
-    return {"token_level_eval": TokenLevelEval(precision=0.0, recall=0.0, f1=0.0)}
-
-
+    return {"token_level_eval": TokenLevelEval(precision=0.0, recall=0.0, f1=0.0, jaccard_similarity= 0.0, overlap_coefficient= 0.0, cosine_similarity= 0.0)}
 
 
 
@@ -149,4 +151,4 @@ async def evaluate_text(data: EvaluateRequest):
     
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)

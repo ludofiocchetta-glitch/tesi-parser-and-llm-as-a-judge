@@ -13,12 +13,12 @@ import os
 
 
 async def parser_wiki(url:str):
-    #link1= "https://en.wikipedia.org/wiki/Donald_Trump"
-    #link2="https://en.wikipedia.org/wiki/Artificial_intelligence"
-    #link3 = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    #link4="https://en.wikipedia.org/wiki/Lanzarote"
+    #link = "https://en.wikipedia.org/wiki/Donald_Trump"
+    #link = "https://en.wikipedia.org/wiki/Artificial_intelligence"
+    #link = "https://en.wikipedia.org/wiki/Charles_Darwin"
+    #link = "https://en.wikipedia.org/wiki/Lanzarote"
     #link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-    #link6 = "https://en.wikipedia.org/wiki/Scooby-Doo"
+    #link = "https://en.wikipedia.org/wiki/Scooby-Doo"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)

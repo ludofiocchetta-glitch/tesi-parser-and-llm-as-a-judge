@@ -12,19 +12,16 @@ import json
 import os
 
 
-async def main():
+async def parser_viaggi_usa(url: str):
     #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
     #link = "https://www.viaggi-usa.it/eventi-san-diego/"
     #link = "https://www.viaggi-usa.it/passaporto-per-usa/"
     #link = "https://www.viaggi-usa.it/route-66-storia/"
     #link = "https://www.viaggi-usa.it/four-mile-old-west-town-museum/"
-    link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
-
+    #link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
-
-
 
     #generatore per migliorare il Markdown creato
     md_generator = DefaultMarkdownGenerator(
@@ -86,7 +83,7 @@ async def main():
 
     #struttura tipo open file
     async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=link, config=crawler_config)
+        result = await pippo.arun(url=url, config=crawler_config)
 
 
     # in result ci sono un botto di campi:
@@ -130,7 +127,7 @@ async def main():
     #creo il dizionario
 
     dati_estratti = {
-        "url": link,
+        "url": url,
         "domain": "viaggi-usa.it",
         "title": titolo_pag,
         "html_text": result.html,
@@ -138,27 +135,29 @@ async def main():
     }
 
     ##########################  PATH  ##################################################
-    dest_json = "./json_garbage/viaggi-usa" 
-    dest_md = "./md_garbage/viaggi-usa"
+    #dest_json = "./json_garbage/viaggi-usa" 
+    #dest_md = "./md_garbage/viaggi-usa"
     
-    os.makedirs(dest_json, exist_ok=True)
-    os.makedirs(dest_md, exist_ok=True)
+    #os.makedirs(dest_json, exist_ok=True)
+    #os.makedirs(dest_md, exist_ok=True)
 
-    path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    path_md = os.path.join(dest_md, f"{titolo_file}.md")
+    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
+    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
 
     ##########################  SCRITTURA IN JSON  #####################################
 
-    with open(path_json, "w", encoding="utf-8") as file:
-        json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
+    #with open(path_json, "w", encoding="utf-8") as file:
+    #    json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
 
     ##########################  SCRITTURA IN MD  #######################################
     
-    with open(path_md, "w", encoding="utf-8") as file:
-        file.write(ris)
-    print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
+    #with open(path_md, "w", encoding="utf-8") as file:
+    #    file.write(ris)
+    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
 
     ####################################################################################
 
-asyncio.run(main())
+    return dati_estratti
+
+#asyncio.run(main())

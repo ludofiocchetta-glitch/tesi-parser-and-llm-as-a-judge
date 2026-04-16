@@ -14,12 +14,12 @@ import os
 
 async def parser_cnbc(url:str):
 
-    #link="https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
-    #link5="https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
-    #link4="https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
-    #link3="https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
-    #link2 = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
-    #link1 = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
+    #link = "https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
+    #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
+    #link = "https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
+    #link = "https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
+    #link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
+    #link = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Parser Documenti - Esonero 1</title>
+        <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .error { color: red; font-weight: bold; }
+        .result-box { border: 1px solid #ccc; padding: 15px; margin-top: 20px; }
+        </style>
+    </head>
+    <body>
+
+        <h1>Pipeline di Acquisizione e Analisi Documenti</h1>
+
+        <section>
+            <h2>Analizza un URL</h2>
+            <form action="{{ url_for('analyze_url') }}" method="post">
+                <label for="url">Inserisci l'URL da parsare:</label>
+                <br>
+                <br>
+                <input type="url"
+                       id="url"
+                       name="url"
+                       size="50"
+                       required
+                       placeholder="https://www.esempio.com/articolo">
+                <button type="submit">Esegui Parsing</button>
+            </form>
+        </section>
+
+        {% if domains %}
+            <section>
+                <h3>Domini supportati dal backend:</h3>
+                <ul>
+                    {% for domain in domains %}<li>{{ domain }}</li>{% endfor %}
+                </ul>
+            </section>
+        {% endif %}
+
+        {% if error %}<p class="error">Si è verificato un errore: {{ error }}</p>{% endif %}
+
+        {% if parsed_data %}
+            <div class="result-box">
+                <h2>Risultati del Parsing</h2>
+                <p>
+                    <strong>URL Analizzato:</strong> {{ parsed_data.url }}
+                </p>
+                <p>
+                    <strong>Dominio Rilevato:</strong> {{ parsed_data.domain }}
+                </p>
+                <p>
+                    <strong>Titolo della Pagina:</strong> {{ parsed_data.title }}
+                </p>
+
+                <h3>Testo Estratto:</h3>
+                <pre>{{ parsed_data.parsed_text }}</pre>
+            </div>
+        {% endif %}
+
+    </body>
+</html>

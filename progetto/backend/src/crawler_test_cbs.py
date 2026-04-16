@@ -14,12 +14,12 @@ import os
 
 async def parser_cbs(url:str):
 
-    #link="https://www.cbsnews.com/news/omaha-nebraska-police-kill-woman-slashed-child-knife-walmart/"
-    #link5="https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
-    #link4="https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-rising/"
-    #link3="https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
-    #link2="https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
-    #link1="https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
+    #link = "https://www.cbsnews.com/news/omaha-nebraska-police-kill-woman-slashed-child-knife-walmart/"
+    #link = "https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
+    #link = "https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-rising/"
+    #link = "https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
+    #link = "https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
+    #link = "https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
     #configuro il browser
     browser_config = BrowserConfig(headless=True)
