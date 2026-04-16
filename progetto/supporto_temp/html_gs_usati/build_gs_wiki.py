@@ -11,8 +11,8 @@ def create_gold_standard_entry():
     html_file_path = "charles_darwin.html"
     testo_pulito_path = "charles_darwin_gs.txt"
     
-    os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/en.wikipedia.org.json"
+    os.makedirs("../../gs_data", exist_ok=True)
+    output_json_path = "../../gs_data/en.wikipedia.org.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:

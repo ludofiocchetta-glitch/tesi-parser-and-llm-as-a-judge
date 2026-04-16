@@ -13,8 +13,8 @@ def create_gold_standard_entry():
     html_file_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona.html"
     testo_pulito_path = "grand_canyon_guida_al_meraviglioso_parco_dellarizona_gs.txt"
     
-    os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/viaggi-usa.it.json"
+    os.makedirs("../../gs_data", exist_ok=True)
+    output_json_path = "../../gs_data/viaggi-usa.it.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:

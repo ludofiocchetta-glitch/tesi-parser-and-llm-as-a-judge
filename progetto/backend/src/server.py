@@ -79,7 +79,15 @@ async def parse_article(url: str = Query(..., description="L'URL dell'articolo d
 
 @app.get("/domains", response_model=DomainsResponse)
 async def get_supported_domains():
-    return {"domains": ["en.wikipedia.org", "it.wikipedia.org"]}
+    file_path = f"../../domains.json"
+
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail=f"domains.json not exists")
+    
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    return data
 
 
 ################### GOLD STANDARD ###################
@@ -117,6 +125,7 @@ async def get_full_gold_standard(domain: str):
         data = json.load(f)
         
     return data
+
 
 
 ################### EVALUATE ###################

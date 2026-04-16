@@ -11,8 +11,8 @@ def create_gold_standard_entry():
     html_file_path = "woman_killed_by_police_at_omaha_walmart_after_allegedly_kidnapping_slashing_child.html"
     testo_pulito_path = "woman_killed_by_police_at_omaha_walmart_after_allegedly_kidnapping_slashing_child_gs.txt"
     
-    os.makedirs("../gs_data", exist_ok=True)
-    output_json_path = "../gs_data/cbsnews.com.json"
+    os.makedirs("../../gs_data", exist_ok=True)
+    output_json_path = "../../gs_data/cbsnews.com.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:
