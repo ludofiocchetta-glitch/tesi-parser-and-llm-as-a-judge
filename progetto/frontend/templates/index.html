@@ -1,153 +1,263 @@
 <!DOCTYPE html>
 <html lang="it">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Parser Documenti - Esonero 1</title>
-        <style>
-           body { 
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-                background-color: #eef2f6; 
-                color: #272f58; 
-                margin: 0; 
-                padding: 40px 20px;
-            }
-
-            .container {
-                background-color: #ffffff;
-                max-width: 700px; /* Un po' più stretto per evitare che si allarghi troppo */
-                margin: 0 auto; /* Centra la scheda nello schermo */
-                padding: 40px 50px;
-                border-radius: 12px;
-                box-shadow: 0 10px 30px rgba(13, 33, 55, 0.12);
-                border-top: 8px solid #0f2027;
-                display: flex;
-                flex-direction: column; /* Costringe tutto a stare in verticale */
-            }
-
-            h1 { color: #18313c; text-align: center; margin-top: 0; margin-bottom: 40px; font-size: 28px; }
-            h2 { color: #142835; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-top: 0; margin-bottom: 20px; }
-            h3 { color: #203a43; font-size: 13px; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: bold;}
-            
-            form {
-                display: flex;
-                flex-direction: column;
-            }
-
-            /* Input di testo */
-            label { font-weight: 600; color: #2c3e50; margin-bottom: 8px; }
-            input[type="url"] {
-                width: 100%;
-                padding: 14px 16px;
-                margin-bottom: 20px; 
-                border: 1px solid #cbd5e1;
-                border-radius: 6px;
-                box-sizing: border-box;
-                font-size: 16px;
-                background-color: #f8fafc;
-            }
-            input[type="url"]:focus {
-                border-color: #203a43;
-                background-color: #ffffff;
-                outline: none;
-                box-shadow: 0 0 0 3px rgba(32, 58, 67, 0.15);
-            }
-
-            /* Riquadro dei Domini Supportati */
-            .domains-wrapper {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parser Documenti - Esonero 1</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; 
+            background-color: #eef2f6; 
+            color: #1a252f;
+            margin: 0; 
+            padding: 30px; 
+        }
+        .container { 
+            background-color: #ffffff; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 30px rgba(13,33,55,0.1); 
+            border-top: 8px solid #0f2027; 
+            display: flex; 
+            flex-direction: column;
+        }
+        h1 { 
+            color: #0f2027; 
+            text-align: center; 
+            margin-top: 0; 
+            margin-bottom: 30px; 
+        }
+        h2 { 
+            color: #142835; 
+            border-bottom: 2px solid #e2e8f0; 
+            padding-bottom: 10px; 
+            margin-top: 0; 
+        }
+        
+        form { 
+            display: flex; 
+            flex-direction: column; 
+        }
+        label { 
+            font-weight: bold; 
+            color: #2c3e50; 
+            margin-bottom: 8px; 
+            margin-top: 15px;
+        }
+        select, input[type="url"] { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 10px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; font-size: 15px; 
+            box-sizing: border-box; 
+            background-color: #f8fafc;
+        }
+        select:focus, input[type="url"]:focus { 
+            border-color: #203a43; 
+            background-color: #ffffff; 
+            outline: none; 
+            box-shadow: 0 0 0 3px rgba(32, 58, 67, 0.15); 
+        }
+        .domains-wrapper {
                 margin-bottom: 25px; 
-            }
+        }
+        ul { 
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+        }
+        li { 
+            background: #203a43; 
+            color: #ffffff; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: 600; 
+        }
+        button { 
+            background-color: #1c3843; 
+            color: white; 
+            padding: 15px; border: none; 
+            border-radius: 6px; font-size: 16px; 
+            font-weight: bold; cursor: pointer; 
+            width: 100%; text-transform: uppercase; 
+            margin-top: 10px; transition: 0.3s; 
+            letter-spacing: 1px;
+        }
+        button:hover { 
+            background-color: #1d3557; 
+        }
 
-            /* Badge dei domini in blu scuro */
-            ul { list-style-type: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-            li { 
-                background: #203a43; 
-                color: #ffffff; 
-                padding: 6px 14px; 
-                border-radius: 20px; 
-                font-size: 13px; 
-                font-weight: 600; 
-            }
+        .comparison-grid { 
+            display: flex; 
+            gap: 20px; 
+            margin-top: 20px; 
+        }
+        .comparison-col { 
+            flex: 1; 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            padding: 20px; 
+            min-width: 0; 
+        }
+        .comparison-col h3 { 
+            text-align: center; 
+            color: #1d3557; 
+            margin-top: 0;
+        }
+        pre { 
+            background-color: #0f2027; 
+            color: #f1f5f9;
+            padding: 15px; 
+            border-radius: 6px; 
+            overflow-y: auto; 
+            max-height: 500px; 
+            white-space: pre-wrap; 
+            font-family: monospace; 
+            font-size: 13px; 
+            line-height: 1.6;
+        }
+        .success-banner { 
+            background-color: #d4edda; 
+            color: #40814f; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            text-align: center; 
+            margin: 30px 0 20px 0; 
+            border: 1px solid #c3e6cb;
+        }
+        .unsuccess-banner {
+            background-color: #b4b7b9; 
+            color: #3b3f46; 
+            padding: 15px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            text-align: center; 
+            margin: 30px 0 20px 0; 
+            border: 1px solid #919293;
+        }
+        .metrics-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px;
+         }
+        .metric-card { 
+            background: #fff; 
+            padding: 20px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            border-top: 4px solid #1d3557; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+        }
+        .metric-card p { 
+            margin: 8px 0;
+        }
+        .highlight { 
+            font-weight: bold; 
+            color: #1d3557; 
+            font-size: 1.1em;
+        }
+        .error { 
+            background-color: #ffeaea; 
+            color: #c0392b; 
+            padding: 15px; 
+            border-left: 5px solid #c0392b; 
+            font-weight: bold;
+             margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
 
-            /* Bottoni */
-            button {
-                background-color: #1c3843;
-                color: white;
-                padding: 15px 25px;
-                border: none;
-                border-radius: 6px;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: background-color 0.3s;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-                width: 100%;
-            }
-            button:hover { background-color: #1d3557; }
-            .btn-eval { background-color: #1d3557; margin-top: 20px;}
-            .btn-eval:hover { background-color: #2a4b7c; }
+<div class="container">
+    <h1>Pipeline di acquisizione e analisi</h1>
 
-            /* stili per risultati ed errori */
-            .section-box { margin-bottom: 40px; }
-            .error { background-color: #ffeaea; color: #c0392b; padding: 15px; border-left: 5px solid #c0392b; border-radius: 4px; font-weight: bold; margin-bottom: 30px; }
-            .result-box { background: #ffffff; border: 2px solid #e2e8f0; padding: 30px; margin-top: 30px; border-radius: 8px; }
-            .result-box p { margin: 12px 0; font-size: 15px; color: #2c3e50; }
-            pre { background-color: #0f2027; color: #f1f5f9; padding: 20px; border-radius: 6px; overflow-y: auto; max-height: 350px; white-space: pre-wrap; font-family: monospace; line-height: 1.6; }
-            .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-            .metric-card { background: #f8fafc; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; border-top: 4px solid #1d3557; }
-            .metric-card h3 { border-bottom: none; margin-top: 0; }
-            .highlight { color: #1d3557; font-size: 1.2em; font-weight: 800; }
-        </style>
-    </head>
-    <body>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
 
-        <h1>Pipeline di Acquisizione e Analisi Documenti</h1>
+    <section>
+        <h2>Analizza un URL</h2>
+        <form action="{{ url_for('analyze_url') }}" method="post">
+            
+            {% if gs_urls %}
+            <label for="gs_dropdown">Seleziona un URL dal Gold Standard (opzionale):</label>
+            <select id="gs_dropdown" onchange="document.getElementById('url_parse').value = this.value">
+                <option value="">-- Scegli un URL per la valutazione --</option>
+                {% for gs_url in gs_urls %}
+                    <option value="{{ gs_url }}">{{ gs_url }}</option>
+                {% endfor %}
+            </select>
+            {% endif %}
 
-        <section>
-            <h2>Analizza un URL</h2>
-            <form action="{{ url_for('analyze_url') }}" method="post">
-                <label for="url">Inserisci l'URL da parsare:</label>
-                <br>
-                <br>
-                <input type="url"
-                       id="url"
-                       name="url"
-                       size="50"
-                       required
-                       placeholder="https://www.esempio.com/articolo">
-                <button type="submit">Esegui Parsing</button>
-            </form>
-        </section>
-
-        {% if domains %}
-            <section>
-                <h3>Domini supportati dal backend:</h3>
+            <label for="url_parse">Oppure inserisci un URL manualmente:</label>
+            <input type="url" id="url_parse" name="url" required placeholder="https://www.esempio.com/articolo">
+            {% if domains %}
+                <div class="domains-wrapper">
+                <h3>Domini supportati:</h3>
                 <ul>
-                    {% for domain in domains %}<li>{{ domain }}</li>{% endfor %}
+                    {% for domain in domains %}
+                    <li>{{ domain }}</li>
+                    {% endfor %}
                 </ul>
-            </section>
-        {% endif %}
+                </div>
+            {% endif %}
+            <button type="submit">Esegui Elaborazione Completa</button>
+        </form>
+    </section>
 
-        {% if error %}<p class="error">Si è verificato un errore: {{ error }}</p>{% endif %}
+    {% if parsed_data %}
+        <div style="margin-top: 40px;">
+            <h2>Risultato dell'Estrazione</h2>
+            <p><strong>URL:</strong> <a href="{{ parsed_data.url }}" target="_blank">{{ parsed_data.url }}</a></p>
+            <p><strong>Titolo:</strong> {{ parsed_data.title }}</p>
 
-        {% if parsed_data %}
-            <div class="result-box">
-                <h2>Risultati del Parsing</h2>
-                <p>
-                    <strong>URL Analizzato:</strong> {{ parsed_data.url }}
-                </p>
-                <p>
-                    <strong>Dominio Rilevato:</strong> {{ parsed_data.domain }}
-                </p>
-                <p>
-                    <strong>Titolo della Pagina:</strong> {{ parsed_data.title }}
-                </p>
-
-                <h3>Testo Estratto:</h3>
-                <pre>{{ parsed_data.parsed_text }}</pre>
+            <div class="comparison-grid">
+                <div class="comparison-col">
+                    <h3>HTML grezzo</h3>
+                    <pre>{{ parsed_data.html_text }}</pre>
+                </div>
+                <div class="comparison-col">
+                    <h3>Testo pulito</h3>
+                    <pre>{{ parsed_data.parsed_text }}</pre>
+                </div>
             </div>
-        {% endif %}
+        </div>
+    {% endif %}
 
-    </body>
+    {% if eval_data %}
+        <div class="success-banner">
+             URL appartenente al Gold Standard, valutazione completata.
+        </div>
+        
+        <h2>Valutazione metriche</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3 style="margin-top:0;">Metriche standard</h3>
+                <p>precision: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.precision) }}</span></p>
+                <p>Recall: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.recall) }}</span></p>
+                <p>F1 score: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.f1) }}</span></p>
+            </div>
+            <div class="metric-card">
+                <h3 style="margin-top:0;">Metriche avanzate</h3>
+                <p>Jaccard similarity: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.jaccard_similarity) }}</span></p>
+                <p>Overlap coefficient: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.overlap_coefficient) }}</span></p>
+                <p>Cosine similarity: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.cosine_similarity) }}</span></p>
+            </div>
+        </div>
+    {% elif parsed_data %}
+        <div class="unsuccess-banner">
+            Metriche non disponibili: l'URL non è presente nei file del Gold Standard.
+        </div>
+    {% endif %}
+
+</div>
+
+</body>
 </html>

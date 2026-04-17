@@ -2,53 +2,73 @@ from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 import httpx
-import os
 
 app = FastAPI(title="Frontend Esonero 1")
-
 templates = Jinja2Templates(directory="templates")
-
 BACKEND_URL = "http://backend:8003"
+
+async def get_home_data():
+    domains = []
+    gs_urls = []
+    async with httpx.AsyncClient() as client:
+        try:
+            dom_resp = await client.get(f"{BACKEND_URL}/domains")
+            if dom_resp.status_code == 200:
+                domains = dom_resp.json().get("domains", [])
+            
+            for d in domains:
+                gs_resp = await client.get(f"{BACKEND_URL}/full_gold_standard", params={"domain": d})
+                if gs_resp.status_code == 200:
+                    for item in gs_resp.json():
+                        gs_urls.append(item.get("url"))
+        except:
+            pass
+    return domains, gs_urls
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.get(f"{BACKEND_URL}/domains")
-            response.raise_for_status()
-            domains = response.json().get("domains", [])
-        except httpx.RequestError:
-            domains = [] 
-
-    return templates.TemplateResponse(
-        request=request, 
-        name="index.html", 
-        context={"domains": domains}
-    )
+    domains, gs_urls = await get_home_data()
+    return templates.TemplateResponse(request=request, name="index.html", context={"domains": domains, "gs_urls": gs_urls})
 
 @app.post("/analyze", response_class=HTMLResponse)
 async def analyze_url(request: Request, url: str = Form(...)):
-    async with httpx.AsyncClient() as client:
-        response = await client.get(f"{BACKEND_URL}/parse", params={"url": url})
+    domains, gs_urls = await get_home_data()
+    
+    parsed_data = None
+    eval_data = None
+    error = None
+
+    async with httpx.AsyncClient(timeout=30.0) as client:
         try:
-            if response.status_code == 200:
-                parsed_data = response.json()
-                error = None
+            parse_resp = await client.get(f"{BACKEND_URL}/parse", params={"url": url})
+            
+            if parse_resp.status_code == 200:
+                parsed_data = parse_resp.json()
+                
+                gs_resp = await client.get(f"{BACKEND_URL}/gold_standard", params={"url": url})
+                
+                if gs_resp.status_code == 200:
+                    gold_text = gs_resp.json().get("gold_text")
+                    eval_resp = await client.post(f"{BACKEND_URL}/evaluate", json={
+                        "parsed_text": parsed_data["parsed_text"],
+                        "gold_text": gold_text
+                    })
+                    if eval_resp.status_code == 200:
+                        eval_data = eval_resp.json()
             else:
-                try:
-                    error = response.json().get("detail", "Errore del server backend")
-                except:
-                    error = f"Il backend ha risposto con errore {response.status_code}"
-                parsed_data = None
+                error = parse_resp.json().get("detail", f"Errore backend: {parse_resp.status_code}")
+        
         except Exception as e:
-            error = f"Errore di comunicazione: {str(e)}"
-            parsed_data = None
+            error = f"Errore di comunicazione con il server: {str(e)}"
 
     return templates.TemplateResponse(
         request=request, 
         name="index.html", 
         context={
-            "parsed_data": parsed_data,
+            "domains": domains, 
+            "gs_urls": gs_urls, 
+            "parsed_data": parsed_data, 
+            "eval_data": eval_data, 
             "error": error
         }
     )
