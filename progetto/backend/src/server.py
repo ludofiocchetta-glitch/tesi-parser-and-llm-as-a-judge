@@ -9,6 +9,7 @@ from src.crawler_test_cbs import parser_cbs
 from src.crawler_test_cnbc import parser_cnbc
 from src.crawler_test_wiki import parser_wiki
 from src.crawler_test_viaggi_usa import parser_viaggi_usa
+from src.accuracy_tester import calculate_metrics
 
 app = FastAPI(title="Web Scraper API")
 
@@ -37,6 +38,8 @@ class TokenLevelEval(BaseModel):
     precision: float
     recall: float
     f1: float
+
+class XEval(BaseModel):
     jaccard_similarity: float
     overlap_coefficient:float
     cosine_similarity:float
@@ -47,7 +50,7 @@ class EvaluateRequest(BaseModel):
 
 class EvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
-
+    x_eval: XEval
 
 
 ################### PARSE ###################
@@ -136,7 +139,17 @@ async def get_full_gold_standard(domain: str):
 
 @app.post("/evaluate", response_model=EvaluateResponse)
 async def evaluate_text(data: EvaluateRequest):
-    return {"token_level_eval": TokenLevelEval(precision=0.0, recall=0.0, f1=0.0, jaccard_similarity= 0.0, overlap_coefficient= 0.0, cosine_similarity= 0.0)}
+    ris=calculate_metrics(data.parsed_text,data.gold_text)
+    return {"token_level_eval": TokenLevelEval (
+            precision=ris["precision"],
+            recall=ris["recall"],
+            f1=ris["f1"]
+        ),
+        "x_eval": XEval(
+            jaccard_similarity=ris["jaccard_similarity"],
+            overlap_coefficient=ris["overlap_coefficient"],
+            cosine_similarity=ris["cosine_similarity"]
+        )}
 
 
 

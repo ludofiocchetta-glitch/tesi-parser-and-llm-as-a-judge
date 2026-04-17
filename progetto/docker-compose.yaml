@@ -7,6 +7,7 @@ services:
     volumes:
       - ./gs_data:/app/gs_data
       - ./domains.json:/app/domains.json
+      - ./backend/src:/app/backend/src
     restart: always
 
   frontend:
@@ -14,6 +15,8 @@ services:
     container_name: frontend_service
     ports:
       - "8000:8000"
+    volumes:
+      - ./frontend:/app/frontend
     depends_on:
       - backend
     restart: always
