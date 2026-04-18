@@ -1,15 +1,8 @@
-#import per crawl4ai
-import asyncio
+#import for crawl4ai
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
 
-#import per pulizia md
+#import for md cleaning
 import re  
-
-#import per formato json
-import json
-
-#import per gestione file
-import os
 
 
 async def parser_wiki(url:str):
@@ -20,12 +13,10 @@ async def parser_wiki(url:str):
     #link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
     #link = "https://en.wikipedia.org/wiki/Scooby-Doo"
 
-    #configuro il browser
+    #brower configuration
     browser_config = BrowserConfig(headless=True)
 
-
-
-    #generatore per migliorare il Markdown creato
+    #generator for markdown with custom options
     md_generator = DefaultMarkdownGenerator(
         options={
             "ignore_links": True,
@@ -34,8 +25,7 @@ async def parser_wiki(url:str):
         }
     )
 
-    #javascript snippet per togliere l'infobox,sidebar,hatnote...
-    #e le descrizioni sotto le immagini
+    #javascript snippet 
     remove_infobox_js = """
         const infoboxes = document.querySelectorAll('.infobox, .sidebar, .vertical-navbox, .navbox, .portal, .toc, .metadata, .ambox, .hatnote, .shortdescription, .figcaption, .thumbcaption');
         infoboxes.forEach(box => box.remove());
@@ -43,91 +33,49 @@ async def parser_wiki(url:str):
         figures.forEach(f => f.remove());
     """
 
-
     css_list = ["h1#firstHeading","#mw-content-text"]
-    #configuro il tipo di richiesta, bypassando la cache         
+    #configuration for the crawler run
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
-                                      target_elements=css_list, # questa parte per avere un testo più pulito.
-                                      markdown_generator=md_generator, # questo per generare markdown con personalizzazione
+                                      target_elements=css_list, # for cleaner output
+                                      markdown_generator=md_generator, # for md generation with custom options
                                       js_code= remove_infobox_js
                                     )
+    # Execute crawler
+    async with AsyncWebCrawler(config=browser_config) as crawler:
+        result = await crawler.arun(url=url, config=crawler_config)
 
-    #struttura tipo open file
-    async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=url, config=crawler_config)
-
-
-    # in result ci sono un botto di campi:
-    #result.succes
-    #result.error_message
-
-    #result.markdown
-    #result.cleaned_html
-    #result.html
-
+ 
+    ##########################  MARKDOWN CLEANUP  ##########################
     
-    ##########################  PULIZIA DEL MARKDOWN  ##########################
-    
-    ris = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|\[show\]|\[update\]|\[\s*\]|ⓘ", "", result.markdown)
-    ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
-    ris=re.sub(r"\[citation needed\]|\[clarification needed\]|\[supporting\]|\[[A-Z]+\]","",ris)
-    # rimuove separatori delle wikitable
-    ris = re.sub(r"^\|[-:\s|]+\|\n?", "", ris, flags=re.MULTILINE)
-    ris = re.sub(r"\s*\|\s*", " ", ris)
-    ris=re.sub(r"\*\*","",ris)
-    testo = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", ris, flags=re.IGNORECASE)
-    ris = testo[0].strip()
+    clean_text = re.sub(r"\[[a-z]\]|\[\d+\]|\[edit\]|\[show\]|\[update\]|\[\s*\]|ⓘ", "", result.markdown)
+    clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
+    clean_text = re.sub(r"\[citation needed\]|\[clarification needed\]|\[supporting\]|\[[A-Z]+\]","",clean_text)
+    clean_text = re.sub(r"^\|[-:\s|]+\|\n?", "", clean_text, flags=re.MULTILINE)
+    clean_text = re.sub(r"\s*\|\s*", " ", clean_text)
+    clean_text = re.sub(r"\*\*","",clean_text)
+    text = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", clean_text, flags=re.IGNORECASE)
+    clean_text = text[0].strip()
 
-    
-    #####################################################################################
 
-    ##########################  CREAZIONE JSON     ###################################
+    ##########################  JSON  CREATION   ##########################
     
-    #estraggo il titolo
-    titolo_match=re.search(r'<title>(.*?)</title>',result.html,re.IGNORECASE)
-    if titolo_match:
-        titolo_pag= titolo_match.group(1).replace( " - Wikipedia","")
-        titolo_file= titolo_pag.lower().replace(" ", "_")
+    # Title extraction
+    title_match=re.search(r'<title>(.*?)</title>', result.html, re.IGNORECASE)
+    if title_match:
+        page_title= title_match.group(1).replace( " - Wikipedia","")
     else:
-        titolo_pag="titolo non trovato"
-        titolo_file= "titolo_non_trovato"
+        page_title="title_not_found"
 
-    ris="\n".join(ris.splitlines()[1:])
-    #creo il dizionario
+    clean_text="\n".join(clean_text.splitlines()[1:])
 
-    dati_estratti = {
+    #json creation
+    extracted_data = {
         "url": url,
         "domain": "en.wikipedia.org",
-        "title": titolo_pag,
+        "title": page_title,
         "html_text": result.html,
-        "parsed_text": ris 
+        "parsed_text": clean_text 
     }
 
-    ##########################  PATH  ##################################################
-    #dest_json = "./json_garbage/wikipedia" 
-    #dest_md = "./md_garbage/wikipedia"
-    
-    #os.makedirs(dest_json, exist_ok=True)
-    #os.makedirs(dest_md, exist_ok=True)
-
-    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
-
-    ##########################  SCRITTURA IN JSON  #####################################
-
-    #with open(path_json, "w", encoding="utf-8") as file:
-        #json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
-
-    ##########################  SCRITTURA IN MD  #######################################
-    
-    #with open(path_md, "w", encoding="utf-8") as file:
-        #file.write(ris)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
-
-    ####################################################################################
-    
-    return dati_estratti
-
-#asyncio.run(main())
+    return extracted_data

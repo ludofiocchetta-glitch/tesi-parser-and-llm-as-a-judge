@@ -1,32 +1,22 @@
-#import per crawl4ai
-import asyncio
+#import for crawl4ai
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
 
-#import per pulizia md
+#import for md cleaning
 import re  
-
-#import per formato json
-import json
-
-#import per gestione file
-import os
 
 
 async def parser_cbs(url:str):
-
     #link = "https://www.cbsnews.com/news/omaha-nebraska-police-kill-woman-slashed-child-knife-walmart/"
-    #link = "https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-risk-study/"
-    #link = "https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-rising/"
+    #link = "https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-clean_textk-study/"
+    #link = "https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-clean_texting/"
     #link = "https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
     #link = "https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
     #link = "https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
 
-    #configuro il browser
+    #brower configuration
     browser_config = BrowserConfig(headless=True)
 
-
-
-    #generatore per migliorare il Markdown creato
+    #generator for markdown with custom options
     md_generator = DefaultMarkdownGenerator(
         options={
             "ignore_links": True,
@@ -41,87 +31,46 @@ async def parser_cbs(url:str):
         infoboxes.forEach(box => box.remove());
     """
 
-
     css_list = ["article"]
-    #configuro il tipo di richiesta, bypassando la cache         
+    #configuration for the crawler run         
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
-                                      target_elements=css_list, # questa parte per avere un testo più pulito.
-                                      markdown_generator=md_generator, # questo per generare markdown con personalizzazione
+                                      target_elements=css_list, # for cleaner output
+                                      markdown_generator=md_generator, # for md generation with custom options
                                       js_code= remove_infobox_js
                                     )
 
-    #struttura tipo open file
-    async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=url, config=crawler_config)
+    # Execute crawler
+    async with AsyncWebCrawler(config=browser_config) as crawler:
+        result = await crawler.arun(url=url, config=crawler_config)
 
 
-    # in result ci sono un botto di campi:
-    #result.succes
-    #result.error_message
-
-    #result.markdown
-    #result.cleaned_html
-    #result.html
-
+    ##########################  MARKDOWN CLEANUP  ##########################
     
-    ##########################  PULIZIA DEL MARKDOWN  ##########################
+    clean_text = result.markdown
+    clean_text = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", clean_text)
+    clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
+    clean_text = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", clean_text, flags=re.IGNORECASE)
     
-    ris = result.markdown
-    ris = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", ris)
-    ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
-    ris = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", ris, flags=re.IGNORECASE)
-    
-    #####################################################################################
 
-    ##########################  CREAZIONE JSON     ###################################
+    ##########################  JSON CREATION  ###################################
     
-    #estraggo il titolo
-    titolo_match=re.search(r'<h1 class="content__title">(.*?)</h1>',result.html,re.IGNORECASE)
-    if titolo_match:
-        titolo_pag= titolo_match.group(1).replace( " - CBS News","")
+    # Title extraction
+    title_match=re.search(r'<h1 class="content__title">(.*?)</h1>',result.html,re.IGNORECASE)
+    if title_match:
+        page_title= title_match.group(1).replace( " - CBS News","")
     else:
-        titolo_pag="titolo non trovato"
-    
-    titolo_safe = re.sub(r'[^\w\s]', '', titolo_pag)
-    titolo_file = re.sub(r'_+', '_', titolo_safe.lower().replace(" ", "_"))
-    
-    ris="\n".join(ris.splitlines()[1:])
+        page_title="title_not_found"
+        
+    clean_text="\n".join(clean_text.splitlines()[1:])
 
-    #creo il dizionario
-
-    dati_estratti = {
+    #json creation
+    extracted_data = {
         "url": url,
         "domain": "cbsnews.com",
-        "title": titolo_pag,
+        "title": page_title,
         "html_text": result.html,
-        "parsed_text": ris 
+        "parsed_text": clean_text 
     }
 
-    ##########################  PATH  ##################################################
-    #dest_json = "./json_garbage/cbs" 
-    #dest_md = "./md_garbage/cbs"
-    
-    #os.makedirs(dest_json, exist_ok=True)
-    #os.makedirs(dest_md, exist_ok=True)
-
-    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
-
-    ##########################  SCRITTURA IN JSON  #####################################
-
-    #with open(path_json, "w", encoding="utf-8") as file:
-        #json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
-
-    ##########################  SCRITTURA IN MD  #######################################
-    
-    #with open(path_md, "w", encoding="utf-8") as file:
-        #file.write(ris)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
-
-    ####################################################################################
-    
-    return dati_estratti
-
-#asyncio.run(main())
+    return extracted_data

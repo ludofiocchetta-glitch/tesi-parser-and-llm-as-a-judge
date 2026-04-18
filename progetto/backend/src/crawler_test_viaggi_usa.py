@@ -1,15 +1,8 @@
-#import per crawl4ai
-import asyncio
+#import for crawl4ai
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
 
-#import per pulizia md
+#import for md cleaning
 import re  
-
-#import per formato json
-import json
-
-#import per gestione file
-import os
 
 
 async def parser_viaggi_usa(url: str):
@@ -20,10 +13,10 @@ async def parser_viaggi_usa(url: str):
     #link = "https://www.viaggi-usa.it/four-mile-old-west-town-museum/"
     #link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
 
-    #configuro il browser
+    #brower configuration
     browser_config = BrowserConfig(headless=True)
 
-    #generatore per migliorare il Markdown creato
+    #generator for markdown with custom options
     md_generator = DefaultMarkdownGenerator(
         options={
             "ignore_links": True,
@@ -72,92 +65,52 @@ async def parser_viaggi_usa(url: str):
 
 
     css_list = ["article"]
-    #configuro il tipo di richiesta, bypassando la cache         
+    #configuration for the crawler run         
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
-                                      target_elements=css_list, # questa parte per avere un testo più pulito.
+                                      target_elements=css_list, 
                                       
-                                      markdown_generator=md_generator, # questo per generare markdown con personalizzazione
+                                      markdown_generator=md_generator,
                                       js_code= remove_infobox_js
                                     )
 
-    #struttura tipo open file
-    async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=url, config=crawler_config)
+    # Execute crawler
+    async with AsyncWebCrawler(config=browser_config) as crawler:
+        result = await crawler.arun(url=url, config=crawler_config)
 
 
-    # in result ci sono un botto di campi:
-    #result.succes
-    #result.error_message
-
-    #result.markdown
-    #result.cleaned_html
-    #result.html
-
+    ##########################  MARKDOWN CLEANUP  ##########################
     
-    ##########################  PULIZIA DEL MARKDOWN  ##########################
+    clean_text = result.markdown
+    clean_text = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", clean_text)
+    clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
+    clean_text = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", clean_text, flags=re.IGNORECASE)
+    clean_text = re.sub(r'#',"",clean_text)
+    clean_text = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', clean_text)
+    clean_text = re.sub(r'\s+([,.;!?])', r'\1', clean_text)
+    clean_text = re.sub(r'Ecco quindi tutti i nostri articoli dedicati a.*?(?:[:\.])',"",clean_text,flags=re.IGNORECASE | re.DOTALL)
+    clean_text = re.sub(r'_(.*?)_', r'\1', clean_text) 
+    clean_text = re.sub(r'(\*\*|__)(.*?)\1', r'\2', clean_text)
+    clean_text = re.sub(r'\* ','',clean_text)
     
-    ris = result.markdown
-    ris = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", ris)
-    ris = re.sub(r'(\*\*|_)(.*?)\1', r'\2', ris)
-    ris = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", ris, flags=re.IGNORECASE)
-    ris = re.sub(r'#',"",ris)
-    ris = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', ris)
-    ris = re.sub(r'\s+([,.;!?])', r'\1', ris)
-    ris = re.sub(r'Ecco quindi tutti i nostri articoli dedicati a.*?(?:[:\.])',"",ris,flags=re.IGNORECASE | re.DOTALL)
-    ris = re.sub(r'_(.*?)_', r'\1', ris) 
-    ris = re.sub(r'(\*\*|__)(.*?)\1', r'\2', ris)
-    ris = re.sub(r'\* ','',ris)
-    
-    #####################################################################################
 
-    ##########################  CREAZIONE JSON     ###################################
+    ##########################  JSON CREATION  ###################################
     
-    #estraggo il titolo
-    titolo_match = re.search(r'<title>(.*?)</title>', result.html, re.IGNORECASE | re.DOTALL)
-    if titolo_match:
-        titolo_pag = re.sub(r'<.*?>', '', titolo_match.group(1)).strip()
+    # Title extraction
+    title_match = re.search(r'<title>(.*?)</title>', result.html, re.IGNORECASE | re.DOTALL)
+    if title_match:
+        page_title = re.sub(r'<.*?>', '', title_match.group(1)).strip()
     else:
-        titolo_pag="titolo non trovato"
-    
-    titolo_safe = re.sub(r'[^\w\s]', '', titolo_pag)
-    titolo_file = re.sub(r'_+', '_', titolo_safe.lower().replace(" ", "_"))
-    
+        page_title="title_not_found"    
 
-    #creo il dizionario
-
-    dati_estratti = {
+    #json creation
+    extracted_data = {
         "url": url,
         "domain": "viaggi-usa.it",
-        "title": titolo_pag,
+        "title": page_title,
         "html_text": result.html,
-        "parsed_text": ris 
+        "parsed_text": clean_text 
     }
 
-    ##########################  PATH  ##################################################
-    #dest_json = "./json_garbage/viaggi-usa" 
-    #dest_md = "./md_garbage/viaggi-usa"
-    
-    #os.makedirs(dest_json, exist_ok=True)
-    #os.makedirs(dest_md, exist_ok=True)
+    return extracted_data
 
-    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
-
-    ##########################  SCRITTURA IN JSON  #####################################
-
-    #with open(path_json, "w", encoding="utf-8") as file:
-    #    json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
-
-    ##########################  SCRITTURA IN MD  #######################################
-    
-    #with open(path_md, "w", encoding="utf-8") as file:
-    #    file.write(ris)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
-
-    ####################################################################################
-
-    return dati_estratti
-
-#asyncio.run(main())

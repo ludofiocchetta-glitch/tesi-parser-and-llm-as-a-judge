@@ -1,71 +1,36 @@
-import math
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
+    
+    # Token extraction
+    extracted_tokens = set(parsed_text.lower().strip().split())
+    gs_tokens = set(gold_text.lower().strip().split())
 
-#title = "isola_di_oahu_cosa_vedere_e_come_organizzare_le_vacanze"
-#parsed_mk = f"./md_garbage/viaggi-usa/{title}.md"
-#gs_path = f"../../supporto_temp/html_gs_usati/{title}_gs.txt"
+    if not extracted_tokens or not gs_tokens:
+        return {
+            "precision": 0.0, "recall": 0.0, "f1": 0.0,
+            "jaccard_similarity": 0.0, "overlap_coefficient": 0.0, 
+            "cosine_similarity": 0.0
+        }
 
-def calculate_metrics(parsed_text:str, gold_text:str)->dict:
-    token_estratti = set(parsed_text.lower().strip().split())
-    token_gs = set(gold_text.lower().strip().split())
+    # Sets intersection and union
+    intersection = extracted_tokens & gs_tokens
+    union = extracted_tokens | gs_tokens
 
-    if not token_estratti or not token_gs:
-        return {"precision": 0.0, "recall": 0.0, "f1": 0.0,
-                "jaccard_similarity": 0.0, "overlap_coefficient": 0.0, 
-                "cosine_similarity": 0.0}
+    # Core metrics
+    precision = len(intersection) / len(extracted_tokens)
+    recall = len(intersection) / len(gs_tokens)
+    f1 = (2 * precision * recall) / (precision + recall)
 
-#token_estratti_str = ""
-#token_gs_str = ""
+    # Additional metrics
+    jaccard_similarity = len(intersection) / len(union)
+    overlap_coefficient = len(intersection) / min(len(extracted_tokens), len(gs_tokens))
 
-#with open(parsed_mk,encoding="utf-8") as f:
-    #for line in f:
-        #words = line.lower().strip().split()
-        #for word in words:
-            #token_estratti.add(word)
-
-#with open(gs_path,encoding="utf-8") as f:
-    #for line in f:
-        #words = line.lower().strip().split()
-        #for word in words:
-            #token_gs.add(word)
-
-
-
-#creazione di alcuni insiemi
-    intersection = token_estratti & token_gs
-    union = token_estratti | token_gs
-#den_cosine=math.sqrt(len(token_estratti))*math.sqrt(len(token_gs))
-
-
-    #calcolo metriche principali
-    precision = len(intersection)/len(token_estratti)
-    recall = len(intersection)/len(token_gs)
-    f1 = (2*precision*recall)/(precision+recall)
-
-    #altre metriche
-
-    jaccard_similarity = len(intersection)/len(union)
-    overlap_coefficient=len(intersection)/min(len(token_estratti),len(token_gs))
-
-    #parte extra coseno
-
-#with open(gs_path,encoding="utf-8") as f:
-    #token_gs_str = f.read()
-
-#with open(parsed_mk,encoding="utf-8") as f:
-    #token_estratti_str = f.read()
-
-
-#unione dei file
-#file_str = [token_gs_str,token_estratti_str]
-
-#vettorizzazione e similarità coseno
-
+    # TF-IDF vectorization for cosine similarity
     vectorizer = TfidfVectorizer()
-    tfidf_matrix = vectorizer.fit_transform([gold_text,parsed_text])
-    similarita_cos = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
+    tfidf_matrix = vectorizer.fit_transform([gold_text, parsed_text])
+    cos_similarity = cosine_similarity(tfidf_matrix[0:1], tfidf_matrix[1:2])
 
     return {
         "precision": precision,
@@ -73,14 +38,5 @@ def calculate_metrics(parsed_text:str, gold_text:str)->dict:
         "f1": f1,
         "jaccard_similarity": jaccard_similarity,
         "overlap_coefficient": overlap_coefficient,
-        "cosine_similarity": float(similarita_cos[0][0])
-
+        "cosine_similarity": float(cos_similarity[0][0])
     }
-
-#print(f"Risultati per {title}:")
-#print("Precision: " + str(precision))
-#print("Recall: " + str(recall))
-#print("F1: " + str(f1))
-#print("Jaccard Similarity: " + str(jaccard_similarity))
-#print("Overlap Coefficient: "+str(overlap_coefficient))
-#print("Cosine Similarity: "+str(similarita_cos[0][0]))

@@ -1,263 +1,132 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parser Documenti - Esonero 1</title>
-    <style>
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; 
-            background-color: #eef2f6; 
-            color: #1a252f;
-            margin: 0; 
-            padding: 30px; 
-        }
-        .container { 
-            background-color: #ffffff; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            padding: 40px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(13,33,55,0.1); 
-            border-top: 8px solid #0f2027; 
-            display: flex; 
-            flex-direction: column;
-        }
-        h1 { 
-            color: #0f2027; 
-            text-align: center; 
-            margin-top: 0; 
-            margin-bottom: 30px; 
-        }
-        h2 { 
-            color: #142835; 
-            border-bottom: 2px solid #e2e8f0; 
-            padding-bottom: 10px; 
-            margin-top: 0; 
-        }
-        
-        form { 
-            display: flex; 
-            flex-direction: column; 
-        }
-        label { 
-            font-weight: bold; 
-            color: #2c3e50; 
-            margin-bottom: 8px; 
-            margin-top: 15px;
-        }
-        select, input[type="url"] { 
-            width: 100%; 
-            padding: 12px; 
-            margin-bottom: 10px; 
-            border: 1px solid #cbd5e1; 
-            border-radius: 6px; font-size: 15px; 
-            box-sizing: border-box; 
-            background-color: #f8fafc;
-        }
-        select:focus, input[type="url"]:focus { 
-            border-color: #203a43; 
-            background-color: #ffffff; 
-            outline: none; 
-            box-shadow: 0 0 0 3px rgba(32, 58, 67, 0.15); 
-        }
-        .domains-wrapper {
-                margin-bottom: 25px; 
-        }
-        ul { 
-            list-style-type: none; 
-            padding: 0; 
-            margin: 0; 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 8px; 
-        }
-        li { 
-            background: #203a43; 
-            color: #ffffff; 
-            padding: 6px 14px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            font-weight: 600; 
-        }
-        button { 
-            background-color: #1c3843; 
-            color: white; 
-            padding: 15px; border: none; 
-            border-radius: 6px; font-size: 16px; 
-            font-weight: bold; cursor: pointer; 
-            width: 100%; text-transform: uppercase; 
-            margin-top: 10px; transition: 0.3s; 
-            letter-spacing: 1px;
-        }
-        button:hover { 
-            background-color: #1d3557; 
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document Parser</title>
 
-        .comparison-grid { 
-            display: flex; 
-            gap: 20px; 
-            margin-top: 20px; 
-        }
-        .comparison-col { 
-            flex: 1; 
-            background: #f8fafc; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
-            padding: 20px; 
-            min-width: 0; 
-        }
-        .comparison-col h3 { 
-            text-align: center; 
-            color: #1d3557; 
-            margin-top: 0;
-        }
-        pre { 
-            background-color: #0f2027; 
-            color: #f1f5f9;
-            padding: 15px; 
-            border-radius: 6px; 
-            overflow-y: auto; 
-            max-height: 500px; 
-            white-space: pre-wrap; 
-            font-family: monospace; 
-            font-size: 13px; 
-            line-height: 1.6;
-        }
-        .success-banner { 
-            background-color: #d4edda; 
-            color: #40814f; 
-            padding: 15px; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            text-align: center; 
-            margin: 30px 0 20px 0; 
-            border: 1px solid #c3e6cb;
-        }
-        .unsuccess-banner {
-            background-color: #b4b7b9; 
-            color: #3b3f46; 
-            padding: 15px; 
-            border-radius: 6px; 
-            font-weight: bold; 
-            text-align: center; 
-            margin: 30px 0 20px 0; 
-            border: 1px solid #919293;
-        }
-        .metrics-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 20px;
-         }
-        .metric-card { 
-            background: #fff; 
-            padding: 20px; 
-            border: 1px solid #e2e8f0; 
-            border-radius: 8px; 
-            border-top: 4px solid #1d3557; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-        }
-        .metric-card p { 
-            margin: 8px 0;
-        }
-        .highlight { 
-            font-weight: bold; 
-            color: #1d3557; 
-            font-size: 1.1em;
-        }
-        .error { 
-            background-color: #ffeaea; 
-            color: #c0392b; 
-            padding: 15px; 
-            border-left: 5px solid #c0392b; 
-            font-weight: bold;
-             margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
+        <link rel="stylesheet" href="{{ url_for('static', path='index.css') }}">
+    </head>
+    <body>
 
-<div class="container">
-    <h1>Pipeline di acquisizione e analisi</h1>
+        <div class="container">
+            <h1>Document Parser</h1>
 
-    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+            {% if error %}<p class="error">{{ error }}</p>{% endif %}
 
-    <section>
-        <h2>Analizza un URL</h2>
-        <form action="{{ url_for('analyze_url') }}" method="post">
-            
-            {% if gs_urls %}
-            <label for="gs_dropdown">Seleziona un URL dal Gold Standard (opzionale):</label>
-            <select id="gs_dropdown" onchange="document.getElementById('url_parse').value = this.value">
-                <option value="">-- Scegli un URL per la valutazione --</option>
-                {% for gs_url in gs_urls %}
-                    <option value="{{ gs_url }}">{{ gs_url }}</option>
-                {% endfor %}
-            </select>
-            {% endif %}
+            <section class="form-input">
+                <h2>Analyze URL</h2>
+                <form action="{{ url_for('analyze_url') }}" method="post">
 
-            <label for="url_parse">Oppure inserisci un URL manualmente:</label>
-            <input type="url" id="url_parse" name="url" required placeholder="https://www.esempio.com/articolo">
-            {% if domains %}
-                <div class="domains-wrapper">
-                <h3>Domini supportati:</h3>
-                <ul>
-                    {% for domain in domains %}
-                    <li>{{ domain }}</li>
-                    {% endfor %}
-                </ul>
+                    {% if gs_urls %}
+                        <div>
+                            <label for="gs_dropdown">Select URL from Gold Standard (optional):</label>
+                            <select id="gs_dropdown"
+                                    onchange="document.getElementById('url_parse').value = this.value">
+                                <option value="">-- Select a URL for evaluation --</option>
+                                {% for gs_url in gs_urls %}<option value="{{ gs_url }}">{{ gs_url }}</option>{% endfor %}
+                            </select>
+                        </div>
+                    {% endif %}
+
+                    <div>
+                        <label for="url_parse">Or enter a URL manually:</label>
+                        <input type="text"
+                               id="url_parse"
+                               name="url"
+                               required
+                               placeholder="https://www.example.com/article">
+                    </div>
+
+                    {% if domains %}
+                        <div class="domains-wrapper">
+                            <label>Supported Domains:</label>
+                            <ul class="domains-list">
+                                {% for domain in domains %}<li>{{ domain }}</li>{% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <button type="submit">Execute Full Processing</button>
+                </form>
+            </section>
+
+            {% if parsed_data %}
+                <div class="output-section">
+                    <h2>Output</h2>
+                    <p>
+                        <strong>URL:</strong> <a href="{{ parsed_data.url }}" target="_blank">{{ parsed_data.url }}</a>
+                    </p>
+                    <p>
+                        <strong>Title:</strong> {{ parsed_data.title }}
+                    </p>
+
+                    <div class="output-results">
+                        <div class="comparison-col">
+                            <p>
+                                <strong>Raw HTML:</strong>
+                                <span>{{ parsed_data.html_text }}</span>
+                            </p>
+                        </div>
+                        <div class="comparison-col">
+                            <p>
+                                <strong>Clean Text (Markdown):</strong>
+                                <span>{{ parsed_data.parsed_text }}</span>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
-            <button type="submit">Esegui Elaborazione Completa</button>
-        </form>
-    </section>
 
-    {% if parsed_data %}
-        <div style="margin-top: 40px;">
-            <h2>Risultato dell'Estrazione</h2>
-            <p><strong>URL:</strong> <a href="{{ parsed_data.url }}" target="_blank">{{ parsed_data.url }}</a></p>
-            <p><strong>Titolo:</strong> {{ parsed_data.title }}</p>
+            {% if eval_data %}
+                <div class="eval-metrics">
+                    <p class="success-message">✓ URL is in the Gold Standard, evaluation completed.</p>
+                    <h2>Evaluation Metrics</h2>
 
-            <div class="comparison-grid">
-                <div class="comparison-col">
-                    <h3>HTML grezzo</h3>
-                    <pre>{{ parsed_data.html_text }}</pre>
+                    <div class="output-results">
+                        <div class="metric-card">
+                            <h3>Standard Metrics</h3>
+                            <ul class="metrics-list">
+                                <li>
+                                    <span class="metric-name">Precision</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.token_level_eval.precision) }}</span>
+                                </li>
+                                <li>
+                                    <span class="metric-name">Recall</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.token_level_eval.recall) }}</span>
+                                </li>
+                                <li>
+                                    <span class="metric-name">F1 score</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.token_level_eval.f1) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="metric-card">
+                            <h3>Advanced Metrics</h3>
+                            <ul class="metrics-list">
+                                <li>
+                                    <span class="metric-name">Jaccard Similarity</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.x_eval.jaccard_similarity) }}</span>
+                                </li>
+                                <li>
+                                    <span class="metric-name">Overlap Coeff.</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.x_eval.overlap_coefficient) }}</span>
+                                </li>
+                                <li>
+                                    <span class="metric-name">Cosine Similarity</span>
+                                    <span class="metric-value">{{ "%.5f"|format(eval_data.x_eval.cosine_similarity) }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <div class="comparison-col">
-                    <h3>Testo pulito</h3>
-                    <pre>{{ parsed_data.parsed_text }}</pre>
+            {% elif parsed_data %}
+                <div class="eval-metrics">
+                    <p class="warning-message">Metrics not available: the URL is not present in the Gold Standard files.</p>
                 </div>
-            </div>
-        </div>
-    {% endif %}
+            {% endif %}
 
-    {% if eval_data %}
-        <div class="success-banner">
-             URL appartenente al Gold Standard, valutazione completata.
         </div>
-        
-        <h2>Valutazione metriche</h2>
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <h3 style="margin-top:0;">Metriche standard</h3>
-                <p>precision: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.precision) }}</span></p>
-                <p>Recall: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.recall) }}</span></p>
-                <p>F1 score: <span class="highlight">{{ "%.3f"|format(eval_data.token_level_eval.f1) }}</span></p>
-            </div>
-            <div class="metric-card">
-                <h3 style="margin-top:0;">Metriche avanzate</h3>
-                <p>Jaccard similarity: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.jaccard_similarity) }}</span></p>
-                <p>Overlap coefficient: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.overlap_coefficient) }}</span></p>
-                <p>Cosine similarity: <span class="highlight">{{ "%.3f"|format(eval_data.x_eval.cosine_similarity) }}</span></p>
-            </div>
-        </div>
-    {% elif parsed_data %}
-        <div class="unsuccess-banner">
-            Metriche non disponibili: l'URL non è presente nei file del Gold Standard.
-        </div>
-    {% endif %}
 
-</div>
-
-</body>
+    </body>
 </html>

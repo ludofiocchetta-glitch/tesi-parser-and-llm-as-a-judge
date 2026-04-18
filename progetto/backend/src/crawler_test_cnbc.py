@@ -1,15 +1,8 @@
-#import per crawl4ai
-import asyncio
+#import for crawl4ai
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
 
-#import per pulizia md
+#import for md cleaning
 import re  
-
-#import per formato json
-import json
-
-#import per gestione file
-import os
 
 
 async def parser_cnbc(url:str):
@@ -21,10 +14,10 @@ async def parser_cnbc(url:str):
     #link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
     #link = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
 
-    #configuro il browser
+    #brower configuration
     browser_config = BrowserConfig(headless=True)
 
-    #generatore per migliorare il Markdown creato
+    #generator for markdown with custom options
     md_generator = DefaultMarkdownGenerator(
         options={
             "ignore_links": True,
@@ -45,7 +38,7 @@ async def parser_cnbc(url:str):
         `);
         elementsToRemove.forEach(el => el.remove());
 
-        //Rimuove specificamente il tag <strong> del disclaimer
+        //Remove tag <strong> of the disclaimer
         const boldTags = document.querySelectorAll('strong, b');
         boldTags.forEach(tag => {
             // CONTROLLO SULLA FRASE "DEVELOPING..."
@@ -55,7 +48,7 @@ async def parser_cnbc(url:str):
         });
     """
 
-    #configuro il tipo di richiesta, bypassando la cache         
+    #configuration for the crawler run        
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
         target_elements=[".ArticleBody-articleBody"],
@@ -63,83 +56,44 @@ async def parser_cnbc(url:str):
         js_code=remove_infobox_js 
     )
 
-    #struttura tipo open file
-    async with AsyncWebCrawler(config=browser_config) as pippo:
-        result = await pippo.arun(url=url, config=crawler_config)
-
-
-    # in result ci sono un botto di campi:
-    #result.succes
-    #result.error_message
-
-    #result.markdown
-    #result.cleaned_html
-    #result.html
+    # Execute crawler
+    async with AsyncWebCrawler(config=browser_config) as crawler:
+        result = await crawler.arun(url=url, config=crawler_config)
 
     
-    ##########################  PULIZIA DEL MARKDOWN  ##########################
+    ##########################  MARKDOWN CLEANUP  ##########################
     
-    ris = result.markdown
-    ris = re.sub(r'In this article.*?CREATE FREE ACCOUNT\n?', '', ris, flags=re.DOTALL | re.IGNORECASE)
-    ris = re.sub(r'watch now\s*VIDEO\d+:\d{2}\d+:\d{2}\n?', '', ris, flags=re.IGNORECASE)
-    ris = re.sub(r'Choose CNBC as your preferred source on Google.*?business news\.', '', ris, flags=re.DOTALL | re.IGNORECASE)
-    ris = ris.replace("'", "’")
-    ris = re.sub(r'"([^"]*)"', r'“\1”', ris)
-    ris = re.sub(r"^Watch:\s*.*$", "", ris, flags=re.MULTILINE | re.IGNORECASE)
-    ris = re.sub(r'\n{3,}', '\n\n', ris).strip()
+    clean_text = result.markdown
+    clean_text = re.sub(r'In this article.*?CREATE FREE ACCOUNT\n?', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
+    clean_text = re.sub(r'watch now\s*VIDEO\d+:\d{2}\d+:\d{2}\n?', '', clean_text, flags=re.IGNORECASE)
+    clean_text = re.sub(r'Choose CNBC as your preferred source on Google.*?business news\.', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
+    clean_text = clean_text.replace("'", "’")
+    clean_text = re.sub(r'"([^"]*)"', r'“\1”', clean_text)
+    clean_text = re.sub(r"^Watch:\s*.*$", "", clean_text, flags=re.MULTILINE | re.IGNORECASE)
+    clean_text = re.sub(r'\n{3,}', '\n\n', clean_text).strip()
     
-    #####################################################################################
 
     ##########################  CREAZIONE JSON     ###################################
     
-    #estraggo il titolo
-    titolo_match = re.search(r'<h1 class="ArticleHeader-headline[^>]*>(.*?)</h1>', result.html, re.IGNORECASE)
+    # Title extraction
+    title_match = re.search(r'<h1 class="ArticleHeader-headline[^>]*>(.*?)</h1>', result.html, re.IGNORECASE)
     
-    if titolo_match:
-        titolo_pag = re.sub(r'<[^>]+>', '', titolo_match.group(1)).strip()
+    if title_match:
+        page_title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip()
     else:
-        titolo_match_fallback = re.search(r'<title>(.*?)</title>', result.html, re.IGNORECASE)
-        if titolo_match_fallback:
-            titolo_pag = titolo_match_fallback.group(1).split('|')[0].strip()
+        title_match_fallback = re.search(r'<title>(.*?)</title>', result.html, re.IGNORECASE)
+        if title_match_fallback:
+            page_title = title_match_fallback.group(1).split('|')[0].strip()
         else:
-            titolo_pag = "titolo_non_trovato"
+            page_title = "title_not_found"
 
-    titolo_safe = re.sub(r'[^\w\s]', '', titolo_pag)
-    titolo_file = re.sub(r'_+', '_', titolo_safe.lower().replace(" ", "_"))
-
-    #creo il dizionario
-    dati_estratti = {
+    #json creation
+    extracted_data = {
         "url": url,
         "domain": "cnbc.com",
-        "title": titolo_pag,
+        "title": page_title,
         "html_text": result.html,
-        "parsed_text": ris 
+        "parsed_text": clean_text 
     }
-
-    ##########################  PATH  ##################################################
-    #dest_json = "./json_garbage/cnbc" 
-    #dest_md = "./md_garbage/cnbc"
     
-    #os.makedirs(dest_json, exist_ok=True)
-    #os.makedirs(dest_md, exist_ok=True)
-
-    #path_json = os.path.join(dest_json, f"{titolo_file}.json")
-    #path_md = os.path.join(dest_md, f"{titolo_file}.md")
-
-    ##########################  SCRITTURA IN JSON  #####################################
-
-    #with open(path_json, "w", encoding="utf-8") as file:
-        #json.dump(dati_estratti, file, indent=4, ensure_ascii=False)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.json'.")
-
-    ##########################  SCRITTURA IN MD  #######################################
-    
-    #with open(path_md, "w", encoding="utf-8") as file:
-        #file.write(ris)
-    #print(f"Scrittura completata! File salvato come '{titolo_file}.md'.")
-
-    ####################################################################################
-
-    return dati_estratti
-
-#asyncio.run(main())
+    return extracted_data
