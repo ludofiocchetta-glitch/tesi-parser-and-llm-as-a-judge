@@ -191,6 +191,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_overlap += ris["overlap_coefficient"]
             tot_cosine += ris["cosine_similarity"]
             
+
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error parsing {url}: {str(e)}")
             

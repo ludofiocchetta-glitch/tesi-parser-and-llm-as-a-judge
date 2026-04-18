@@ -37,7 +37,7 @@ async def parser_cbs(url:str):
                                       cache_mode=CacheMode.BYPASS,
                                       target_elements=css_list, # for cleaner output
                                       markdown_generator=md_generator, # for md generation with custom options
-                                      js_code= remove_infobox_js
+                                      js_code= remove_infobox_js,
                                     )
 
     # Execute crawler
