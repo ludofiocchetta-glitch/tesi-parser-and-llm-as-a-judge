@@ -5,7 +5,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_cbs(url:str):
+async def parser_cbs(url:str, html_text:str):
     #link = "https://www.cbsnews.com/news/omaha-nebraska-police-kill-woman-slashed-child-knife-walmart/"
     #link = "https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-clean_textk-study/"
     #link = "https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-clean_texting/"
@@ -41,8 +41,12 @@ async def parser_cbs(url:str):
                                     )
 
     # Execute crawler
-    async with AsyncWebCrawler(config=browser_config) as crawler:
-        result = await crawler.arun(url=url, config=crawler_config)
+    if(html_text==''):
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=url, config=crawler_config)
+    else:
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_config)
 
 
     ##########################  MARKDOWN CLEANUP  ##########################

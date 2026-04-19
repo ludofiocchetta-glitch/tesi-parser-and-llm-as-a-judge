@@ -21,6 +21,11 @@ class ParseResponse(BaseModel):
     html_text: str
     parsed_text: str
 
+# Model for the input of POST /parse
+class ParseRequest(BaseModel):
+    url : str
+    html_text : str 
+
 # Model for the output of /gs
 class GoldStandardEntry(BaseModel):
     url: str
@@ -65,16 +70,40 @@ async def parse_article(url: str = Query(..., description="The URL of the articl
 
     # Route request to the appropriate parser
     if domain == "en.wikipedia.org":
-        return await parser_wiki(url)
+        return await parser_wiki(url,'')
     
     elif domain == "cbsnews.com":
-        return await parser_cbs(url)
+        return await parser_cbs(url,'')
         
     elif domain == "cnbc.com":
-        return await parser_cnbc(url)
+        return await parser_cnbc(url,'')
     
     elif domain == "viaggi-usa.it":
-        return await parser_viaggi_usa(url)
+        return await parser_viaggi_usa(url,'')
+        
+    else:
+        raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+    
+################## POST PARSE #################
+
+@app.post("/parse", response_model = ParseResponse)
+async def post_parse_article(data: ParseRequest):
+
+    parsed_uri = urlparse(data.url)
+    domain = parsed_uri.netloc.replace("www.", "")
+
+    # Route request to the appropriate parser
+    if domain == "en.wikipedia.org":
+        return await parser_wiki(data.url,data.html_text)
+    
+    elif domain == "cbsnews.com":
+        return await parser_cbs(data.url,data.html_text)
+        
+    elif domain == "cnbc.com":
+        return await parser_cnbc(data.url,data.html_text)
+    
+    elif domain == "viaggi-usa.it":
+        return await parser_viaggi_usa(data.url,data.html_text)
         
     else:
         raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")

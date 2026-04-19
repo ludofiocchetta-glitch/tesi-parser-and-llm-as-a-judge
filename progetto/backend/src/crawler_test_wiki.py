@@ -5,7 +5,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_wiki(url:str):
+async def parser_wiki(url:str, html_text:str):
     #link = "https://en.wikipedia.org/wiki/Donald_Trump"
     #link = "https://en.wikipedia.org/wiki/Artificial_intelligence"
     #link = "https://en.wikipedia.org/wiki/Charles_Darwin"
@@ -42,8 +42,12 @@ async def parser_wiki(url:str):
                                       js_code= remove_infobox_js
                                     )
     # Execute crawler
-    async with AsyncWebCrawler(config=browser_config) as crawler:
-        result = await crawler.arun(url=url, config=crawler_config)
+    if(html_text==''):
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=url, config=crawler_config)
+    else:
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_config)
 
  
     ##########################  MARKDOWN CLEANUP  ##########################

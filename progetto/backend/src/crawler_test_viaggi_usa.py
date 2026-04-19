@@ -5,7 +5,7 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_viaggi_usa(url: str):
+async def parser_viaggi_usa(url: str, html_text:str):
     #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
     #link = "https://www.viaggi-usa.it/eventi-san-diego/"
     #link = "https://www.viaggi-usa.it/passaporto-per-usa/"
@@ -75,8 +75,12 @@ async def parser_viaggi_usa(url: str):
                                     )
 
     # Execute crawler
-    async with AsyncWebCrawler(config=browser_config) as crawler:
-        result = await crawler.arun(url=url, config=crawler_config)
+    if(html_text==''):
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=url, config=crawler_config)
+    else:
+        async with AsyncWebCrawler(config=browser_config) as crawler:
+            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_config)
 
 
     ##########################  MARKDOWN CLEANUP  ##########################
