@@ -34,6 +34,10 @@ class GoldStandardEntry(BaseModel):
     html_text: str
     gold_text: str
 
+# Model for the output of /full gs
+class FullGoldStandardResponse(BaseModel):
+    gold_standard: List[GoldStandardEntry]
+
 # Model for the output of /domains
 class DomainsResponse(BaseModel):
     domains: List[str]
@@ -56,6 +60,7 @@ class EvaluateRequest(BaseModel):
 class EvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     x_eval: XEval
+
 
 
 ################### ENDPOINTS ###################
@@ -147,7 +152,7 @@ async def get_single_gold_standard(url: str):
 
 ################### FULL GOLD STANDARD ###################
 
-@app.get("/full_gold_standard", response_model=List[GoldStandardEntry])
+@app.get("/full_gold_standard", response_model=FullGoldStandardResponse)
 async def get_full_gold_standard(domain: str):
     file_path = f"../gs_data/{domain}.json"
     
@@ -157,7 +162,7 @@ async def get_full_gold_standard(domain: str):
     with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
         
-    return data
+    return {"gold_standard": data}
 
 
 ################### EVALUATE ###################
