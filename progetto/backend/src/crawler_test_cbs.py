@@ -66,8 +66,6 @@ async def parser_cbs(url:str, html_text:str):
     else:
         page_title="title_not_found"
         
-    clean_text="\n".join(clean_text.splitlines()[1:])
-
     #json creation
     extracted_data = {
         "url": url,

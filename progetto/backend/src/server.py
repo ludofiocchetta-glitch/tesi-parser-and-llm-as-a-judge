@@ -70,8 +70,8 @@ class EvaluateResponse(BaseModel):
 @app.get("/parse", response_model=ParseResponse)
 async def parse_article(url: str = Query(..., description="The URL of the article to analyze")):
 
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc.replace("www.", "")
+    parsed_url = urlparse(url)
+    domain = parsed_url.netloc.replace("www.", "")
 
     # Route request to the appropriate parser
     if domain == "en.wikipedia.org":
@@ -94,8 +94,8 @@ async def parse_article(url: str = Query(..., description="The URL of the articl
 @app.post("/parse", response_model = ParseResponse)
 async def post_parse_article(data: ParseRequest):
 
-    parsed_uri = urlparse(data.url)
-    domain = parsed_uri.netloc.replace("www.", "")
+    parsed_url = urlparse(data.url)
+    domain = parsed_url.netloc.replace("www.", "")
 
     # Route request to the appropriate parser
     if domain == "en.wikipedia.org":
@@ -133,8 +133,8 @@ async def get_supported_domains():
 
 @app.get("/gold_standard", response_model=GoldStandardEntry)
 async def get_single_gold_standard(url: str):
-    parsed_uri = urlparse(url)
-    domain = parsed_uri.netloc.replace("www.", "")
+    parsed_url = urlparse(url)
+    domain = parsed_url.netloc.replace("www.", "")
     
     file_path = f"../gs_data/{domain}.json"
     

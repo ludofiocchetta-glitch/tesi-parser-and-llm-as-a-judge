@@ -23,7 +23,10 @@ async def get_home_data():
             for d in domains:
                 gs_resp = await client.get(f"{BACKEND_URL}/full_gold_standard", params={"domain": d})
                 if gs_resp.status_code == 200:
-                    for item in gs_resp.json():
+                    json_data = gs_resp.json()
+                    gold_standard_list = json_data.get("gold_standard", [])
+                    
+                    for item in gold_standard_list:
                         gs_urls.append(item.get("url"))
         except:
             pass
