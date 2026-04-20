@@ -4,13 +4,13 @@ import os
 def create_gold_standard_entry():
     link1 = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
     link2 = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
-    link3="https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
-    link="https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
+    link="https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
+    link3="https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
     link5="https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
     link4="https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
 
-    html_file_path = "revolution_medicines_says_its_potential_breakthrough_pancreatic_cancer_drug_succeeds_in_latestage_trial.html"
-    testo_pulito_path = "revolution_medicines_says_its_potential_breakthrough_pancreatic_cancer_drug_succeeds_in_latestage_trial_gs.txt"
+    html_file_path = "nvidia_stock_is_on_a_10day_winning_streak_and_up_18_over_that_stretch.html"
+    testo_pulito_path = "nvidia_stock_is_on_a_10day_winning_streak_and_up_18_over_that_stretch_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/cnbc.com.json"
@@ -32,7 +32,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "cnbc.com",
-        "title": "Revolution Medicines says its potential breakthrough pancreatic cancer drug succeeds in late-stage trial",
+        "title": "Nvidia stock is on a 10-day winning streak and up 18% over that stretch",
         "html_text": html_content,
         "gold_text": clean_text
     }
