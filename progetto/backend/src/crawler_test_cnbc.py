@@ -34,7 +34,9 @@ async def parser_cnbc(url:str, html_text:str):
             .ArticleBody-googlePreferredSourceContainer,
             .InlineImage-imageEmbedCaption, 
             .InlineImage-imageEmbedCredit,
-            .RelatedContent-container
+            .RelatedContent-container,
+            .ReadMore-container-cnbc,
+            .RenderKeyPoints-wrapper
         `);
         elementsToRemove.forEach(el => el.remove());
 
@@ -51,7 +53,7 @@ async def parser_cnbc(url:str, html_text:str):
     #configuration for the crawler run        
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        target_elements=[".ArticleBody-articleBody"],
+        target_elements=[".group"],
         markdown_generator=md_generator,
         js_code=remove_infobox_js 
     )

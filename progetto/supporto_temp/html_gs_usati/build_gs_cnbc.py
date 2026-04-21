@@ -8,9 +8,10 @@ def create_gold_standard_entry():
     #link = "https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
     #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
     #link = "https://www.cnbc.com/2020/02/14/renault-cuts-dividend-slices-profit-goal-for-2020.html"
+    link= "https://www.cnbc.com/2026/01/14/oil-energy-shell-bp-green-investors-agm-season.html"
 
-    html_file_path = "next_bitcoin_bull_run_wont_happen_until_end_2024_says_top_crypto_exchange_cofounder.html"
-    testo_pulito_path = "next_bitcoin_bull_run_wont_happen_until_end_2024_says_top_crypto_exchange_cofounder_gs.txt"
+    html_file_path = "how_activist_investors_plan_to_take_on_big_oil_at_the_2026_agm_season.html"
+    testo_pulito_path = "how_activist_investors_plan_to_take_on_big_oil_at_the_2026_agm_season_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/www.cnbc.com.json"
@@ -32,7 +33,7 @@ def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "www.cnbc.com",
-        "title": "Next bitcoin bull run won’t happen until end 2024, says top crypto exchange co-founder",
+        "title": "How activist investors plan to take on Big Oil at the 2026 AGM season",
         "html_text": html_content,
         "gold_text": clean_text
     }

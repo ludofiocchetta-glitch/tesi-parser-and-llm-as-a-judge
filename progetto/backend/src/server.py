@@ -212,7 +212,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
         data = ParseRequest(url=url, html_text=html_text)
         
         try:
-            parsed_response = await post_parse_article(data)
+            parsed_response = await parse_article(url)
             
             if isinstance(parsed_response, dict):
                 parsed_text = parsed_response.get("parsed_text", "")
