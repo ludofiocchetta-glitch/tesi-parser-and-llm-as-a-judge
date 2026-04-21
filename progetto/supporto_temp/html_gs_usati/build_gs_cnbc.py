@@ -2,18 +2,18 @@ import json
 import os
 
 def create_gold_standard_entry():
-    link1 = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
-    link2 = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
-    link="https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
-    link3="https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
-    link5="https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
-    link4="https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
+    link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
+    #link = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
+    #link = "https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
+    #link = "https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
+    #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
+    #link = "https://www.cnbc.com/2020/02/14/renault-cuts-dividend-slices-profit-goal-for-2020.html"
 
-    html_file_path = "nvidia_stock_is_on_a_10day_winning_streak_and_up_18_over_that_stretch.html"
-    testo_pulito_path = "nvidia_stock_is_on_a_10day_winning_streak_and_up_18_over_that_stretch_gs.txt"
+    html_file_path = "next_bitcoin_bull_run_wont_happen_until_end_2024_says_top_crypto_exchange_cofounder.html"
+    testo_pulito_path = "next_bitcoin_bull_run_wont_happen_until_end_2024_says_top_crypto_exchange_cofounder_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
-    output_json_path = "../../gs_data/cnbc.com.json"
+    output_json_path = "../../gs_data/www.cnbc.com.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:
@@ -31,8 +31,8 @@ def create_gold_standard_entry():
 
     gs_entry = {
         "url": link,
-        "domain": "cnbc.com",
-        "title": "Nvidia stock is on a 10-day winning streak and up 18% over that stretch",
+        "domain": "www.cnbc.com",
+        "title": "Next bitcoin bull run won’t happen until end 2024, says top crypto exchange co-founder",
         "html_text": html_content,
         "gold_text": clean_text
     }

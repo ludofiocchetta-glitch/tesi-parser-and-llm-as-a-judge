@@ -71,19 +71,19 @@ class EvaluateResponse(BaseModel):
 async def parse_article(url: str = Query(..., description="The URL of the article to analyze")):
 
     parsed_url = urlparse(url)
-    domain = parsed_url.netloc.replace("www.", "")
+    domain = parsed_url.netloc
 
     # Route request to the appropriate parser
     if domain == "en.wikipedia.org":
         return await parser_wiki(url,'')
     
-    elif domain == "cbsnews.com":
+    elif domain == "www.cbsnews.com":
         return await parser_cbs(url,'')
         
-    elif domain == "cnbc.com":
+    elif domain == "www.cnbc.com":
         return await parser_cnbc(url,'')
     
-    elif domain == "viaggi-usa.it":
+    elif domain == "www.viaggi-usa.it":
         return await parser_viaggi_usa(url,'')
         
     else:
@@ -95,19 +95,19 @@ async def parse_article(url: str = Query(..., description="The URL of the articl
 async def post_parse_article(data: ParseRequest):
 
     parsed_url = urlparse(data.url)
-    domain = parsed_url.netloc.replace("www.", "")
+    domain = parsed_url.netloc
 
     # Route request to the appropriate parser
     if domain == "en.wikipedia.org":
         return await parser_wiki(data.url,data.html_text)
     
-    elif domain == "cbsnews.com":
+    elif domain == "www.cbsnews.com":
         return await parser_cbs(data.url,data.html_text)
         
-    elif domain == "cnbc.com":
+    elif domain == "www.cnbc.com":
         return await parser_cnbc(data.url,data.html_text)
     
-    elif domain == "viaggi-usa.it":
+    elif domain == "www.viaggi-usa.it":
         return await parser_viaggi_usa(data.url,data.html_text)
         
     else:
@@ -134,7 +134,7 @@ async def get_supported_domains():
 @app.get("/gold_standard", response_model=GoldStandardEntry)
 async def get_single_gold_standard(url: str):
     parsed_url = urlparse(url)
-    domain = parsed_url.netloc.replace("www.", "")
+    domain = parsed_url.netloc
     
     file_path = f"../gs_data/{domain}.json"
     
@@ -207,14 +207,19 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     for item in gs_list:
         url = item.get("url")
         gold_text = item.get("gold_text")
+        html_text = item.get("html_text")
+
+        data = ParseRequest(url=url, html_text=html_text)
         
         try:
-            parsed_response = await parse_article(url)
+            parsed_response = await post_parse_article(data)
             
             if isinstance(parsed_response, dict):
-                parsed_text = parsed_response["parsed_text"]
-            else:
+                parsed_text = parsed_response.get("parsed_text", "")
+            elif hasattr(parsed_response, "parsed_text"):
                 parsed_text = parsed_response.parsed_text
+            else:               
+                raise ValueError(f"Formato risposta non riconosciuto per {url}")
                 
             ris = calculate_metrics(parsed_text, gold_text)
             
@@ -249,4 +254,4 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8004, reload=True)

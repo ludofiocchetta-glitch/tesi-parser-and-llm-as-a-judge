@@ -12,7 +12,7 @@ def create_gold_standard_entry():
     testo_pulito_path = "woman_killed_by_police_at_omaha_walmart_after_allegedly_kidnapping_slashing_child_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
-    output_json_path = "../../gs_data/cbsnews.com.json"
+    output_json_path = "../../gs_data/www.cbsnews.com.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:
@@ -30,7 +30,7 @@ def create_gold_standard_entry():
 
     gs_entry = {
         "url": link,
-        "domain": "cbsnews.com",
+        "domain": "www.cbsnews.com",
         "title": "Woman killed by police at Omaha Walmart after allegedly kidnapping, slashing child",
         "html_text": html_content,
         "gold_text": clean_text

@@ -9,6 +9,6 @@ COPY src/ ./src/
 COPY static/ ./static/
 COPY templates/ ./templates/
 
-EXPOSE 8000
+EXPOSE 8004
 
-CMD ["uvicorn", "src.frontend:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "src.frontend:app", "--host", "0.0.0.0", "--port", "8004", "--reload"]

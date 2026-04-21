@@ -77,7 +77,7 @@ async def parser_cbs(url:str, html_text:str):
     #json creation
     extracted_data = {
         "url": url,
-        "domain": "cbsnews.com",
+        "domain": "www.cbsnews.com",
         "title": page_title,
         "html_text": result.html,
         "parsed_text": clean_text 

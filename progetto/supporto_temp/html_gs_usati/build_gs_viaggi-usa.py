@@ -14,7 +14,7 @@ def create_gold_standard_entry():
     testo_pulito_path = "isola_di_oahu_cosa_vedere_e_come_organizzare_le_vacanze_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
-    output_json_path = "../../gs_data/viaggi-usa.it.json"
+    output_json_path = "../../gs_data/www.viaggi-usa.it.json"
 
     try:
         with open(html_file_path, "r", encoding="utf-8") as f:
@@ -32,7 +32,7 @@ def create_gold_standard_entry():
 
     gs_entry = {
         "url": link,
-        "domain": "viaggi-usa.it",
+        "domain": "www.viaggi-usa.it",
         "title": "Isola di Oahu: cosa vedere e come organizzare le vacanze",
         "html_text": html_content,
         "gold_text": clean_text

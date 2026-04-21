@@ -94,7 +94,7 @@ async def parser_cnbc(url:str, html_text:str):
     #json creation
     extracted_data = {
         "url": url,
-        "domain": "cnbc.com",
+        "domain": "www.cnbc.com",
         "title": page_title,
         "html_text": result.html,
         "parsed_text": clean_text 
