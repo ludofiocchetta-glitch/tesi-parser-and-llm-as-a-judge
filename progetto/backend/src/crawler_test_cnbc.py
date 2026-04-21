@@ -57,7 +57,7 @@ async def parser_cnbc(url:str, html_text:str):
     #configuration for the crawler run        
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        target_elements=[".ArticleBody-articleBody"],       
+        target_elements=[".group"],       
         markdown_generator=md_generator,
         js_code=remove_infobox_js,     
     )
@@ -77,8 +77,11 @@ async def parser_cnbc(url:str, html_text:str):
     clean_text = re.sub(r'watch now\s*VIDEO\d+:\d{2}\d+:\d{2}\n?', '', clean_text, flags=re.IGNORECASE)
     clean_text = re.sub(r'Choose CNBC as your preferred source on Google.*?business news\.', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
     clean_text = clean_text.replace("'", "’")
+    clean_text = clean_text.replace("_","")
     clean_text = re.sub(r'"([^"]*)"', r'“\1”', clean_text)
     clean_text = re.sub(r"^Watch:\s*.*$", "", clean_text, flags=re.MULTILINE | re.IGNORECASE)
+    clean_text = re.sub(r"\*\*Want to earn more money at work\?\*\*.*","",clean_text,flags=re.DOTALL | re.IGNORECASE)
+    clean_text = re.sub(r"Watch the video to learn more","",clean_text,flags=re.DOTALL | re.IGNORECASE)
     clean_text = re.sub(r'\n{3,}', '\n\n', clean_text).strip()
     
 

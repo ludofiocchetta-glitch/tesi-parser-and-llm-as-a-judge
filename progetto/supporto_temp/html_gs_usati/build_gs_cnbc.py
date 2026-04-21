@@ -35,15 +35,11 @@ async def create_gold_standard_entry():
     #link = "https://www.cnbc.com/2025/11/06/sam-altman-says-openai-will-top-20-billion-annual-revenue-this-year.html?&qsearchterm=Openai%20chatbot"
     #link = "https://www.cnbc.com/2026/03/31/warren-buffett-says-he-sold-apple-too-soon-and-would-buy-more-of-it-though-not-in-this-market-.html"
     #link = "https://www.cnbc.com/2025/03/08/how-facebook-marketplace-is-keeping-young-people-on-the-platform-.html"
-    link = "https://www.cnbc.com/2025/10/01/financial-advisor-100-methodology-2025.html"
-    
-    #link strano
-    #link = "https://www.cnbc.com/2024/11/20/ollolai-italy-dollar-homes-to-americans.html?&qsearchterm=italian%20election"
-
-
+    #link = "https://www.cnbc.com/2025/10/01/financial-advisor-100-methodology-2025.html"
+    link="https://www.cnbc.com/2024/11/20/ollolai-italy-dollar-homes-to-americans.html"
 
     #html_file_path = "how_activist_investors_plan_to_take_on_big_oil_at_the_2026_agm_season.html"
-    testo_pulito_path = "How_we_determined_CNBC's_Financial_Advisor_100_ranking_for_2025_gs.txt"
+    testo_pulito_path = "ollolai_italy_dollar_homes_to_americans_gs.txt"
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/www.cnbc.com.json"
 
@@ -71,7 +67,7 @@ async def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "www.cnbc.com",
-        "title": "How we determined CNBC’s Financial Advisor 100 ranking for 2025",
+        "title": "This village in Italy is offering $1 homes to Americans looking to move abroad post-election",
         "html_text": html_content,
         "gold_text": clean_text
     }
