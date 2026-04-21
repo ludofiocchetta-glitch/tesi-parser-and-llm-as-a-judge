@@ -23,17 +23,27 @@ async def fetch_raw_html(url:str) -> str:
     return html
 
 async def create_gold_standard_entry():
-    link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
+    #link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
     #link = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
     #link = "https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
     #link = "https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
     #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
     #link = "https://www.cnbc.com/2020/02/14/renault-cuts-dividend-slices-profit-goal-for-2020.html"
     #link = "https://www.cnbc.com/2026/01/14/oil-energy-shell-bp-green-investors-agm-season.html"
+    
+    #aggiunti di notte come un pazzo:
+    #link = "https://www.cnbc.com/2025/11/06/sam-altman-says-openai-will-top-20-billion-annual-revenue-this-year.html?&qsearchterm=Openai%20chatbot"
+    #link = "https://www.cnbc.com/2026/03/31/warren-buffett-says-he-sold-apple-too-soon-and-would-buy-more-of-it-though-not-in-this-market-.html"
+    #link = "https://www.cnbc.com/2025/03/08/how-facebook-marketplace-is-keeping-young-people-on-the-platform-.html"
+    link = "https://www.cnbc.com/2025/10/01/financial-advisor-100-methodology-2025.html"
+    
+    #link strano
+    #link = "https://www.cnbc.com/2024/11/20/ollolai-italy-dollar-homes-to-americans.html?&qsearchterm=italian%20election"
+
+
 
     #html_file_path = "how_activist_investors_plan_to_take_on_big_oil_at_the_2026_agm_season.html"
-    testo_pulito_path = "how_activist_investors_plan_to_take_on_big_oil_at_the_2026_agm_season_gs.txt"
-
+    testo_pulito_path = "How_we_determined_CNBC's_Financial_Advisor_100_ranking_for_2025_gs.txt"
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/www.cnbc.com.json"
 
@@ -61,7 +71,7 @@ async def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "www.cnbc.com",
-        "title": "How activist investors plan to take on Big Oil at the 2026 AGM season",
+        "title": "How we determined CNBC’s Financial Advisor 100 ranking for 2025",
         "html_text": html_content,
         "gold_text": clean_text
     }

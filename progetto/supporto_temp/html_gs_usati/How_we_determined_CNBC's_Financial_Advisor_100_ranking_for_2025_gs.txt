@@ -1,0 +1,32 @@
+CNBC’s Financial Advisor 100 list is determined through a blend of data analysis and editorial review.
+
+As an initial screening, data provider AccuPoint Solutions analyzes core data points from its proprietary database of registered investment advisors, or RIAs, as well as the U.S. Securities and Exchange Commission’s regulatory database. Firms that don’t meet CNBC’s proprietary criteria are removed from the list.
+
+This year’s analysis used an initial list of 40,563 RIA firms. The list was eventually cut to 1,015 RIAs that met CNBC’s proprietary criteria.
+
+CNBC sends an extensive email survey to all those firms that meet the initial criteria to gather more details about their practice. CNBC applies a layer of editorial review, clarifying firm entries as needed and verifying responses against the SEC regulatory database and other publicly available resources.
+
+AccuPoint Solutions then applies CNBC’s proprietary weighted criteria to refine the list and rank the firms.
+
+A firm’s inclusion on the list is based solely on this methodology. CNBC receives no compensation from placing financial advisory firms on our list. Additionally, a firm’s or advisor’s appearance on our ranking does not constitute an individual endorsement by CNBC of any firm or advisor.
+Data that goes into CNBC’s Financial Advisor 100 
+
+AccuPoint Solutions uses a variety of primary data points, either as a minimum baseline or within a range, to eliminate those firms that do not meet CNBC’s requirements. For example, any firm that has a disclosure with the SEC such as a regulatory violation or customer dispute is automatically disqualified from the ranking.
+
+Once the initial list is compiled, weightings are also applied accordingly. 
+
+These data points include:
+
+    Advisory firm’s regulatory/compliance record
+    Number of years in the business
+    Number of certified financial planners
+    Number of employees
+    Number of investment advisors registered with the firm
+    Ratio of investment advisors to the total number of employees
+    Total assets under management
+    Percentage of discretionary assets under management
+    Total accounts under management
+    Number of states where the RIA is registered
+    Country of domicile
+
+CNBC receives no compensation from placing financial advisory firms on our Financial Advisor 100 list. Additionally, a firm’s or advisor’s appearance in our ranking does not constitute an individual endorsement by CNBC of any firm or advisor.
