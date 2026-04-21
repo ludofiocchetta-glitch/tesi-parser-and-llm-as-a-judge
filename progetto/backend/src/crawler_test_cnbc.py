@@ -2,10 +2,13 @@
 from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode,DefaultMarkdownGenerator
 
 #import for md cleaning
-import re  
-
+import re 
 
 async def parser_cnbc(url:str, html_text:str):
+
+    if html_text != '':
+        html_text = re.sub(r'<script[^>]*>.*?</script>', '', html_text, flags=re.DOTALL | re.IGNORECASE)
+        html_text = re.sub(r'<style[^>]*>.*?</style>', '', html_text, flags=re.DOTALL | re.IGNORECASE)
 
     #link = "https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
     #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
@@ -28,34 +31,35 @@ async def parser_cnbc(url:str, html_text:str):
 
     #javascript snippet
     remove_infobox_js = """
-        const elementsToRemove = document.querySelectorAll(`
-            .RelatedQuotes-relatedQuotes, 
-            .PlaceHolder-wrapper,        
-            .ArticleBody-googlePreferredSourceContainer,
-            .InlineImage-imageEmbedCaption, 
-            .InlineImage-imageEmbedCredit,
-            .RelatedContent-container,
-            .ReadMore-container-cnbc,
-            .RenderKeyPoints-wrapper
-        `);
-        elementsToRemove.forEach(el => el.remove());
+        try {
+            const elementsToRemove = document.querySelectorAll(`
+                .RelatedQuotes-relatedQuotes, 
+                .PlaceHolder-wrapper,        
+                .ArticleBody-googlePreferredSourceContainer,
+                .InlineImage-imageEmbedCaption, 
+                .InlineImage-imageEmbedCredit,
+                .RelatedContent-container,
+                .ReadMore-container-cnbc,
+                .RenderKeyPoints-wrapper
+            `);
+            for (let el of elementsToRemove) { el.remove(); }
 
-        //Remove tag <strong> of the disclaimer
-        const boldTags = document.querySelectorAll('strong, b');
-        boldTags.forEach(tag => {
-            // CONTROLLO SULLA FRASE "DEVELOPING..."
-            if (tag.textContent.includes('This is developing news')) {
-                tag.closest('p') ? tag.closest('p').remove() : tag.remove();
+            const boldTags = document.querySelectorAll('strong, b');
+            for (let tag of boldTags) {
+                if (tag.textContent && tag.textContent.includes('This is developing news')) {
+                    let p = tag.closest('p');
+                    if (p) { p.remove(); } else { tag.remove(); }
+                }
             }
-        });
+        } catch (e) { console.error("JS Cleanup Error:", e); }
     """
 
     #configuration for the crawler run        
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        target_elements=[".group"],
+        target_elements=[".ArticleBody-articleBody"],       
         markdown_generator=md_generator,
-        js_code=remove_infobox_js 
+        js_code=remove_infobox_js,     
     )
 
     # Execute crawler
@@ -64,12 +68,11 @@ async def parser_cnbc(url:str, html_text:str):
             result = await crawler.arun(url=url, config=crawler_config)
     else:
         async with AsyncWebCrawler(config=browser_config) as crawler:
-            result = await crawler.arun(url=f"raw:{html_text}", config=crawler_config)
+           result = await crawler.arun(url=f"raw:{html_text}", config=crawler_config)
 
-    
     ##########################  MARKDOWN CLEANUP  ##########################
     
-    clean_text = result.markdown
+    clean_text = result.markdown or ""
     clean_text = re.sub(r'In this article.*?CREATE FREE ACCOUNT\n?', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
     clean_text = re.sub(r'watch now\s*VIDEO\d+:\d{2}\d+:\d{2}\n?', '', clean_text, flags=re.IGNORECASE)
     clean_text = re.sub(r'Choose CNBC as your preferred source on Google.*?business news\.', '', clean_text, flags=re.DOTALL | re.IGNORECASE)
@@ -79,7 +82,7 @@ async def parser_cnbc(url:str, html_text:str):
     clean_text = re.sub(r'\n{3,}', '\n\n', clean_text).strip()
     
 
-    ##########################  CREAZIONE JSON     ###################################
+    ##########################  CREAZIONE JSON  ###################################
     
     # Title extraction
     title_match = re.search(r'<h1 class="ArticleHeader-headline[^>]*>(.*?)</h1>', result.html, re.IGNORECASE)
