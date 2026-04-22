@@ -49,6 +49,7 @@ async def analyze_url(request: Request, url: str = Form(...)):
     
     parsed_data = None
     eval_data = None
+    gold_text = None
     error = None
 
     # Handle parsing and evaluation requests
@@ -81,7 +82,8 @@ async def analyze_url(request: Request, url: str = Form(...)):
         context={
             "domains": domains, 
             "gs_urls": gs_urls, 
-            "parsed_data": parsed_data, 
+            "parsed_data": parsed_data,
+            "gold_text": gold_text,
             "eval_data": eval_data, 
             "error": error
         }

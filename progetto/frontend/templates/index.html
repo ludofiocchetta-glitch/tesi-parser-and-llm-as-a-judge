@@ -63,15 +63,30 @@
 
                     <div class="output-results">
                         <div class="comparison-col">
-                            <p>
-                                <strong>Raw HTML:</strong>
-                                <span>{{ parsed_data.html_text }}</span>
-                            </p>
+                            {% if eval_data %}
+                                <p>
+                                    <strong>Gold Standard:</strong>
+                                    <span>{{ gold_text }}</span>
+                                </p>
+                            {% elif parsed_data %}
+                                <p>
+                                    <strong>Gold Standard:</strong>
+                                    <span class="warning-message">The URL is not present in the Gold Standard files.</span>
+                                </p>
+                            {% endif %}
                         </div>
                         <div class="comparison-col">
                             <p>
                                 <strong>Clean Text (Markdown):</strong>
                                 <span>{{ parsed_data.parsed_text }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="html-results">
+                        <div class="comparison-col">
+                            <p>
+                                <strong>HTML Text:</strong>
+                                <span>{{ parsed_data.html_text }}</span>
                             </p>
                         </div>
                     </div>

@@ -185,6 +185,10 @@ button[type="submit"]:active {
     gap: 25px;
 }
 
+.html-results {
+    display: flex;
+}
+
 @media (min-width: 900px) {
     .output-results {
         grid-template-columns: 1fr 1fr;
