@@ -32,10 +32,11 @@ async def create_gold_standard_entry():
     #link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
     #link = "https://www.viaggi-usa.it/itinerari/mid-west/ohio/"
     #link = "https://www.viaggi-usa.it/great-falls-virginia/"
-    link = "https://www.viaggi-usa.it/carta-di-credito-usa/"
+    #link = "https://www.viaggi-usa.it/itinerari/mid-west/minnesota/"
+    link = "https://www.viaggi-usa.it/itinerari/north-west/oregon/"
 
     #html_file_path = "charles_darwin.html"
-    testo_pulito_path = "Carta_di_Credito_USA,_bancomat_o_prepagata_come_pagare_negli_Stati_Uniti_gs.txt"
+    testo_pulito_path = "Oregon_USA_tutti_gli_itinerari_on_the_road_per_esplorare_lo_stato_gs.txt"
     
     os.makedirs("../../gs_data", exist_ok=True)
     output_json_path = "../../gs_data/www.viaggi-usa.it.json"
@@ -64,7 +65,7 @@ async def create_gold_standard_entry():
     gs_entry = {
         "url": link,
         "domain": "www.viaggi-usa.it",
-        "title": "Carta di Credito USA, bancomat o prepagata: come pagare negli Stati Uniti?",
+        "title": "Oregon USA: tutti gli itinerari on the road per esplorare lo stato",
         "html_text": html_content,
         "gold_text": clean_text
     }
