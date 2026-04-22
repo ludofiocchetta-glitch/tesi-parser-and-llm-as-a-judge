@@ -27,7 +27,7 @@ async def parser_cbs(url:str, html_text:str):
 
     #javascript snippet
     remove_infobox_js = """
-        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux, .component__item-recirc, .content__body--footer, .content__meta--brand-font');
+        const infoboxes = document.querySelectorAll('.content__grid, .content__google, .embed__caption-container, .component__item-recirc-block, .component__title, .content__tags, .content__footer, .item--asset-wrapper, .bodysmall, .postAux, .component__item-recirc, .content__body--footer, .content__meta--brand-font, .post-update__author, .post-update__time-ago.is-live');
         infoboxes.forEach(box => box.remove());
     """
 
@@ -52,9 +52,10 @@ async def parser_cbs(url:str, html_text:str):
     ##########################  MARKDOWN CLEANUP  ##########################
     
     clean_text = result.markdown
-    clean_text = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", clean_text)
+    clean_text = re.sub(r"(?i)\s*\*?\s*https?://\S+\s+link copied\b\s*", "\n", clean_text)
     clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
     clean_text = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", clean_text, flags=re.IGNORECASE)
+    clean_text= re.sub(r"\s*\*\s*.*","",clean_text)
     
 
     ##########################  JSON CREATION  ###################################
@@ -67,12 +68,8 @@ async def parser_cbs(url:str, html_text:str):
         page_title="title_not_found"
     
     #delete title from md 
-    #lines = clean_text.splitlines()
-    #if len(lines) > 1:
-        #clean_text = "\n".join(lines[1:]).strip()
-    #else:
-        #clean_text = "# " + clean_text.strip()
-
+    clean_text="\n".join(clean_text.splitlines()[1:])
+   
         
     #json creation
     extracted_data = {

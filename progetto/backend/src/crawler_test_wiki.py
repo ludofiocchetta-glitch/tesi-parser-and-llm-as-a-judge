@@ -71,12 +71,6 @@ async def parser_wiki(url:str, html_text:str):
     else:
         page_title="title_not_found"
     
-    #delete title from md 
-    #lines = clean_text.splitlines()
-    #if len(lines) > 1:
-        #clean_text = "\n".join(lines[1:]).strip()
-    #else:
-        #clean_text = "# " + clean_text.strip()
 
     #json creation
     extracted_data = {
