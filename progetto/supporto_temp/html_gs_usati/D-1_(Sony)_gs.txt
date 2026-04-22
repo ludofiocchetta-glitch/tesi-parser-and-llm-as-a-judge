@@ -1,0 +1,66 @@
+D-1 or 4:2:2 Component Digital is an SMPTE digital recording video standard, introduced in 1986 through efforts by SMPTE engineering committees. It started as a Sony and Bosch – BTS product and was the first major professional digital video format. SMPTE standardized the format within ITU-R 601 (orig. CCIR-601), also known as Rec. 601, which was derived from SMPTE 125M and EBU 3246-E standards.
+Format
+D-1 or 4:2:2 D-1 (1986) was a major feat in real time, broadcast quality digital video recording. It stores uncompressed digitized component video, encoded at Y'CbCr 4:2:2 using the CCIR 601 raster format with 8 bits, along with PCM audio tracks as well as timecode on a 3/4 inch (19 mm) videocassette tape (though not to be confused with the ubiquitous 3/4-inch U-Matic/U-Matic SP cassette).
+
+The uncompressed component video used enormous bandwidth for its time: 167 Mbit/sec (bit rate). One of the first D-1 VTRs, the Sony DVR-1000, required a separate, large video processor. Its successor, the DVR-2000, integrated it into the same chassis as the VTR. The maximum record time on a D-1 tape is 94 minutes. Medium tapes could record up to 34 minutes, and small tapes up to 6 minutes.
+
+The format uses helical scan, with an M wrap pattern in which the tape is wrapped around the head drum around the left and right side. The helical scan head drum rotates at 10,800 RPM for NTSC video, or at 9000 RPM for PAL. It is 75 mm in diameter and the helical tracks, read by video heads mounted on the head drum, are 40 microns wide. Writing speed at the heads is 33.63 m/s, linear tape speeds are 286.588 mm/s for NTSC, 286.875 mm/s for PAL.
+
+Because of the uncompromising picture quality, component processing and uncompressed recording, D-1 was most popular in high-end graphic and animation production – where multiple layering had previously been done in short run times via hard drives (Quantel Harry, Henry, Harriet, Hal or Abekas DDR) or via multiple analog machines running at once. Hard drives in the 1980s that stored broadcast-quality video would typically only hold 30 seconds to a few minutes of space, yet the systems that made them work could cost $500,000. By contrast, the D-1 machine allowed 94 minutes of recording on a $200 cassette.
+
+D-1 resolution is 720 (horizontal) × 486 (vertical) for NTSC systems and 720 × 576 for PAL systems; these resolutions come from Rec. 601.
+
+A small variation removing the top 6 lines to save space was later introduced and made popular in the 1/4-inch DV/DVCAM/DVCPRO formats and for digital broadcasting, which have 720 x 480 pixels for NTSC; and is also used in DVD-Video and standard-definition television.
+
+The D1 units are switchable between NTSC and PAL. Luma is sampled at 13.5 MHz and Chroma at 6.75 MHz with an overall data rate of 27 MHz. Sampling at 13.5 MHz was used as it is a common multiple of NTSC/PAL line rate (6 x 2.5 MHz). The first input/output interface was a 25 pin parallel cable (SMPTE 125M) and later updated to serial digital interface on coaxial cable (SDI, SMPTE 259M, 75Ω coax, 270 MHz). Ancillary data can be put in H/V blanking intervals. Color space for Y’ B’-Y’ R’-Y’ is also defined in ITU Rec. 601 or Rec. 709 color space.
+
+Panasonic's D-5 format has similar specifications, but sampled at 10-bits as opposed to D-1's 8-bits. It had the advantage of development time as it was released much later than Sony's D-1 and one year after Sony's Digital Betacam format was unveiled.
+
+The D-2 format system from Sony and Ampex soon followed two years later, using composite video in order to lower the bandwidth needed. This reduced D-2's price tag to half that of D-1. Since D-2 was composite digital as opposed to component, it could easily be dropped into the space and infrastructure of composite analog machines presently used at the time (2-inch Quadruplex, 1-inch Type C and 3/4-inch U-Matic). Since less information was recorded on D-2 than on D-1, tape speed could be reduced and hold a maximum of 208 minutes compared to D-1's 94 minutes. However, D-2 was still a compromise, being composite video.
+
+As broadcasters would later convert from analog to digital wiring, component digital infrastructure became feasible. Sony's popular component Digital Betacam supported this transition by keeping the colors separated in component digital space (D1/D5) rather than combined in composite space (D2/D3). Digital Betacam could play previous analog Betacam/Betacam SP tapes which by now had built a library archive for broadcasters using its 1/2-inch tape format (as opposed to the bulkier 19mm D1/D2 cassettes). 1/2-inch Digital Betacam thus became the de facto standard-definition broadcast editing, delivery and archive standard.
+
+Even as HD broadcasting and delivery became more commonplace in the U.S. after 2008–2010, networks would often require standard definition copies on Digital Betacam. Television shows such as CBS' The Rachael Ray Show were still recorded and archived on Digital Betacam as late as 2012.
+
+Use
+D-1 was notoriously expensive and the equipment required very large infrastructure changes in facilities which upgraded to this digital recording format, because the machines being uncompromising in quality reverted to component processing (where the luminance or black-and-white information of the picture) and its primary colors red, green and blue (RGB) were kept separate in a sampling algorithm known as 4:2:2, which is why many machines have a badge of "4:2:2" instead of "D-1."
+
+Early D-1 operations were plagued with difficulties, though the format quickly stabilized and is still renowned for its superb standard definition image quality.
+
+D-1 was the very first real-time digital broadcast-quality tape format. The original Sony DVR-1000 unveiled in 1986 had a U.S. MSRP (manufacturer suggested retail price) of $160,000. A few years later, Sony's engineers were able to drastically reduce the size of the machine by reducing the electronic processing to fit into the main cassette drive chassis, christened the DVR-2000, lowering the U.S. cost to $120,000.
+
+An external single-rack unit would enable the machine to record an additional key (matte) channel (4:2:2:4) or double the horizontal resolution (8:4:4) by combining two VTRs running simultaneously.
+
+Later "SP" and "OS" models ran Off-SPeed, making them technically friendly for 24-frame telecine film transfers to D1 tape – and allowing a single tape to provide both NTSC (525 vertical lines) and PAL (625 lines) masters at one time.
+
+Relation to other tapes
+While early color television experiments were kept in the component domain of RGB, most color television broadcasting and post production was compromised in the 1960s and 1970s to simplify infrastructure and transmission by combining the color and luminance (composite). However, once the color and luminance information was combined, it could never truly be uncombined as cleanly as originated.
+
+Component video was rarely processed through a video facility as RGB, as it is in computer displays. There was a historical legacy need to maintain black-and-white signals. Further, as the human eye is more sensitive to black-and-white picture information than color, engineers calculated that with the size of the largest home television screen, the color video lines did not need to be sampled for every converted digital pixel.
+
+Sony's 1982 news-gathering 1/2-inch video format Betacam, the first camcorder combination came up with a compromise, known as YUV. The "Y" was luminance, or the detail of the video picture, in black-and-white. It contained the sync 'frame' needed to make a stable picture. If one connects only the "Y" cable, one can see a black-and-white image, but not if only connecting the other two color information channels.
+
+The "UV" was a math algorithm of R-Y (red minus luminance) and B-Y (blue minus luminance). The green information was derived by the difference (thus YUV is referred to as color difference processing). For example, if there are five black-and-white panda teddy bears in a box (Y); plus eight red apples (R-Y) and two blueberries (B-Y); and the total number of items has to equal 20, one can easily calculate how many remaining green apples there are, as 20 minus 15 would leave a difference of five.
+
+When engineers sought to process and record in real time the huge amount of digital data needed to make the first digital video tape format, keeping the Y, R-Y, B-Y or YUV algorithm was key to simplifying and reducing the initial picture information sampled, saving valuable space.
+
+4:2:2 is Y, R-Y and B-Y; not RGB; 4:2:2 is often erroneously quoted as 4 meaning red, and the remaining 2s standing for green and blue. If this were true, it would produce an uneven recording of green and blue data compared to red.
+
+In a given small sample of the video picture – for instance the first four pixels going across horizontally in the top-left corner of the screen, the first "4" means that the more important luminance/black-and-white picture detail was sampled in every pixel in that 4-sample.
+
+The next two 2s mean that R-Y and B-Y were sampled at every other pixel, skipping the one in-between. The eye should not be able to see the two in-between pixels not having the actual color information that the originating camera recorded – previous color pixel is simply replicated. Thus with 4:2:2, all color, red, green and blue, is sampled at half the rate of the black-and-white (luminance) picture detail. You could say that 50% of the color is actually recorded – because for the TV screen, it was good enough for the human eye.
+
+The popular 1995/96 1/4-inch DV/DVCAM/DVCPRO format had a component digital YUV sampling of 4:1:1, meaning only 1 out of 4 pixels or 25% of the color is actually recorded, which is why the color looks "muddy" and not as vibrant when compared to any 4:2:2 recording. This made green screen mattes lower quality on the format. The DV format further compressed the digital data at 5:1, to get 25 million bits per second onto a small tape moving at a slow speed. Subtle compression artifacts were sometimes visible.
+
+Modern high definition video recorders like Sony's HDCAM-SR format, SR stands for superior resolution, have the ability to switch between 4:2:2 and full RGB recording for giant-screen motion picture work, thus RGB is sampled at every pixel and branded 4:4:4.
+
+Models
+Sony
+DVR-1000
+DVR-2000
+DVR-2100
+
+BTS
+DCR-100
+DCR-300
+DCR-500

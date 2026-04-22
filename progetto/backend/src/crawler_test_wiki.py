@@ -56,8 +56,10 @@ async def parser_wiki(url:str, html_text:str):
     clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
     clean_text = re.sub(r"\[citation needed\]|\[clarification needed\]|\[supporting\]|\[[A-Z]+\]","",clean_text)
     clean_text = re.sub(r"^\|[-:\s|]+\|\n?", "", clean_text, flags=re.MULTILINE)
+    clean_text = re.sub(r'^.*Main article[s]?:\s*.*$\n?', '', clean_text, flags=re.MULTILINE | re.IGNORECASE)
     clean_text = re.sub(r"\s*\|\s*", " ", clean_text)
     clean_text = re.sub(r"\*\*","",clean_text)
+    clean_text = re.sub(r"\*","",clean_text)
     text = re.split(r"##\s*(?:See also|References|Notes|Further reading|External links)", clean_text, flags=re.IGNORECASE)
     clean_text = text[0].strip()
 
