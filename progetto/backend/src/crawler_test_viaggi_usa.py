@@ -44,18 +44,40 @@ async def parser_viaggi_usa(url: str, html_text:str):
         '.inside-navigation',
         '.breadcrumbs',
         '.no_bullets',
-        '.su-spoiler-title',
-        '.su-spoiler', 
-        '.su-spoiler-content',
-        '.su-u-clearfix',
-        '.su-u-trim',
+        //'.su-spoiler-title',
+        //'.su-spoiler', 
+        //'.su-spoiler-content',
+        //'.su-u-clearfix',
+        //'.su-u-trim',
+        // Uccide i caroselli di immagini in cima all'articolo
+        '.su-image-carousel',
+        //
+        // Uccide i bottoni promozionali e le Call to Action
+        '.su-button',
+        '.su-button-center',
+        //
+        // Uccide i blocchi a schede/tab (se presenti)
+        '.su-tabs',
+        //
+        // Uccide eventuali note o citazioni evidenziate (opzionale)
+        '.su-note',
+        '.su-quote',
+        //
+        '#toc_container', 
+        '.no_bullets',
+        //
+        '.postevidenza',
+        //
         '.has-text-align-center',
         '.featured-links',
         //'.wp-block-list',
         'p:has(> .featured-links)',
         'p.has-text-align-center:has(a.featured-links)',
         '.wp-element-caption',
-        '.has-text-align-center'
+        '.has-text-align-center',
+        '.gm-style',
+        //
+        '.viaggi-usa-highlight'
     ];
     
     patterns.forEach(selector => {
@@ -96,7 +118,7 @@ async def parser_viaggi_usa(url: str, html_text:str):
     clean_text = re.sub(r'_(.*?)_', r'\1', clean_text) 
     clean_text = re.sub(r'(\*\*|__)(.*?)\1', r'\2', clean_text)
     clean_text = re.sub(r'\* ','',clean_text)
-    
+    clean_text = re.sub(r'<span[^>]*data-mce-type="bookmark"[^>]*>.*?</span>', '', clean_text)
 
     ##########################  JSON CREATION  ###################################
     
