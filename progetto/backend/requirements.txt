@@ -3,3 +3,4 @@ uvicorn
 pydantic
 crawl4ai
 scikit-learn
+rouge-score

@@ -1,6 +1,7 @@
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from rouge_score import rouge_scorer
 
 def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
   
@@ -16,7 +17,7 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "recall": 0.0, 
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0, 
-                "overlap_coefficient": 0.0, 
+                "rouge_l": 0.0, 
                 "cosine_similarity": 0.0
             }
 
@@ -30,7 +31,7 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "recall": 0.0, 
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0,
-                "overlap_coefficient": 0.0, 
+                "rouge_l": 0.0, 
                 "cosine_similarity": 0.0
             }
 
@@ -45,7 +46,14 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
 
         # Additional metrics
         jaccard_similarity = len(intersection) / len(union) if len(union) > 0 else 0.0
-        overlap_coefficient = len(intersection) / min(len(extracted_tokens), len(gs_tokens))
+        
+        try:
+            scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=False)
+            scores = scorer.score(gold_text, parsed_text)
+            
+            rouge_l_score = scores['rougeL'].fmeasure
+        except Exception:
+            rouge_l_score = 0.0
 
         # TF-IDF vectorization for cosine similarity
         try:
@@ -60,7 +68,7 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "recall": float(recall),
             "f1": float(f1),
             "jaccard_similarity": float(jaccard_similarity),
-            "overlap_coefficient": float(overlap_coefficient),
+            "rouge_l": float(rouge_l_score),            
             "cosine_similarity": float(cos_similarity)
         }
         
@@ -71,6 +79,6 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "recall": 0.0, 
             "f1": 0.0,
             "jaccard_similarity": 0.0, 
-            "overlap_coefficient": 0.0, 
+            "rouge_l": 0.0, 
             "cosine_similarity": 0.0
         }

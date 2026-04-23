@@ -51,7 +51,7 @@ class TokenLevelEval(BaseModel):
 # Model for the other metrics
 class XEval(BaseModel):
     jaccard_similarity: float
-    overlap_coefficient:float
+    rouge_l: float
     cosine_similarity:float
 
 # Model for the input of /evaluate
@@ -180,7 +180,7 @@ async def evaluate_text(data: EvaluateRequest):
         ),
         "x_eval": XEval(
             jaccard_similarity=ris["jaccard_similarity"],
-            overlap_coefficient=ris["overlap_coefficient"],
+            rouge_l=ris["rouge_l"],
             cosine_similarity=ris["cosine_similarity"]
         )}
 
@@ -204,7 +204,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     tot_recall = 0.0
     tot_f1 = 0.0
     tot_jaccard = 0.0
-    tot_overlap = 0.0
+    tot_rouge_l = 0.0
     tot_cosine = 0.0
     
     for item in gs_list:
@@ -230,7 +230,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_recall += ris["recall"]
             tot_f1 += ris["f1"]
             tot_jaccard += ris["jaccard_similarity"]
-            tot_overlap += ris["overlap_coefficient"]
+            tot_rouge_l += ris["rouge_l"]
             tot_cosine += ris["cosine_similarity"]
             
 
@@ -247,7 +247,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
         ),
         "x_eval": XEval(
             jaccard_similarity=tot_jaccard / n,
-            overlap_coefficient=tot_overlap / n,
+            rouge_l=tot_rouge_l / n,
             cosine_similarity=tot_cosine / n
         )
     }
