@@ -4,18 +4,11 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 #import for md cleaning
 import re 
 
-async def parser_cnbc(url:str, html_text:str):
-
+async def parser_cnbc(url:str, html_text:str) -> dict:
+  
     if html_text != '':
         html_text = re.sub(r'<script[^>]*>.*?</script>', '', html_text, flags=re.DOTALL | re.IGNORECASE)
         html_text = re.sub(r'<style[^>]*>.*?</style>', '', html_text, flags=re.DOTALL | re.IGNORECASE)
-
-    #link = "https://www.cnbc.com/2026/04/14/eric-swalwell-accuser-rape-california.html"
-    #link = "https://www.cnbc.com/2026/04/06/fda-says-foreign-drug.html"
-    #link = "https://www.cnbc.com/2026/04/13/pancreatic-cancer-drug-daraxonrasib-from-revolution-medicines-succeeds-in-trial.html"
-    #link = "https://www.cnbc.com/2026/04/14/nvidia-stock-nvda-ai-streak.html"
-    #link = "https://www.cnbc.com/2022/02/21/bitcoin-btc-bull-market-may-not-return-until-2024-huobi-co-founder.html"
-    #link = "https://www.cnbc.com/2026/04/13/trump-iran-war-strait-of-hormuz-blockade.html"
 
     #brower configuration
     browser_config = BrowserConfig(headless=True)

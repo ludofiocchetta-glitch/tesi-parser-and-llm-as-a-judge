@@ -5,14 +5,8 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_cbs(url:str, html_text:str):
-    #link = "https://www.cbsnews.com/news/omaha-nebraska-police-kill-woman-slashed-child-knife-walmart/"
-    #link = "https://www.cbsnews.com/news/coffee-tea-caffeine-dementia-clean_textk-study/"
-    #link = "https://www.cbsnews.com/news/cds-vs-high-yield-savings-accounts-better-inflation-clean_texting/"
-    #link = "https://www.cbsnews.com/news/trump-pope-leo-feud-politics/"
-    #link = "https://www.cbsnews.com/news/winehouse-not-guilty-for-punching-fan-in-the-face/"
-    #link = "https://www.cbsnews.com/news/artemis-ii-astronauts-welcomed-home-to-houston-after-historic-moonshot/"
-
+async def parser_cbs(url:str, html_text:str) -> dict:
+   
     #brower configuration
     browser_config = BrowserConfig(headless=True)
 

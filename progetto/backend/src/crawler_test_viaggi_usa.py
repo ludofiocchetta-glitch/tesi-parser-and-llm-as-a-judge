@@ -5,14 +5,8 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_viaggi_usa(url: str, html_text:str):
-    #link = "https://www.viaggi-usa.it/parchi-usa/grand-canyon/"
-    #link = "https://www.viaggi-usa.it/eventi-san-diego/"
-    #link = "https://www.viaggi-usa.it/passaporto-per-usa/"
-    #link = "https://www.viaggi-usa.it/route-66-storia/"
-    #link = "https://www.viaggi-usa.it/four-mile-old-west-town-museum/"
-    #link = "https://www.viaggi-usa.it/oahu-cosa-vedere/"
-
+async def parser_viaggi_usa(url: str, html_text:str) -> dict:
+   
     #brower configuration
     browser_config = BrowserConfig(headless=True)
 

@@ -42,21 +42,24 @@ class FullGoldStandardResponse(BaseModel):
 class DomainsResponse(BaseModel):
     domains: List[str]
 
-# Model for the output of /evaluate
+# Model for the standard metrics
 class TokenLevelEval(BaseModel):
     precision: float
     recall: float
     f1: float
 
+# Model for the other metrics
 class XEval(BaseModel):
     jaccard_similarity: float
     overlap_coefficient:float
     cosine_similarity:float
 
+# Model for the input of /evaluate
 class EvaluateRequest(BaseModel):
     parsed_text: str
     gold_text: str
 
+# Model for the output of /evaluate
 class EvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     x_eval: XEval

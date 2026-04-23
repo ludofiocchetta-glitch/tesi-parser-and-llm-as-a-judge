@@ -5,14 +5,8 @@ from crawl4ai import AsyncWebCrawler, BrowserConfig, CrawlerRunConfig, CacheMode
 import re  
 
 
-async def parser_wiki(url:str, html_text:str):
-    #link = "https://en.wikipedia.org/wiki/Donald_Trump"
-    #link = "https://en.wikipedia.org/wiki/Artificial_intelligence"
-    #link = "https://en.wikipedia.org/wiki/Charles_Darwin"
-    #link = "https://en.wikipedia.org/wiki/Lanzarote"
-    #link = "https://en.wikipedia.org/wiki/Alfa_Romeo_159"
-    #link = "https://en.wikipedia.org/wiki/Scooby-Doo"
-
+async def parser_wiki(url:str, html_text:str) -> dict:
+  
     #brower configuration
     browser_config = BrowserConfig(headless=True)
 

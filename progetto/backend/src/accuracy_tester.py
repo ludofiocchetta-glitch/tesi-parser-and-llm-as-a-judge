@@ -3,8 +3,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
+  
     try:
-        # Cast to string for Null of the tester
+        # Cast to string 
         parsed_text = str(parsed_text) if parsed_text else ""
         gold_text = str(gold_text) if gold_text else ""
 
