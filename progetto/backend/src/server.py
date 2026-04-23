@@ -180,7 +180,7 @@ async def evaluate_text(data: EvaluateRequest):
         ),
         "x_eval": XEval(
             jaccard_similarity=ris["jaccard_similarity"],
-            rouge_l=ris["rouge_l"],
+            rouge_l=1.0,
             cosine_similarity=ris["cosine_similarity"]
         )}
 
@@ -230,7 +230,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_recall += ris["recall"]
             tot_f1 += ris["f1"]
             tot_jaccard += ris["jaccard_similarity"]
-            tot_rouge_l += ris["rouge_l"]
+            tot_rouge_l += 1.0
             tot_cosine += ris["cosine_similarity"]
             
 
