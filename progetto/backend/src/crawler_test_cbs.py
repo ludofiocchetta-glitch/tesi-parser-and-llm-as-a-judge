@@ -60,11 +60,7 @@ async def parser_cbs(url:str, html_text:str) -> dict:
         page_title= title_match.group(1).replace( " - CBS News","")
     else:
         page_title="title_not_found"
-    
-    #delete title from md 
-    clean_text="\n".join(clean_text.splitlines()[1:])
-   
-        
+       
     #json creation
     extracted_data = {
         "url": url,

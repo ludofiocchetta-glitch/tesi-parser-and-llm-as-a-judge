@@ -47,10 +47,11 @@ async def parser_cnbc(url:str, html_text:str) -> dict:
         } catch (e) { console.error("JS Cleanup Error:", e); }
     """
 
+    css_list = ["h1.ArticleHeader-headline",".group"]
     #configuration for the crawler run        
     crawler_config = CrawlerRunConfig(
         cache_mode=CacheMode.BYPASS,
-        target_elements=[".group"],       
+        target_elements=css_list,       
         markdown_generator=md_generator,
         js_code=remove_infobox_js,     
     )
