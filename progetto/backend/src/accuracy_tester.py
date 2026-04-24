@@ -1,7 +1,6 @@
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-#from rouge_score import rouge_scorer
 
 def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
   
@@ -17,13 +16,15 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "recall": 0.0, 
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0, 
-                "rouge_l": 0.0, 
+                "bigram_overlap": 0.0, 
                 "cosine_similarity": 0.0
             }
 
         # Token extraction
-        extracted_tokens = set(re.findall(r'\b\w+\b', parsed_text.lower()))
-        gs_tokens = set(re.findall(r'\b\w+\b', gold_text.lower()))
+        extracted_words= re.findall(r'\b\w+\b', parsed_text.lower())
+        gs_words = re.findall(r'\b\w+\b', gold_text.lower())
+        extracted_tokens = set(extracted_words)
+        gs_tokens = set(gs_words)
 
         if not extracted_tokens or not gs_tokens:
             return {
@@ -31,7 +32,7 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "recall": 0.0, 
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0,
-                "rouge_l": 0.0, 
+                "bigram_overlap": 0.0, 
                 "cosine_similarity": 0.0
             }
 
@@ -47,13 +48,14 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
         # Additional metrics
         jaccard_similarity = len(intersection) / len(union) if len(union) > 0 else 0.0
         
-        #try:
-           # scorer = rouge_scorer.RougeScorer(['rougeL'], use_stemmer=False)
-            #scores = scorer.score(gold_text, parsed_text)
-            
-            #rouge_l_score = scores['rougeL'].fmeasure
-       # except Exception:
-            #rouge_l_score = 0.0
+        # Creating sets of consecutive word pairs for bigram overlap
+        ex_bigrams = set(zip(extracted_words[:-1], extracted_words[1:]))
+        gs_bigrams = set(zip(gs_words[:-1], gs_words[1:]))
+
+        if ex_bigrams and gs_bigrams:
+            bigram_overlap = len(ex_bigrams & gs_bigrams) / min(len(ex_bigrams), len(gs_bigrams))
+        else:
+            bigram_overlap = 0.0
 
         # TF-IDF vectorization for cosine similarity
         try:
@@ -68,7 +70,7 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "recall": float(recall),
             "f1": float(f1),
             "jaccard_similarity": float(jaccard_similarity),
-            "rouge_l": 1.0,            
+            "bigram_overlap": float(bigram_overlap),           
             "cosine_similarity": float(cos_similarity)
         }
         
@@ -79,6 +81,6 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "recall": 0.0, 
             "f1": 0.0,
             "jaccard_similarity": 0.0, 
-            "rouge_l": 0.0, 
+            "bigram_overlap": 0.0, 
             "cosine_similarity": 0.0
         }

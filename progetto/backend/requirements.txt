@@ -1,6 +1,14 @@
+# Web framework for building the API backend
 fastapi
+
+# ASGI web server implementation for run the FastAPI application
 uvicorn
+
+# Schema definition for API requests and responses
 pydantic
+
+# Library used for the text extraction in parsers
 crawl4ai
+
+# Library for the vectorization of cosine similarity
 scikit-learn
-rouge-score

@@ -1,5 +1,14 @@
+# Web framework for serving the frontend application
 fastapi
+
+# ASGI web server implementation for run the frontend application
 uvicorn
+
+# Templating engine for dynamic HTML pages
 jinja2
+
+# Asynchronous HTTP client for communicate with the backend API
 httpx
+
+# Utility for parsing form data
 python-multipart
