@@ -19,18 +19,26 @@ async def parser_viaggi_usa(url: str, html_text:str) -> dict:
         }
     )
 
-    #javascript snippet
+# Javascript snippet
     remove_infobox_js = """
+    const h1 = document.querySelector('h1.gb-headline');
+    const article = document.querySelector('article');
+
+    if (h1 && article) {
+        article.prepend(h1);
+    }
+
+    const allHeadlines = document.querySelectorAll('.gb-headline');
+    allHeadlines.forEach(el => {
+        if (el !== h1) {
+            el.remove();
+        }
+    });
+
     const patterns = [
         'div[class*="gb-container-"]', 
         'div[class*="gb-accordion"]',
-        //
         '.widget-title', 
-        // Colpisce le headline di GenerateBlocks ignorando l'ID dinamico
-        'h1[class*="gb-headline"]', 
-        'h2[class*="gb-headline"]',
-        'h3[class*="gb-headline"]',
-        //
         '.PlaceHolder-wrapper',        
         '.InlineImage-imageEmbedCaption', 
         '.InlineImage-imageEmbedCredit',
@@ -38,44 +46,30 @@ async def parser_viaggi_usa(url: str, html_text:str) -> dict:
         '.inside-navigation',
         '.breadcrumbs',
         '.no_bullets',
-        //'.su-spoiler-title',
-        //'.su-spoiler', 
-        //'.su-spoiler-content',
-        //'.su-u-clearfix',
-        //'.su-u-trim',
-        // Uccide i caroselli di immagini in cima all'articolo
         '.su-image-carousel',
-        //
-        // Uccide i bottoni promozionali e le Call to Action
         '.su-button',
         '.su-button-center',
-        //
-        // Uccide i blocchi a schede/tab (se presenti)
         '.su-tabs',
-        //
-        // Uccide eventuali note o citazioni evidenziate (opzionale)
         '.su-note',
         '.su-quote',
-        //
-        '#toc_container', 
-        '.no_bullets',
-        //
+        '#toc_container', // <-- Questo è l'indice!
         '.postevidenza',
-        //
         '.has-text-align-center',
         '.featured-links',
-        //'.wp-block-list',
         'p:has(> .featured-links)',
         'p.has-text-align-center:has(a.featured-links)',
         '.wp-element-caption',
-        '.has-text-align-center',
         '.gm-style',
-        //
         '.viaggi-usa-highlight'
     ];
     
     patterns.forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => el.remove());
+        document.querySelectorAll(selector).forEach(el => {
+            // Evitiamo di cancellare il contenitore principale o il nostro titolo, ma distruggiamo il resto
+            if (el.tagName.toLowerCase() !== 'article' && el !== h1) {
+                el.remove();
+            }
+        });
     });
     """
 
