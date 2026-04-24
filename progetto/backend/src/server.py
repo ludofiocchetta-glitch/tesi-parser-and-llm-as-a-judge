@@ -76,21 +76,23 @@ async def parse_article(url: str = Query(..., description="The URL of the articl
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
 
-    # Route request to the appropriate parser
-    if domain == "en.wikipedia.org":
-        return await parser_wiki(url,'')
-    
-    elif domain == "www.cbsnews.com":
-        return await parser_cbs(url,'')
-        
-    elif domain == "www.cnbc.com":
-        return await parser_cnbc(url,'')
-    
-    elif domain == "www.viaggi-usa.it":
-        return await parser_viaggi_usa(url,'')
-        
-    else:
-        raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+    try:
+        # Route request to the appropriate parser
+        if domain == "en.wikipedia.org":
+            return await parser_wiki(url,'')
+        elif domain == "www.cbsnews.com":
+            return await parser_cbs(url,'')
+        elif domain == "www.cnbc.com":
+            return await parser_cnbc(url,'')
+        elif domain == "www.viaggi-usa.it":
+            return await parser_viaggi_usa(url,'')
+        else:
+            raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
     
 ################## POST PARSE #################
 
@@ -126,10 +128,16 @@ async def get_supported_domains():
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail=f"domains.json not exists")
     
-    with open(file_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data
+
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Error decoding domains.json. The file contains invalid JSON.")
         
-    return data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal server error while reading domains: {str(e)}")
 
 
 ################### GOLD STANDARD ###################
@@ -257,4 +265,4 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8004, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8003, reload=True)
