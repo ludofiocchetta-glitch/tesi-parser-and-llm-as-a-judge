@@ -5,10 +5,10 @@ from typing import List, Dict, Optional
 import os
 import json
 
-from src.crawler_test_cbs import parser_cbs
-from src.crawler_test_cnbc import parser_cnbc
-from src.crawler_test_wiki import parser_wiki
-from src.crawler_test_viaggi_usa import parser_viaggi_usa
+from src.crawler_cbs import parser_cbs
+from src.crawler_cnbc import parser_cnbc
+from src.crawler_wiki import parser_wiki
+from src.crawler_viaggi_usa import parser_viaggi_usa
 from src.accuracy_tester import calculate_metrics
 
 app = FastAPI(title="Web Scraper API")
