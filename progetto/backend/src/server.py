@@ -11,6 +11,7 @@ from src.crawler_wiki import parser_wiki
 from src.crawler_viaggi_usa import parser_viaggi_usa
 from src.accuracy_tester import calculate_metrics
 
+OLLAMA_URL = "http://ollama:11434/api/generate"
 app = FastAPI(title="Web Scraper API")
 
 # Model for the output of /parse
