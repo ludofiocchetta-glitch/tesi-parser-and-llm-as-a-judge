@@ -1,18 +1,29 @@
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Query
 from urllib.parse import urlparse
 from pydantic import BaseModel
 from typing import List, Dict, Optional
 import os
 import json
+import mariadb
 
 from src.crawler_cbs import parser_cbs
 from src.crawler_cnbc import parser_cnbc
 from src.crawler_wiki import parser_wiki
 from src.crawler_viaggi_usa import parser_viaggi_usa
 from src.accuracy_tester import calculate_metrics
+from src.init_db import setup_database, get_db_connection
 
 OLLAMA_URL = "http://ollama:11434/api/generate"
-app = FastAPI(title="Web Scraper API")
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Initialization of the database in progress...")
+    setup_database()
+    yield # 
+    print("Shutdown of the server...")
+
+app = FastAPI(title="Web Scraper API", lifespan=lifespan)
 
 # Model for the output of /parse
 class ParseResponse(BaseModel):
@@ -34,6 +45,11 @@ class GoldStandardEntry(BaseModel):
     title: str
     html_text: str
     gold_text: str
+
+# Model for the output of /gold_standard_urls
+class GoldStandardUrlsResponse(BaseModel):
+    gold_standard_urls: List[str]
+
 
 # Model for the output of /full gs
 class FullGoldStandardResponse(BaseModel):
@@ -161,6 +177,35 @@ async def get_single_gold_standard(url: str):
             return item 
             
     raise HTTPException(status_code=404, detail=f"URL {url} not found in the Gold Standard.")
+
+
+################### GOLD STANDARD URLS ###################
+@app.get("/gold_standard_urls", response_model=GoldStandardUrlsResponse)
+async def get_gold_standard_urls(domain: str):
+    conn = get_db_connection() 
+    cursor = conn.cursor()
+    
+    try:
+        query = """
+            SELECT gs.url 
+            FROM gold_standard gs 
+            JOIN web_resources wr ON gs.url = wr.url 
+            WHERE wr.domain = %s
+        """
+        cursor.execute(query, (domain,))
+        
+        results = cursor.fetchall()
+        
+        if not results:
+            return {"gold_standard_urls": []}
+            
+        urls = [row[0] for row in results]
+        return {"gold_standard_urls": urls}
+        
+    except mariadb.Error as e:
+        raise HTTPException(status_code=500, detail=f"Errore database: {str(e)}")
+    finally:
+        conn.close()
 
 ################### FULL GOLD STANDARD ###################
 

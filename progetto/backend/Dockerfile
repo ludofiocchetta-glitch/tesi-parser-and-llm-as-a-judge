@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
     libxrandr2 \
     libpango-1.0-0 \
     libcairo2 \
+    gcc \
+    libmariadb-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
