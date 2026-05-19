@@ -5,7 +5,8 @@ from pydantic import BaseModel
 from typing import List, Dict, Optional
 import os
 import json
-import mariadb
+import mariadb 
+import httpx
 
 from src.crawler_cbs import parser_cbs
 from src.crawler_cnbc import parser_cnbc
@@ -36,7 +37,7 @@ class ParseResponse(BaseModel):
 # Model for the input of POST /parse
 class ParseRequest(BaseModel):
     url : str
-    html_text : str 
+    local : Optional[bool]= False
 
 # Model for the output of /gs
 class GoldStandardEntry(BaseModel):
@@ -51,7 +52,7 @@ class GoldStandardUrlsResponse(BaseModel):
     gold_standard_urls: List[str]
 
 
-# Model for the output of /full gs
+# Model for the output of /full_gs
 class FullGoldStandardResponse(BaseModel):
     gold_standard: List[GoldStandardEntry]
 
@@ -119,18 +120,58 @@ async def post_parse_article(data: ParseRequest):
     parsed_url = urlparse(data.url)
     domain = parsed_url.netloc
 
-    # Route request to the appropriate parser
+    supported_domains = ["en.wikipedia.org", "www.cbsnews.com", "www.cnbc.com", "www.viaggi-usa.it"]
+    if domain not in supported_domains:
+        raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+    
+    html_text = ""
+
+    # if local==True use the DB
+    if data.local:
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                SELECT html_text 
+                FROM web_resources 
+                WHERE url = ?
+            """, (data.url,))
+            
+            row = cursor.fetchone()
+          
+            cursor.close()
+            conn.close()
+            
+            if row:
+                html_text = row[0]
+            else:
+                raise HTTPException(status_code=404, detail="URL not in local database")
+        except mariadb.Error as e:
+            raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
+        
+    # if local==False do the download
+    else: 
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(data.url, timeout=10.0) 
+                response.raise_for_status() 
+                html_text = response.text
+        except Exception as e:
+            raise HTTPException(status_code=400, detail=f"URL unreachable: {str(e)}")
+
+    # request to the parser
     if domain == "en.wikipedia.org":
-        return await parser_wiki(data.url,data.html_text)
+        return await parser_wiki(data.url,html_text)
     
     elif domain == "www.cbsnews.com":
-        return await parser_cbs(data.url,data.html_text)
+        return await parser_cbs(data.url,html_text)
         
     elif domain == "www.cnbc.com":
-        return await parser_cnbc(data.url,data.html_text)
+        return await parser_cnbc(data.url,html_text)
     
     elif domain == "www.viaggi-usa.it":
-        return await parser_viaggi_usa(data.url,data.html_text)
+        return await parser_viaggi_usa(data.url,html_text)
         
     else:
         raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
@@ -164,22 +205,42 @@ async def get_single_gold_standard(url: str):
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
     
-    file_path = f"../gs_data/{domain}.json"
+    supported_domains = ["en.wikipedia.org", "www.cbsnews.com", "www.cnbc.com", "www.viaggi-usa.it"]
+    if domain not in supported_domains:
+        raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
     
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail=f"Domain {domain} not present in the Gold Standard.")
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+      
+        cursor.execute("""
+            SELECT w.url, w.domain, w.title, w.html_text, g.gold_text
+            FROM web_resources w
+            JOIN gold_standard g ON w.url = g.url
+            WHERE w.url = ?
+        """, (url,))
         
-    with open(file_path, "r", encoding="utf-8") as f:
-        gs_list = json.load(f)
+        row = cursor.fetchone()
         
-    for item in gs_list:
-        if item.get("url") == url:
-            return item 
-            
-    raise HTTPException(status_code=404, detail=f"URL {url} not found in the Gold Standard.")
+        cursor.close()
+        conn.close()
 
+        if row:
+            return {
+                "url": row[0],
+                "domain": row[1],
+                "title": row[2],
+                "html_text": row[3],
+                "gold_text": row[4]
+            }
+        else:
+            raise HTTPException(status_code=404, detail=f"URL {url} not found in the Gold Standard.")
+    
+    except mariadb.Error as e:
+        raise HTTPException(status_code=500, detail=f"Error in Database: {e}")
 
 ################### GOLD STANDARD URLS ###################
+
 @app.get("/gold_standard_urls", response_model=GoldStandardUrlsResponse)
 async def get_gold_standard_urls(domain: str):
     conn = get_db_connection() 

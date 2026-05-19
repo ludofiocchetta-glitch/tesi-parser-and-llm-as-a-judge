@@ -55,7 +55,7 @@ async def analyze_url(request: Request, url: str = Form(...)):
     # Handle parsing and evaluation requests
     async with httpx.AsyncClient(timeout=60.0) as client:
         try:
-            parse_resp = await client.get(f"{BACKEND_URL}/parse", params={"url": url})
+            parse_resp = await client.post(f"{BACKEND_URL}/parse", json={"url": url, "local": True})
             
             if parse_resp.status_code == 200:
                 parsed_data = parse_resp.json()
