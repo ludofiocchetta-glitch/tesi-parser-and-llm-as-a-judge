@@ -8,6 +8,8 @@ services:
       - ./gs_data:/app/gs_data
       - ./domains.json:/app/domains.json
       - ./backend/src:/app/backend/src
+    depends_on:
+      - database
     restart: always
 
   frontend:

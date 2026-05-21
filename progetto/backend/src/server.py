@@ -37,7 +37,7 @@ class ParseResponse(BaseModel):
 # Model for the input of POST /parse
 class ParseRequest(BaseModel):
     url : str
-    local : Optional[bool]= False
+    local : Optional[bool]
 
 # Model for the output of /gs
 class GoldStandardEntry(BaseModel):
@@ -81,6 +81,20 @@ class EvaluateRequest(BaseModel):
 class EvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     x_eval: XEval
+
+# Model for the input of /add_web_resource
+class AddWebResourceRequest(BaseModel):
+    url: str
+    html_text: str
+
+# Model for the input of /add_gold_standard
+class AddGoldStandardRequest(BaseModel):
+    url: str
+    gold_text: str
+
+# Model for the input of DELETE requests
+class DeleteRequest(BaseModel):
+    url: str
 
 
 
@@ -258,7 +272,7 @@ async def get_gold_standard_urls(domain: str):
         results = cursor.fetchall()
         
         if not results:
-            return {"gold_standard_urls": []}
+            raise HTTPException(status_code=400, detail=f"Domain {domain} not supported.")
             
         urls = [row[0] for row in results]
         return {"gold_standard_urls": urls}
@@ -367,9 +381,157 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
         )
     }
 
+################### ADD WEB RESOURCE ###################
+
+@app.post("/add_web_resource")
+async def add_web_resource(data: AddWebResourceRequest):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO web_resources (url, html_text) VALUES (?, ?)", (data.url, data.html_text))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {"status": "ok"}
+    except mariadb.Error as e:
+        return {"status": "error", "message": str(e)}
 
 
+################### ADD GOLD STANDARD ###################
+
+@app.post("/add_gold_standard")
+async def add_gold_standard(data: AddGoldStandardRequest):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("INSERT INTO gold_standard (url, gold_text) VALUES (?, ?)", (data.url, data.gold_text))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {"status": "ok"}
+    except mariadb.Error as e:
+        return {"status": "error", "message": str(e)}
+
+
+################### DELETE WEB RESOURCE ###################
+
+@app.delete("/web_resource")
+async def delete_web_resource(data: DeleteRequest):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM web_resources WHERE url = ?", (data.url,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {"status": "ok"}
+    except mariadb.Error as e:
+        return {"status": "error", "message": str(e)}
+
+
+################### DELETE GOLD STANDARD ###################
+
+@app.delete("/gold_standard")
+async def delete_gold_standard(data: DeleteRequest):
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM gold_standard WHERE url = ?", (data.url,))
+        if cursor.rowcount == 0:
+            return {"status": "error", "message": "URL not present in Gold Standard"}
+        
+        conn.commit()
+        cursor.close()
+        conn.close()
+        return {"status": "ok"}
+    except mariadb.Error as e:
+        return {"status": "error", "message": str(e)}
+
+
+################### DB SCHEMA ###################
+
+@app.get("/db_schema")
+async def get_db_schema():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        query = """
+            SELECT 
+                c.TABLE_NAME, 
+                c.COLUMN_NAME, 
+                c.COLUMN_TYPE, 
+                c.COLUMN_KEY, 
+                k.REFERENCED_TABLE_NAME, 
+                k.REFERENCED_COLUMN_NAME
+            FROM INFORMATION_SCHEMA.COLUMNS c
+            LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE k
+            ON c.TABLE_NAME = k.TABLE_NAME 
+            AND c.COLUMN_NAME = k.COLUMN_NAME
+            AND k.TABLE_SCHEMA = 'parser_db'
+            WHERE c.TABLE_SCHEMA = 'parser_db'
+        """
+        cursor.execute(query)
+        rows = cursor.fetchall()
+        
+        schema = {}
+        for (table, col, ctype, ckey, ref_table, ref_col) in rows:
+            if table not in schema:
+                schema[table] = {}
+            
+            desc = ctype
+            if ckey == 'PRI': 
+                desc += ", PK"
+            if ref_table: 
+                desc += f", FK({ref_table}.{ref_col})"
+            
+            schema[table][col] = desc
+            
+        cursor.close()
+        conn.close()
+        return schema
+        
+    except mariadb.Error as e:
+        raise HTTPException(status_code=500, detail=f"Error in retrieving schema: {str(e)}")
+
+
+################### STATUS ###################
+
+@app.get("/status")
+async def get_status():
+    status = {"backend": "_", "database": "_", "ollama": "_"}
     
+    try:
+        conn = get_db_connection()
+        conn.close()
+        status["database"] = "ok"
+    except Exception:
+        status["database"] = "error"
+            
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.get("http://ollama:11434", timeout=2.0)
+            if resp.status_code == 200:
+                status["ollama"] = "ok"
+            else:
+                status["ollama"] = "error"
+    except Exception:
+        status["ollama"] = "error"
+
+    status["backend"] = "ok"       
+    return status
+
+
+
+
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8003, reload=True)

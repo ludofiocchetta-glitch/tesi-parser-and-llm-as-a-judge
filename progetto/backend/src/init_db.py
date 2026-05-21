@@ -2,20 +2,26 @@ import mariadb
 import json
 import os
 import sys
+import time
 
-def get_db_connection():
-    try:
-        conn = mariadb.connect(
-            user="user",             
-            password="password",
-            host="mariadb_service",         
-            port=3306,
-            database="parser_db"
-        )
-        return conn
-    except mariadb.Error as e:
-        print(f"Error connecting to MariaDB: {e}")
-        sys.exit(1)
+def get_db_connection(max_retries=5, delay=3):
+    retries = 0
+    while retries < max_retries:
+        try:
+            conn = mariadb.connect(
+                user="user",             
+                password="password",
+                host="mariadb_service",         
+                port=3306,
+                database="parser_db"
+            )
+            return conn
+        except mariadb.Error as e:
+            print(f"Attempt {retries + 1} failed. MariaDB Error: {e}")
+            retries += 1
+            time.sleep(delay)
+    print("All attempts to connect to the database have failed. Exiting.")
+    sys.exit(1)
 
 def create_tables(cursor):    
     cursor.execute("""
