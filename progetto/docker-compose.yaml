@@ -45,3 +45,18 @@ services:
     volumes:
       - ./mariadb_data:/var/lib/mysql
     restart: always
+
+  ollama-init:
+    image: ollama/ollama:latest
+    container_name: ollama_init
+    environment:
+      - OLLAMA_HOST=ollama:11434 
+    depends_on:
+      - ollama
+    entrypoint: >
+      /bin/sh -c "
+      echo 'Waiting for the Ollama server to start...' &&
+      sleep 10 &&
+      echo 'Downloading the template' &&
+      ollama pull gemma4:e2b &&
+      echo 'Template downloaded successfully'"

@@ -82,6 +82,12 @@ class EvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     x_eval: XEval
 
+# Model for the output of /evaluate_judge
+class EvaluateJudgeResponse(BaseModel):
+    model_name: str
+    judge_score: int
+    judge_feedback: str
+   
 # Model for the input of /add_web_resource
 class AddWebResourceRequest(BaseModel):
     url: str
@@ -140,7 +146,7 @@ async def post_parse_article(data: ParseRequest):
     
     html_text = ""
 
-    # if local==True use the DB
+    # if local==True it use the DB
     if data.local:
         try:
             conn = get_db_connection()
@@ -311,8 +317,78 @@ async def evaluate_text(data: EvaluateRequest):
             jaccard_similarity=ris["jaccard_similarity"],
             bigram_overlap=ris["bigram_overlap"],
             cosine_similarity=ris["cosine_similarity"]
-        )}
+        )
+    }
 
+################### EVALUATE JUDGE ###################
+
+@app.post("/evaluate_judge", response_model=EvaluateJudgeResponse)
+async def evaluate_judge(data: EvaluateRequest):
+    
+    # prompt for the LLM-as-a-Judge
+    prompt = f"""Sei un giudice esperto nella valutazione di sistemi di Information Extraction.
+    Devi confrontare il testo estratto (Parsed Text) con il testo di riferimento (Gold Standard).
+    Valuta l'accuratezza semantica del testo estratto assegnando un punteggio da 1 a 5, dove:
+    1 = Completamente errato o mancante
+    5 = Perfettamente coerente e accurato
+
+    Parsed Text:
+    {data.parsed_text}
+
+    Gold Standard:
+    {data.gold_text}
+
+    Rispondi solo ed esclusivamente con un JSON nel seguente formato, senza aggiungere testo prima o dopo:
+    {{
+        "judge_score": <inserisci il voto qui>,
+        "judge_feedback": "<inserisci la motivazione qui>"
+    }}
+    """
+    
+    # Model to use
+    target_model = "gemma4:e2b" 
+    
+    # Payload for Ollama API
+    payload = {
+        "model": target_model,
+        "prompt": prompt,
+        "stream": False,
+        "format": "json", 
+        "options": {
+            "temperature": 0.0 # for deterministic evaluations
+        }
+    }
+    
+    try:
+        async with httpx.AsyncClient(timeout=120.0) as client:
+            response = await client.post(OLLAMA_URL, json=payload)
+            response.raise_for_status()
+            
+            result = response.json()
+            raw_response = result.get("response", "")
+            
+            try:
+                judge_output = json.loads(raw_response)
+                
+                return EvaluateJudgeResponse(
+                    model_name=result.get("model", target_model),
+                    judge_score=judge_output.get("judge_score", 0),
+                    judge_feedback=judge_output.get("judge_feedback", "Nessun feedback generato")
+                )
+                
+            except json.JSONDecodeError:
+                # Fallback if the LLM doesn't respect the format
+                # return score 0 and error
+                return EvaluateJudgeResponse(
+                    model_name=result.get("model", target_model),
+                    judge_score=0, 
+                    judge_feedback=f"FALLBACK: LLM didn't respect the JSON format. Raw response: {raw_response[:100]}..."
+                )
+            
+    except httpx.ReadTimeout:
+        raise HTTPException(status_code=504, detail="Timeout during the generation of LLM")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal error of the LLM judge: {str(e)}")
 
 ################### FULL GS EVAL ###################
 
