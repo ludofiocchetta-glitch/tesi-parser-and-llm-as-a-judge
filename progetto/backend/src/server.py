@@ -126,6 +126,7 @@ class DbStatsResponse(BaseModel):
 
 ################### PARSE ###################
 
+# ATTENTION! This get /parse is DEPRECATED
 @app.get("/parse", response_model=ParseResponse)
 async def parse_article(url: str = Query(..., description="The URL of the article to analyze")):
 
@@ -198,21 +199,50 @@ async def post_parse_article(data: ParseRequest):
         except Exception as e:
             raise HTTPException(status_code=400, detail=f"URL unreachable: {str(e)}")
 
+    parsed_result = None
     # request to the parser
     if domain == "en.wikipedia.org":
-        return await parser_wiki(data.url,html_text)
-    
+        parsed_result = await parser_wiki(data.url,html_text)  
     elif domain == "www.cbsnews.com":
-        return await parser_cbs(data.url,html_text)
-        
+        parsed_result =await parser_cbs(data.url,html_text)
     elif domain == "www.cnbc.com":
-        return await parser_cnbc(data.url,html_text)
-    
+        parsed_result =await parser_cnbc(data.url,html_text)
     elif domain == "www.viaggi-usa.it":
-        return await parser_viaggi_usa(data.url,html_text)
-        
+        parsed_result =await parser_viaggi_usa(data.url,html_text)
     else:
         raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+    
+    if parsed_result:
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            
+            # if url is not local and is not in web_resources, add it
+            if not data.local:
+                cursor.execute("""
+                    INSERT IGNORE INTO web_resources (url, domain, title, html_text) 
+                    VALUES (?, ?, ?, ?)
+                """, (parsed_result["url"], domain, parsed_result["title"], html_text))
+
+            # add entry into parsed_pages
+            cursor.execute("""
+                INSERT INTO parsed_pages (url, parsed_text) 
+                VALUES (?, ?)
+                ON DUPLICATE KEY UPDATE 
+                    parsed_text = VALUES(parsed_text),
+                    created_at = CURRENT_TIMESTAMP
+            """, (parsed_result["url"], parsed_result["parsed_text"]))
+            
+            conn.commit()
+            cursor.close()
+            conn.close()
+            
+        # log the error    
+        except mariadb.Error as e:
+            print(f"Errore DB durante l'inserimento in parsed_pages: {str(e)}")
+            
+    return parsed_result
+
     
 
 ################### DOMAINS ###################

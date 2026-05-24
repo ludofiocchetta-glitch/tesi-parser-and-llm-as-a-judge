@@ -23,7 +23,9 @@ def get_db_connection(max_retries=5, delay=3):
     print("All attempts to connect to the database have failed. Exiting.")
     sys.exit(1)
 
-def create_tables(cursor):    
+def create_tables(cursor):  
+
+    # web_resources table (url, domain, title, html_text, created_at)  
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS web_resources (
             url VARCHAR(2048) CHARACTER SET ascii COLLATE ascii_general_ci PRIMARY KEY,
@@ -34,6 +36,7 @@ def create_tables(cursor):
         )
     """)
     
+    # gold_standard table (url, gold_text, created_at)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS gold_standard (
             url VARCHAR(2048) CHARACTER SET ascii COLLATE ascii_general_ci PRIMARY KEY,
@@ -42,7 +45,17 @@ def create_tables(cursor):
             FOREIGN KEY (url) REFERENCES web_resources(url) ON DELETE CASCADE
         )
     """)
+    # parsed_pages table (url, parsed_text, created_at)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS parsed_pages (
+            url VARCHAR(2048) CHARACTER SET ascii COLLATE ascii_general_ci PRIMARY KEY,
+            parsed_text LONGTEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (url) REFERENCES web_resources(url) ON DELETE CASCADE
+        )
+    """)
 
+    # evaluation_results table (url, token level metrics, LLM judgments, evaluated_at)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS evaluation_results (
             url VARCHAR(2048) CHARACTER SET ascii COLLATE ascii_general_ci PRIMARY KEY,
