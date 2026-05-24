@@ -417,10 +417,16 @@ async def evaluate_judge(data: EvaluateRequest):
             
             try:
                 judge_output = json.loads(raw_response)
+                # For allucinations
+                raw_score = judge_output.get("judge_score", 1)
+                try:
+                    safe_score = max(1, min(5, int(float(raw_score))))
+                except (ValueError, TypeError):
+                    safe_score = 1
                 
                 return EvaluateJudgeResponse(
                     model_name=result.get("model", target_model),
-                    judge_score=judge_output.get("judge_score", 0),
+                    judge_score=safe_score,
                     judge_feedback=judge_output.get("judge_feedback", "Nessun feedback generato")
                 )
                 
