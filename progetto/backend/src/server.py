@@ -87,6 +87,12 @@ class EvaluateJudgeResponse(BaseModel):
     model_name: str
     judge_score: int
     judge_feedback: str
+
+# Model for the output of /full_gs_eval
+class EvaluateResponse(BaseModel):
+    token_level_eval: TokenLevelEval
+    judge_score: float
+    x_eval: XEval
    
 # Model for the input of /add_web_resource
 class AddWebResourceRequest(BaseModel):
@@ -102,7 +108,19 @@ class AddGoldStandardRequest(BaseModel):
 class DeleteRequest(BaseModel):
     url: str
 
+# Model for the output of /db_stats
+class DomainAvgEval(BaseModel):
+    token_level_eval: TokenLevelEval 
+    x_eval: XEval                    
 
+class DomainAvgJudge(BaseModel):
+    judge_score: float
+
+class DbStatsResponse(BaseModel):
+    web_resources: Dict[str, int]
+    gold_standard: Dict[str, int]
+    avg_eval: Dict[str, DomainAvgEval]
+    avg_eval_judge: Dict[str, DomainAvgJudge]
 
 ################### ENDPOINTS ###################
 
@@ -346,7 +364,7 @@ async def evaluate_judge(data: EvaluateRequest):
     """
     
     # Model to use
-    target_model = "gemma4:e2b" 
+    target_model = "llama3.2" 
     
     # Payload for Ollama API
     payload = {
@@ -360,7 +378,7 @@ async def evaluate_judge(data: EvaluateRequest):
     }
     
     try:
-        async with httpx.AsyncClient(timeout=300.0) as client:
+        async with httpx.AsyncClient(timeout=900.0) as client:
             response = await client.post(OLLAMA_URL, json=payload)
             response.raise_for_status()
             
@@ -394,40 +412,49 @@ async def evaluate_judge(data: EvaluateRequest):
 
 @app.get("/full_gs_eval", response_model=EvaluateResponse)
 async def get_full_gs_eval(domain: str = Query(..., description="The domain for which to calculate the average metrics")):
-    file_path = f"../gs_data/{domain}.json"
-    
-    if not os.path.exists(file_path):
-        raise HTTPException(status_code=404, detail=f"Domain {domain} not supported or GS not found.")
-    
-    with open(file_path, "r", encoding="utf-8") as f:
-        gs_list = json.load(f)
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT w.url, w.html_text, g.gold_text
+            FROM web_resources w
+            JOIN gold_standard g ON w.url = g.url
+            WHERE w.domain = ?
+        """, (domain,))
         
-    if not gs_list:
-        raise HTTPException(status_code=400, detail=f"The Gold Standard for domain {domain} is empty.")
+        rows = cursor.fetchall()
         
+        if not rows:
+            cursor.close()
+            conn.close()
+            raise HTTPException(status_code=404, detail=f"No data found in the DB for the domain: {domain}")
+            
+    except mariadb.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database connection error: {str(e)}")
+      
     tot_precision = 0.0
     tot_recall = 0.0
     tot_f1 = 0.0
     tot_jaccard = 0.0
     tot_bigram = 0.0
     tot_cosine = 0.0
+    tot_judge= 0.0
     
-    for item in gs_list:
-        url = item.get("url")
-        gold_text = item.get("gold_text")
-        html_text = item.get("html_text")
+    for row in rows:
+        url, html_text, gold_text = row[0], row[1], row[2]
 
-        data = ParseRequest(url=url, html_text=html_text)
+        data_parse = ParseRequest(url=url, html_text=html_text, local=True)
         
         try:
-            parsed_response = await post_parse_article(data)
+            parsed_response = await post_parse_article(data_parse)
             
             if isinstance(parsed_response, dict):
                 parsed_text = parsed_response.get("parsed_text", "")
             elif hasattr(parsed_response, "parsed_text"):
                 parsed_text = parsed_response.parsed_text
             else:               
-                raise ValueError(f"Formato risposta non riconosciuto per {url}")
+                raise ValueError(f"Unrecognized response format for {url}")
                 
             ris = calculate_metrics(parsed_text, gold_text)
             
@@ -437,12 +464,52 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_jaccard += ris["jaccard_similarity"]
             tot_bigram += ris["bigram_overlap"]
             tot_cosine += ris["cosine_similarity"]
+
+            # Call the endpoint evaluate_judge
+            judge_payload = EvaluateRequest(parsed_text=parsed_text, gold_text=gold_text)
+            judge_response = await evaluate_judge(judge_payload)
+            tot_judge += judge_response.judge_score
+
+            try:
+                cursor.execute("""
+                    INSERT INTO evaluation_results 
+                        (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, judge_score, judge_feedback) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    ON DUPLICATE KEY UPDATE 
+                        precision_val=VALUES(precision_val), 
+                        recall=VALUES(recall), 
+                        f1=VALUES(f1),
+                        jaccard_similarity=VALUES(jaccard_similarity),
+                        bigram_overlap=VALUES(bigram_overlap),
+                        cosine_similarity=VALUES(cosine_similarity),
+                        judge_score=VALUES(judge_score),
+                        judge_feedback=VALUES(judge_feedback)
+                """, (
+                    url, 
+                    ris["precision"], 
+                    ris["recall"], 
+                    ris["f1"], 
+                    ris["jaccard_similarity"], 
+                    ris["bigram_overlap"], 
+                    ris["cosine_similarity"], 
+                    judge_response.judge_score,
+                    judge_response.judge_feedback
+                ))
+                conn.commit()  
+            except mariadb.Error as db_err:
+                print(f"Error saving results for {url}: {db_err}")
             
 
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error parsing {url}: {str(e)}")
-            
-    n = len(gs_list)
+            continue
+
+    cursor.close()
+    conn.close()
+
+    n = len(rows)
+    if n == 0:
+        raise HTTPException(status_code=500, detail="Unable to calculate metrics: No documents processed")
     
     return {
         "token_level_eval": TokenLevelEval(
@@ -450,6 +517,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             recall=tot_recall / n,
             f1=tot_f1 / n
         ),
+        "judge_score":tot_judge / n,
         "x_eval": XEval(
             jaccard_similarity=tot_jaccard / n,
             bigram_overlap=tot_bigram / n,
@@ -522,7 +590,79 @@ async def delete_gold_standard(data: DeleteRequest):
         return {"status": "ok"}
     except mariadb.Error as e:
         return {"status": "error", "message": str(e)}
+    
 
+################### DB STATS ###################
+
+@app.get("/db_stats", response_model=DbStatsResponse)
+async def get_db_stats():
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT domain, COUNT(*) FROM web_resources GROUP BY domain")
+        web_resources_dict = {str(row[0]): int(row[1]) for row in cursor.fetchall()}
+        
+        cursor.execute("""
+            SELECT w.domain, COUNT(*) 
+            FROM gold_standard g 
+            JOIN web_resources w ON g.url = w.url 
+            GROUP BY w.domain
+        """)
+        gold_standard_dict = {str(row[0]): int(row[1]) for row in cursor.fetchall()}
+        
+        # Averge metrics for domain
+        cursor.execute("""
+            SELECT 
+                w.domain, 
+                COALESCE(ROUND(AVG(e.precision_val), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.recall), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.f1), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.jaccard_similarity), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.bigram_overlap), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.cosine_similarity), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.judge_score), 2), 0.0)
+            FROM evaluation_results e
+            JOIN web_resources w ON e.url = w.url
+            GROUP BY w.domain
+        """)
+        eval_rows = cursor.fetchall()
+        
+    except mariadb.Error as e:
+        raise HTTPException(status_code=500, detail=f"Database aggregation error: {str(e)}")
+    finally:
+        if 'cursor' in locals() and cursor is not None:
+            cursor.close()
+        if conn is not None:
+            conn.close()
+
+    avg_eval_dict = {}
+    avg_eval_judge_dict = {}
+    
+    for row in eval_rows:
+        domain = str(row[0])
+        
+        avg_eval_dict[domain] = DomainAvgEval(
+            token_level_eval=TokenLevelEval(
+                precision=row[1],
+                recall=row[2],
+                f1=row[3]
+            ),
+            x_eval=XEval(
+                jaccard_similarity=row[4],
+                bigram_overlap=row[5],
+                cosine_similarity=row[6]
+            )
+        )
+        
+        avg_eval_judge_dict[domain] = DomainAvgJudge(judge_score=row[7])
+        
+    return {
+        "web_resources": web_resources_dict,
+        "gold_standard": gold_standard_dict,
+        "avg_eval": avg_eval_dict,
+        "avg_eval_judge": avg_eval_judge_dict
+    }
 
 ################### DB SCHEMA ###################
 

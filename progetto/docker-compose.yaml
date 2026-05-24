@@ -58,5 +58,5 @@ services:
       echo 'Waiting for the Ollama server to start...' &&
       sleep 10 &&
       echo 'Downloading the template' &&
-      ollama pull gemma4:e2b &&
+      ollama pull llama3.2 &&
       echo 'Template downloaded successfully'"
