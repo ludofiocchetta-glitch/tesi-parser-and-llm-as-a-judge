@@ -89,7 +89,7 @@ class EvaluateJudgeResponse(BaseModel):
     judge_feedback: str
 
 # Model for the output of /full_gs_eval
-class EvaluateResponse(BaseModel):
+class FullEvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     judge_score: float
     x_eval: XEval
@@ -192,7 +192,10 @@ async def post_parse_article(data: ParseRequest):
     # if local==False do the download
     else: 
         try:
-            async with httpx.AsyncClient() as client:
+            custom_headers = {
+                "User-Agent": "DocumentParserPipeline/1.0 (progetto_universitario@uniroma1.it) httpx/0.27"
+            }
+            async with httpx.AsyncClient(headers=custom_headers) as client:
                 response = await client.get(data.url, timeout=10.0) 
                 response.raise_for_status() 
                 html_text = response.text
@@ -446,7 +449,7 @@ async def evaluate_judge(data: EvaluateRequest):
 
 ################### FULL GS EVAL ###################
 
-@app.get("/full_gs_eval", response_model=EvaluateResponse)
+@app.get("/full_gs_eval", response_model=FullEvaluateResponse)
 async def get_full_gs_eval(domain: str = Query(..., description="The domain for which to calculate the average metrics")):
     try:
         conn = get_db_connection()
@@ -756,9 +759,9 @@ async def get_status():
     try:
         conn = get_db_connection()
         conn.close()
-        status["database"] = "ok"
+        status["db"] = "ok"
     except Exception:
-        status["database"] = "error"
+        status["db"] = "error"
             
     try:
         async with httpx.AsyncClient() as client:

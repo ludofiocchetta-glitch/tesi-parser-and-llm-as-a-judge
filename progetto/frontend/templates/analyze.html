@@ -1,0 +1,93 @@
+{% extends "index.html" %}
+
+{% block title %}Parser & Evaluation{% endblock %}
+
+{% block content %}
+    <h1>Parser & Evaluation</h1>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    <div class="analyze-card">
+        <form action="{{ url_for('analyze_url') }}" method="post">
+            <div class="form-top-row">
+                
+                <div class="url-input-group">
+                    <label for="url_parse">URL di test</label>
+                    <input type="text" id="url_parse" name="url" required placeholder="https://it.wikipedia.org/wiki/Intelligenza_artificiale">
+                    {% if gs_urls %}
+                        <select id="gs_dropdown" onchange="document.getElementById('url_parse').value = this.value">
+                            <option value="">-- Oppure seleziona dal Gold Standard --</option>
+                            {% for gs_url in gs_urls %}<option value="{{ gs_url }}">{{ gs_url }}</option>{% endfor %}
+                        </select>
+                    {% endif %}
+                </div>
+
+                <div class="mode-input-group">
+                    <label>Modalità</label>
+                    <div class="mode-toggle-pill">
+                        <input type="radio" id="live_mode" name="mode" value="live" {% if selected_mode != 'local' %}checked{% endif %}>
+                        <label for="live_mode">Live</label>
+                        
+                        <input type="radio" id="local_mode" name="mode" value="local" {% if selected_mode == 'local' %}checked{% endif %}>
+                        <label for="local_mode">Local</label>
+                    </div>
+                    <div class="mode-hints-wrapper">
+                        <span class="mode-hint">Scarica la pagina in<br>tempo reale dal web</span>
+                        <span class="mode-hint">Usa HTML già salvato<br>nel database</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn-full">ESEGUI PARSING E VALUTAZIONE</button>
+        </form>
+    </div>
+
+    {% if parsed_data %}
+        <div class="split-screen">
+            <div class="code-column">
+                <h3 class="section-subtitle">Input HTML</h3>
+                <div class="code-box">{{ parsed_data.html_text[:1500] }}...</div>
+            </div>
+            <div class="code-column">
+                <h3 class="section-subtitle">Output parsed</h3>
+                <div class="code-box">{{ parsed_data.parsed_text }}</div>
+            </div>
+        </div>
+
+        {% if eval_data %}
+            <div style="margin-top: 30px; margin-bottom: 30px;">
+                <h3 class="section-subtitle">Gold text</h3>
+                <div class="code-box">{{ gold_text if gold_text else "Nessun Gold Text trovato" }}</div>
+            </div>
+
+            <div class="metrics-footer">
+                <div class="metric-box">
+                    <h4>Precision</h4>
+                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.precision) }}</div>
+                </div>
+                <div class="metric-box">
+                    <h4>Recall</h4>
+                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.recall) }}</div>
+                </div>
+                <div class="metric-box">
+                    <h4>F1</h4>
+                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.f1) }}</div>
+                </div>
+                <div class="metric-box">
+                    <h4>LLM Judge</h4>
+                    <div class="val">
+                        {% if judge_data %}{{ judge_data.judge_score }}/5{% else %}-{% endif %}
+                    </div>
+                </div>
+                <div class="metric-box feedback-box">
+                    <h4>Giudizio complessivo</h4>
+                    <p>{% if judge_data %}{{ judge_data.judge_feedback }}{% else %}Non disponibile{% endif %}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="eval-metrics" style="margin-top: 20px;">
+                <p class="warning-message"><i class="fa-solid fa-triangle-exclamation"></i> Questo URL non è presente nel Gold Standard. Metriche non disponibili.</p>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
