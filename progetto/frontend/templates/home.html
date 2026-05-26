@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="nav-grid">
-        <a href="/analyze" class="nav-card">
+        <a href="{{ url_for('analyze_page') }}" class="nav-card">
             <i class="fa-solid fa-code"></i>
             <h3>Parser & Evaluation</h3>
         </a>
@@ -17,24 +17,30 @@
     </div>
 
     <div class="students-row">
-        <div class="student-item"><strong>Studente 1</strong> <span>Matricola 2115498</span></div>
-        <div class="student-item"><strong>Studente 2</strong> <span>Matricola 2103669</span></div>
-        <div class="student-item"><strong>Studente 3</strong> <span>Matricola 2108670</span></div>
+        <div class="student-item">
+            <strong>Studente 1</strong> <span>Matricola 2115498</span>
+        </div>
+        <div class="student-item">
+            <strong>Studente 2</strong> <span>Matricola 2103669</span>
+        </div>
+        <div class="student-item">
+            <strong>Studente 3</strong> <span>Matricola 2108670</span>
+        </div>
     </div>
 
     <div class="status-section">
         <h2>System status</h2>
         <div class="status-row">
             <div class="status-item">
-                <span class="dot {% if backend_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span> 
+                <span class="dot {% if backend_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
                 Backend
             </div>
             <div class="status-item">
-                <span class="dot {% if db_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span> 
+                <span class="dot {% if db_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
                 MariaDB
             </div>
             <div class="status-item">
-                <span class="dot {% if ollama_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span> 
+                <span class="dot {% if ollama_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
                 Ollama
             </div>
         </div>
@@ -44,8 +50,10 @@
         <h2>Supported domains</h2>
         <ul class="domains-list-clean">
             {% for domain in domains %}
-            <li><i class="fa-solid fa-globe"></i> {{ domain }}</li>
+                <li>
+                    <i class="fa-solid fa-globe"></i> {{ domain }}
+                </li>
             {% endfor %}
         </ul>
     </div>
-{% endblock %}
+{% endblock content %}
