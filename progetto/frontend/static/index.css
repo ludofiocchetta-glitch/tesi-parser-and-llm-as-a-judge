@@ -468,21 +468,62 @@ select:focus {
 }
 
 /* Metrics */
-.metrics-footer {
+
+.warning-message {
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.metrics-footer,
+.analyze-card {
+    transition: all var(--transition-mid);
+}
+/* ==========================================================
+   METRICS 
+   ========================================================== */
+.metrics-section-title {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin: 25px 0 10px 0;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.metrics-section-title:first-of-type {
+    margin-top: 0;
+}
+
+.metrics-row-card {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 2fr;
-    gap: 15px;
+    grid-template-columns: repeat(3, 1fr); 
     background: var(--panel-background);
     padding: 20px;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
-    margin-top: 30px;
     text-align: center;
     box-shadow: var(--shadow-soft);
+    transition: all var(--transition-mid);
+}
+
+.metrics-row-card.judge-card {
+    grid-template-columns: 150px 1fr;
+}
+
+.metrics-row-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--primary-glow);
 }
 
 .metric-box {
     border-right: 1px solid var(--border-color);
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .metric-box:last-child {
@@ -504,28 +545,16 @@ select:focus {
 
 .feedback-box {
     text-align: left;
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
-.feedback-box p {
-    font-size: 0.85rem;
+.feedback-text {
+    font-size: 0.95rem;
     margin: 0;
-    line-height: 1.4;
+    line-height: 1.5;
     color: var(--text-primary);
 }
 
-.warning-message {
-    color: var(--text-secondary);
-    font-weight: 600;
-    margin-top: 20px;
-}
-
-.metrics-footer,
-.analyze-card {
-    transition: all var(--transition-mid);
-}
-
-.metrics-footer:hover,
 .analyze-card:hover {
     transform: translateY(-5px);
     border-color: var(--primary-color);

@@ -81,44 +81,63 @@
                 <div class="code-box">{{ gold_text if gold_text else "No Gold Text found" }}</div>
             </div>
 
-            <div class="metrics-footer">
-                <div class="metric-box">
-                    <h4>Precision</h4>
-                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.precision) }}</div>
-                </div>
-                <div class="metric-box">
-                    <h4>Recall</h4>
-                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.recall) }}</div>
-                </div>
-                <div class="metric-box">
-                    <h4>F1</h4>
-                    <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.f1) }}</div>
-                </div>
-                <div class="metric-box">
-                    <h4>LLM Judge</h4>
-                    <div class="val">
-                        {% if judge_data %}
-                            {{ judge_data.judge_score }}/5
-                        {% else %}
-                            -
-                        {% endif %}
+             <div class="eval-metrics" style="background: none; box-shadow: none; padding: 0; border: none;">
+                <p class="success-message" style="color: var(--success-color); font-weight: bold; margin-bottom: 15px;">
+                    ✓ URL is in the Gold Standard, evaluation completed.
+                </p>
+                
+                <h3 class="metrics-section-title">Standard metrics</h3>
+                <div class="metrics-row-card">
+                    <div class="metric-box">
+                        <h4>Precision</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.precision) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Recall</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.recall) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>F1 score</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.token_level_eval.f1) }}</div>
                     </div>
                 </div>
-                <div class="metric-box feedback-box">
-                    <h4>Feedback</h4>
-                    <p>
-                        {% if judge_data %}
-                            {{ judge_data.judge_feedback }}
-                        {% else %}
-                            Not available
-                        {% endif %}
-                    </p>
+
+                <h3 class="metrics-section-title">Advanced metrics</h3>
+                <div class="metrics-row-card">
+                    <div class="metric-box">
+                        <h4>Jaccard similarity</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.x_eval.jaccard_similarity) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Bigram overlap</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.x_eval.bigram_overlap) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Cosine similarity</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.x_eval.cosine_similarity) }}</div>
+                    </div>
+                </div>
+
+                <h3 class="metrics-section-title">LLM Judge assessment</h3>
+                <div class="metrics-row-card judge-card">
+                    <div class="metric-box">
+                        <h4>Score</h4>
+                        <div class="val">
+                            {% if judge_data %}{{ judge_data.judge_score }}/5{% else %}-{% endif %}
+                        </div>
+                    </div>
+                    <div class="metric-box feedback-box">
+                        <h4>Feedback</h4>
+                        <div class="feedback-text">
+                            {% if judge_data %}{{ judge_data.judge_feedback }}{% else %}Not available{% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% else %}
             <div class="eval-metrics" style="margin-top: 20px;">
                 <p class="warning-message">
-                    <i class="fa-solid fa-triangle-exclamation"></i> This URL is not present in the Gold Standard. Metrics not available.
+                    <i class="fa-solid fa-triangle-exclamation"></i> Metrics not available, the URL is not present in the Gold Standard files. 
                 </p>
             </div>
         {% endif %}
