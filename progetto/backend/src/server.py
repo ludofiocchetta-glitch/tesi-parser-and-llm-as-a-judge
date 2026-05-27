@@ -14,6 +14,7 @@ from src.crawler_wiki import parser_wiki
 from src.crawler_viaggi_usa import parser_viaggi_usa
 from src.accuracy_tester import calculate_metrics
 from src.init_db import setup_database, get_db_connection
+from src.remove_markdown import remove_markdown
 
 OLLAMA_URL = "http://ollama:11434/api/generate"
 
@@ -358,8 +359,15 @@ async def get_full_gold_standard(domain: str):
 
 @app.post("/evaluate", response_model=EvaluateResponse)
 async def evaluate_text(data: EvaluateRequest):
-    ris=calculate_metrics(data.parsed_text,data.gold_text)
-    return {"token_level_eval": TokenLevelEval (
+
+    # remove markdown before the evaluation
+    normalized_parsed = remove_markdown(data.parsed_text)
+    normalized_gold = remove_markdown(data.gold_text)
+
+    ris=calculate_metrics(normalized_parsed,normalized_gold)
+
+    return {
+        "token_level_eval": TokenLevelEval (
             precision=ris["precision"],
             recall=ris["recall"],
             f1=ris["f1"]
@@ -375,6 +383,16 @@ async def evaluate_text(data: EvaluateRequest):
 
 @app.post("/evaluate_judge", response_model=EvaluateJudgeResponse)
 async def evaluate_judge(data: EvaluateRequest):
+
+    char_limit = 3000
+    
+    safe_parsed = data.parsed_text[:char_limit]
+    if len(data.parsed_text) > char_limit:
+        safe_parsed += "\n[...truncated text for time...]"
+        
+    safe_gold = data.gold_text[:char_limit]
+    if len(data.gold_text) > char_limit:
+        safe_gold += "\n[...truncated text for time...]"
     
     # prompt for the LLM-as-a-Judge
     prompt = f"""Sei un giudice esperto nella valutazione di sistemi di Information Extraction.
@@ -384,10 +402,10 @@ async def evaluate_judge(data: EvaluateRequest):
     5 = Perfettamente coerente e accurato
 
     Parsed Text:
-    {data.parsed_text}
+    {safe_parsed}
 
     Gold Standard:
-    {data.gold_text}
+    {safe_gold}
 
     Rispondi solo ed esclusivamente con un JSON nel seguente formato, senza aggiungere testo prima o dopo:
     {{
@@ -495,8 +513,12 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                 parsed_text = parsed_response.parsed_text
             else:               
                 raise ValueError(f"Unrecognized response format for {url}")
-                
-            ris = calculate_metrics(parsed_text, gold_text)
+            
+            # remove markdown before the evaluation
+            normalize_parsed = remove_markdown(parsed_text)
+            normalized_gold = remove_markdown(gold_text)
+            
+            ris = calculate_metrics(normalize_parsed,normalized_gold)
             
             tot_precision += ris["precision"]
             tot_recall += ris["recall"]

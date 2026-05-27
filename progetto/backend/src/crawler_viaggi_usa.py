@@ -99,7 +99,6 @@ async def parser_viaggi_usa(url: str, html_text:str) -> dict:
     clean_text = re.sub(r"\b\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)\b ", "", clean_text)
     clean_text = re.sub(r'(\*\*|_)(.*?)\1', r'\2', clean_text)
     clean_text = re.sub(r"\* \* \*\n+.*?\n+\* \* \*", "", clean_text, flags=re.IGNORECASE)
-    clean_text = re.sub(r'#',"",clean_text)
     clean_text = re.sub(r'([a-zA-Z0-9])\(', r'\1 (', clean_text)
     clean_text = re.sub(r'\s+([,.;!?])', r'\1', clean_text)
     clean_text = re.sub(r'Ecco quindi tutti i nostri articoli dedicati a.*?(?:[:\.])',"",clean_text,flags=re.IGNORECASE | re.DOTALL)
