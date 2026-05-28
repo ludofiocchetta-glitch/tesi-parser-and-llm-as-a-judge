@@ -528,10 +528,21 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_cosine += ris["cosine_similarity"]
 
             # Call the endpoint evaluate_judge
-            judge_payload = EvaluateRequest(parsed_text=parsed_text, gold_text=gold_text)
-            judge_response = await evaluate_judge(judge_payload)
-            tot_judge += judge_response.judge_score
-
+            #judge_payload = EvaluateRequest(parsed_text=parsed_text, gold_text=gold_text)
+            #judge_response = await evaluate_judge(judge_payload)
+            cursor.execute("""
+                SELECT COALESCE(judge_score, 0.0)
+                FROM evaluation_results
+                WHERE url = ?
+            """, (url,))
+            
+            # Usiamo fetchone() perché ci aspettiamo un solo risultato per quell'URL
+            row_judge = cursor.fetchone() 
+            
+            # Se la riga esiste, prendiamo il primo elemento della tupla (indice 0)
+            current_judge_score = row_judge[0] if row_judge else 0.0
+            tot_judge += current_judge_score
+        
             try:
                 cursor.execute("""
                     INSERT INTO evaluation_results 
@@ -544,8 +555,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                         jaccard_similarity=VALUES(jaccard_similarity),
                         bigram_overlap=VALUES(bigram_overlap),
                         cosine_similarity=VALUES(cosine_similarity),
-                        judge_score=VALUES(judge_score),
-                        judge_feedback=VALUES(judge_feedback)
+                        
                 """, (
                     url, 
                     ris["precision"], 
@@ -554,8 +564,6 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                     ris["jaccard_similarity"], 
                     ris["bigram_overlap"], 
                     ris["cosine_similarity"], 
-                    judge_response.judge_score,
-                    judge_response.judge_feedback
                 ))
                 conn.commit()  
             except mariadb.Error as db_err:
