@@ -117,14 +117,14 @@ def populate_database(conn, cursor):
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (
                             url, 
-                            0.99,  
-                            0.99, 
-                            0.99,  
-                            0.99, 
-                            0.99,  
-                            0.99,  
-                            4.0,  
-                            "Testo estratto strutturato bene, lievi discrepanze nella punteggiatura."
+                            None,  
+                            None, 
+                            None,  
+                            None, 
+                            None,  
+                            None,  
+                            None,  
+                            None
                         ))
                         
                     except mariadb.Error as e:

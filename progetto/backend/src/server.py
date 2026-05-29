@@ -527,10 +527,22 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_bigram += ris["bigram_overlap"]
             tot_cosine += ris["cosine_similarity"]
 
-            # Call the endpoint evaluate_judge
-            judge_payload = EvaluateRequest(parsed_text=parsed_text, gold_text=gold_text)
-            judge_response = await evaluate_judge(judge_payload)
-            tot_judge += judge_response.judge_score
+            # values of LLM from DB
+            cursor.execute("SELECT judge_score, judge_feedback FROM evaluation_results WHERE url = ?", (url,))
+            db_judge_row = cursor.fetchone()
+
+            # Check if the values are not None for reuse
+            if db_judge_row and db_judge_row[0] is not None:
+                current_judge_score = db_judge_row[0]
+                current_judge_feedback = db_judge_row[1]
+            # else call the endpoint evaluate_judge
+            else:
+                judge_payload = EvaluateRequest(parsed_text=parsed_text, gold_text=gold_text)
+                judge_response = await evaluate_judge(judge_payload)
+                current_judge_score= judge_response.judge_score
+                current_judge_feedback=judge_response.judge_feedback
+
+            tot_judge+=current_judge_score
         
             try:
                 cursor.execute("""
@@ -554,8 +566,8 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                     ris["jaccard_similarity"], 
                     ris["bigram_overlap"], 
                     ris["cosine_similarity"], 
-                    judge_response.judge_score,
-                    judge_response.judge_feedback
+                    current_judge_score,
+                    current_judge_feedback
                 ))
                 conn.commit()  
             except mariadb.Error as db_err:
