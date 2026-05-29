@@ -603,10 +603,14 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
 
 @app.post("/add_web_resource")
 async def add_web_resource(data: AddWebResourceRequest):
+
+    parsed_url = urlparse(data.url)
+    domain = parsed_url.netloc
+
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO web_resources (url, html_text) VALUES (?, ?)", (data.url, data.html_text))
+        cursor.execute("""INSERT INTO web_resources (url, domain, title, html_text) VALUES (?, ?, ?, ?)""", (data.url, domain, "Titolo non fornito", data.html_text))
         conn.commit()
         cursor.close()
         conn.close()
@@ -794,9 +798,9 @@ async def get_status():
     try:
         conn = get_db_connection()
         conn.close()
-        status["db"] = "ok"
+        status["database"] = "ok"
     except Exception:
-        status["db"] = "error"
+        status["database"] = "error"
             
     try:
         async with httpx.AsyncClient() as client:

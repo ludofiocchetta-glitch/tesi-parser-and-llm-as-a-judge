@@ -23,6 +23,19 @@ def get_db_connection(max_retries=5, delay=3):
     print("All attempts to connect to the database have failed. Exiting.")
     sys.exit(1)
 
+def destroy_tables(cursor):
+    # Disabilita i controlli sulle foreign key per poter eliminare le tabelle in qualsiasi ordine
+    cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
+    
+    cursor.execute("DROP TABLE IF EXISTS evaluation_results")
+    cursor.execute("DROP TABLE IF EXISTS parsed_pages")
+    cursor.execute("DROP TABLE IF EXISTS gold_standard")
+    cursor.execute("DROP TABLE IF EXISTS web_resources")
+    
+    # Riabilita i controlli sulle foreign key
+    cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
+
+
 def create_tables(cursor):  
 
     # web_resources table (url, domain, title, html_text, created_at)  
@@ -132,10 +145,14 @@ def populate_database(conn, cursor):
                         
     conn.commit()
 
+def destroy_database():
+    d = 9
+
 def setup_database():
     conn = get_db_connection()
     cursor = conn.cursor()
     
+    destroy_tables(cursor)
     create_tables(cursor)
     populate_database(conn, cursor)
     
@@ -143,4 +160,5 @@ def setup_database():
     print("Initialization of the database completed successfully.")
 
 if __name__ == "__main__":
+    
     setup_database()
