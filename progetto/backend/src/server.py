@@ -605,7 +605,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
 async def add_web_resource(data: AddWebResourceRequest):
 
     parsed_url = urlparse(data.url)
-    domain = parsed_url.netloc
+    domain = parsed_url.netloc if parsed_url.netloc else parsed_url.path.split('/')[0]
 
     try:
         conn = get_db_connection()
@@ -632,7 +632,7 @@ async def add_gold_standard(data: AddGoldStandardRequest):
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error", "message": str(e)}
+        return {"status": "error", "message": "URL not present in web_resources"}
 
 
 ################### DELETE WEB RESOURCE ###################
@@ -660,14 +660,16 @@ async def delete_gold_standard(data: DeleteRequest):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM gold_standard WHERE url = ?", (data.url,))
         if cursor.rowcount == 0:
-            return {"status": "error", "message": "URL not present in Gold Standard"}
+            cursor.close()
+            conn.close()
+            return {"status": "error", "message": "URL not present in GS"}
         
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error", "message": str(e)}
+       return {"status": "error", "message": str(e)}
     
 
 ################### DB STATS ###################
