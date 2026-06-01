@@ -277,9 +277,9 @@ async def get_single_gold_standard(url: str):
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
     
-    supported_domains = ["en.wikipedia.org", "www.cbsnews.com", "www.cnbc.com", "www.viaggi-usa.it"]
-    if domain not in supported_domains:
-        raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
+    #supported_domains = ["en.wikipedia.org", "www.cbsnews.com", "www.cnbc.com", "www.viaggi-usa.it"]
+    #if domain not in supported_domains:
+       #raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
     
     try:
         conn = get_db_connection()
@@ -627,9 +627,6 @@ async def add_web_resource(data: AddWebResourceRequest):
 
 @app.post("/add_gold_standard")
 async def add_gold_standard(data: AddGoldStandardRequest):
-    
-
-
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -639,20 +636,17 @@ async def add_gold_standard(data: AddGoldStandardRequest):
             cursor.close()
             conn.close()
             return {"status": "error"}
-
-
         cursor.execute("""
-    INSERT INTO gold_standard (url, gold_text) 
-    VALUES (?, ?)
-    ON DUPLICATE KEY UPDATE gold_text = VALUES(gold_text)
-""", (data.url, data.gold_text))
+            INSERT INTO gold_standard (url, gold_text) 
+            VALUES (?, ?)
+            ON DUPLICATE KEY UPDATE gold_text = VALUES(gold_text)
+            """, (data.url, data.gold_text))
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error"}
-
+       return {"status": "error"}
 
 ################### DELETE WEB RESOURCE ###################
 
@@ -663,7 +657,6 @@ async def delete_web_resource(data: DeleteRequest):
         cursor = conn.cursor()
         cursor.execute("DELETE FROM web_resources WHERE url = ?", (data.url,))
         
-        # AGGIUNTA FONDAMENTALE: controlla se l'elemento esisteva
         if cursor.rowcount == 0:
             cursor.close()
             conn.close()
@@ -674,8 +667,7 @@ async def delete_web_resource(data: DeleteRequest):
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error"} # Rimuovi "message" per rispettare lo schema
-
+       raise HTTPException(status_code=500, detail=str(e)) 
 
 ################### DELETE GOLD STANDARD ###################
 
@@ -695,7 +687,7 @@ async def delete_gold_standard(data: DeleteRequest):
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-       return {"status": "error"}
+       raise HTTPException(status_code=500, detail=str(e)) 
     
 
 ################### DB STATS ###################
