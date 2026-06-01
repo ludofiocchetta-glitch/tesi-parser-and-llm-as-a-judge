@@ -610,29 +610,48 @@ async def add_web_resource(data: AddWebResourceRequest):
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("""INSERT INTO web_resources (url, domain, title, html_text) VALUES (?, ?, ?, ?)""", (data.url, domain, "Titolo non fornito", data.html_text))
+        cursor.execute("""
+    INSERT INTO web_resources (url, domain, title, html_text) 
+    VALUES (?, ?, ?, ?)
+    ON DUPLICATE KEY UPDATE html_text = VALUES(html_text)
+""", (data.url, domain, "Titolo non fornito", data.html_text))
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error", "message": str(e)}
+        return {"status": "error"}
 
 
 ################### ADD GOLD STANDARD ###################
 
 @app.post("/add_gold_standard")
 async def add_gold_standard(data: AddGoldStandardRequest):
+    
+
+
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO gold_standard (url, gold_text) VALUES (?, ?)", (data.url, data.gold_text))
+
+        cursor.execute("SELECT 1 FROM web_resources WHERE url = ?", (data.url,))
+        if cursor.fetchone() is None:
+            cursor.close()
+            conn.close()
+            return {"status": "error"}
+
+
+        cursor.execute("""
+    INSERT INTO gold_standard (url, gold_text) 
+    VALUES (?, ?)
+    ON DUPLICATE KEY UPDATE gold_text = VALUES(gold_text)
+""", (data.url, data.gold_text))
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error", "message": "URL not present in web_resources"}
+        return {"status": "error"}
 
 
 ################### DELETE WEB RESOURCE ###################
@@ -643,12 +662,19 @@ async def delete_web_resource(data: DeleteRequest):
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute("DELETE FROM web_resources WHERE url = ?", (data.url,))
+        
+        # AGGIUNTA FONDAMENTALE: controlla se l'elemento esisteva
+        if cursor.rowcount == 0:
+            cursor.close()
+            conn.close()
+            return {"status": "error"}
+            
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-        return {"status": "error", "message": str(e)}
+        return {"status": "error"} # Rimuovi "message" per rispettare lo schema
 
 
 ################### DELETE GOLD STANDARD ###################
@@ -662,14 +688,14 @@ async def delete_gold_standard(data: DeleteRequest):
         if cursor.rowcount == 0:
             cursor.close()
             conn.close()
-            return {"status": "error", "message": "URL not present in GS"}
+            return {"status": "error"}
         
         conn.commit()
         cursor.close()
         conn.close()
         return {"status": "ok"}
     except mariadb.Error as e:
-       return {"status": "error", "message": str(e)}
+       return {"status": "error"}
     
 
 ################### DB STATS ###################
