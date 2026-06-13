@@ -1,0 +1,130 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Gold Standard Builder
+{% endblock title %}
+
+{% block content %}
+    <h1>Gold Standard Builder</h1>
+
+    <a href="{{ url_for('home') }}" class="back-link" style="display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    {% if success %}
+        <div class="success-message" style="background-color: #e8f5e9; color: var(--success-color); padding: 15px 20px; border-radius: var(--border-radius-sm); border-left: 5px solid var(--success-color); margin-bottom: 25px; font-weight: 600;">
+            <i class="fa-solid fa-check"></i> {{ success }}
+        </div>
+    {% endif %}
+
+    <div class="analyze-card" style="display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 30px;">
+        
+        <div class="url-input-group" style="flex: 1; min-width: 200px; margin-bottom: 0;">
+            <label style="margin-bottom: 8px;">Supported domains</label>
+            <form action="/gs_manage" method="get" style="margin: 0;">
+                <select name="domain" onchange="this.form.submit()">
+                    <option value="">-- Select a domain --</option>
+                    {% for d in domains %}
+                        <option value="{{ d }}" {% if selected_domain == d %}selected{% endif %}>{{ d }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        <div style="flex: 3; min-width: 300px;">
+            <form action="/gs_manage/action" method="post" style="margin: 0; display: flex; gap: 15px; align-items: flex-end;">
+                <input type="hidden" name="action" value="fetch">
+                <input type="hidden" name="domain" value="{{ selected_domain }}">
+                
+                <div class="url-input-group" style="flex: 1; margin-bottom: 0;">
+                    <label style="margin-bottom: 8px;">URL</label>
+                    <input type="text" name="url" value="{{ current_url or '' }}" required placeholder="https://..." {% if not selected_domain %}disabled{% endif %}>
+                </div>
+                <button type="submit" class="submit-btn-full" style="width: auto; padding: 12px 25px; background-color: var(--primary-color); box-shadow: none;" {% if not selected_domain %}disabled{% endif %}>
+                    Fetch HTML
+                </button>
+            </form>
+        </div>
+    </div>
+
+    {% if selected_domain %}
+    <div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 30px; align-items: start;">
+        
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            {% if fetched_html %}
+            <form action="/gs_manage/action" method="post" style="margin: 0; display: flex; flex-direction: column; gap: 20px;">
+                <input type="hidden" name="action" value="save">
+                <input type="hidden" name="domain" value="{{ selected_domain }}">
+                <input type="hidden" name="url" value="{{ current_url }}">
+
+                <div class="analyze-card" style="margin-bottom: 0; padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <h3 style="margin: 0; color: var(--text-primary); font-size: 1.1rem;">HTML downloaded</h3>
+                        <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('html_box').value); alert('HTML copied!');" style="background: white; border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: 600; color: var(--text-secondary); transition: background 0.2s;">
+                            <i class="fa-regular fa-copy"></i> Copy HTML
+                        </button>
+                    </div>
+                    <textarea id="html_box" name="html_text" readonly style="background: #fdfdfd; font-family: 'Courier New', monospace; font-size: 12px; height: 250px; border: 1px solid var(--border-color); border-radius: 4px; width: 100%; padding: 10px; resize: none;">{{ fetched_html }}</textarea>
+                </div>
+
+                <div class="analyze-card" style="margin-bottom: 0; padding: 20px;">
+                    <h3 style="margin: 0 0 10px 0; color: var(--text-primary); font-size: 1.1rem;">Gold text</h3>
+                    <textarea name="gold_text" required placeholder="Paste here the text from the page..." style="height: 250px; font-family: 'Courier New', monospace; font-size: 12px; border: 1px solid var(--border-color); border-radius: 4px; width: 100%; padding: 10px; resize: none;"></textarea>
+
+                    <div style="display: flex; gap: 15px; margin-top: 20px;">
+                        <button type="submit" class="submit-btn-full" style="background-color: var(--primary-color); flex: 1;">
+                            Save to database
+                        </button>
+                        <button type="button" class="submit-btn-full" style="background-color: var(--text-secondary); width: auto; padding: 0 30px;" onclick="window.location.href='/gs_manage?domain={{ selected_domain }}'">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <div class="analyze-card" style="text-align: center; color: var(--text-secondary); padding: 60px 20px; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <i class="fa-solid fa-code" style="font-size: 3rem; opacity: 0.2; margin-bottom: 15px;"></i>
+                <p>Enter an URL and click "Fetch HTML" to start building the Gold Standard.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="analyze-card" style="margin-bottom: 0; padding: 20px; height: fit-content;">
+            <h3 style="margin: 0 0 20px 0; color: var(--text-primary); font-size: 1.1rem;">URL present in the GS</h3>
+
+            {% if existing_urls %}
+                <div style="display: flex; justify-content: space-between; font-weight: 700; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 10px; color: var(--text-primary); font-size: 0.9rem;">
+                    <span>URL</span>
+                    <span>Actions</span>
+                </div>
+
+                <ul class="domains-list-clean" style="box-shadow: none; border: none; max-height: 550px; overflow-y: auto; padding-right: 5px;">
+                    {% for u in existing_urls %}
+                    <li style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid var(--border-color); gap: 15px;">
+                        <span style="word-break: break-all; font-size: 0.85rem; line-height: 1.4;"><i class="fa-solid fa-file-lines" style="color: var(--text-secondary); margin-right: 8px;"></i>{{ u }}</span>
+                        
+                        <form action="/gs_manage/action" method="post" style="margin: 0;" onsubmit="return confirm('Attention! This will permanently delete the resource and its Gold Standard. Proceed?');">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="domain" value="{{ selected_domain }}">
+                            <input type="hidden" name="url" value="{{ u }}">
+                            <button type="submit" style="background: transparent; color: var(--text-secondary); border: none; cursor: pointer; font-size: 0.9rem; transition: color var(--transition-fast); padding: 0; display: flex; align-items: center; gap: 5px;" onmouseover="this.style.color='var(--error-color)'" onmouseout="this.style.color='var(--text-secondary)'">
+                                <i class="fa-regular fa-trash-can"></i> Delete
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                
+                <div style="margin-top: 15px; font-size: 0.85rem; color: var(--text-secondary); font-weight: 600;">
+                    {{ existing_urls|length }} results
+                </div>
+            {% else %}
+                <p style="color: var(--text-secondary); text-align: center; padding: 30px 0; font-size: 0.9rem;">
+                    <i class="fa-solid fa-folder-open" style="font-size: 2rem; display: block; margin-bottom: 10px; opacity: 0.5;"></i>
+                    No URL saved for the domain {{ selected_domain }}.
+                </p>
+            {% endif %}
+        </div>
+
+    </div>
+    {% endif %}
+{% endblock content %}

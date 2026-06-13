@@ -123,3 +123,102 @@ async def analyze_url(request: Request, url: str = Form(...), mode: str = Form("
             "selected_mode": mode
         }
     )
+
+################### GOLD STANDARD MANAGE ###################
+
+@app.get("/gs_manage", response_class=HTMLResponse)
+async def gs_manage_get(request: Request, domain: str = None, success: str = None, error: str = None):
+    domains, _ = await get_home_data()
+    existing_urls = []
+    
+    if domain:
+        async with httpx.AsyncClient(timeout=10.0) as client:
+            try:
+                resp = await client.get(f"{BACKEND_URL}/full_gold_standard", params={"domain": domain})
+                if resp.status_code == 200:
+                    data = resp.json().get("gold_standard", [])
+                    existing_urls = [item["url"] for item in data]
+            except Exception:
+                pass
+                
+    return templates.TemplateResponse(request=request, name="gs_manage.html", context={
+        "domains": domains,
+        "selected_domain": domain,
+        "existing_urls": existing_urls,
+        "success": success,
+        "error": error
+    })
+
+@app.post("/gs_manage/action", response_class=HTMLResponse)
+async def gs_manage_action(
+    request: Request, 
+    action: str = Form(...),
+    domain: str = Form(None),
+    url: str = Form(None),
+    html_text: str = Form(None),
+    gold_text: str = Form(None)
+):
+    domains, _ = await get_home_data()
+    existing_urls = []
+    fetched_html = html_text
+    current_url = url
+    success_msg = None
+    error_msg = None
+
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        if action == "fetch" and url:
+            try:
+                parse_resp = await client.post(f"{BACKEND_URL}/parse", json={"url": url, "local": False})
+                if parse_resp.status_code == 200:
+                    fetched_html = parse_resp.json().get("html_text", "")
+                    success_msg = "HTML downloaded."
+                else:
+                    error_msg = "Error during the download."
+            except Exception as e:
+                error_msg = f"Connection error: {str(e)}"
+
+        elif action == "save" and url and html_text and gold_text:
+            try:
+                res1 = await client.post(f"{BACKEND_URL}/add_web_resource", json={"url": url, "html_text": html_text})
+                if res1.json().get("status") == "ok":
+                    res2 = await client.post(f"{BACKEND_URL}/add_gold_standard", json={"url": url, "gold_text": gold_text})
+                    if res2.json().get("status") == "ok":
+                        success_msg = "Entry added to Gold Standard!"
+                        fetched_html = None 
+                        current_url = None
+                    else:
+                        error_msg = f"Saving GS error: {res2.json().get('message')}"
+                else:
+                    error_msg = f"Saving HTML error: {res1.json().get('message')}"
+            except Exception as e:
+                error_msg = str(e)
+        
+        elif action == "delete" and url:
+            try:
+                res = await client.request("DELETE", f"{BACKEND_URL}/web_resource", json={"url": url})
+                if res.json().get("status") == "ok":
+                    success_msg = "Resource deleted from database."
+                    current_url = None
+                else:
+                    error_msg = f"Deletion error: {res.json().get('message')}"
+            except Exception as e:
+                error_msg = str(e)
+                
+        if domain:
+            try:
+                resp = await client.get(f"{BACKEND_URL}/full_gold_standard", params={"domain": domain})
+                if resp.status_code == 200:
+                    data = resp.json().get("gold_standard", [])
+                    existing_urls = [item["url"] for item in data]
+            except:
+                pass
+
+    return templates.TemplateResponse(request=request, name="gs_manage.html", context={
+        "domains": domains,
+        "selected_domain": domain,
+        "existing_urls": existing_urls,
+        "fetched_html": fetched_html,
+        "current_url": current_url,
+        "success": success_msg,
+        "error": error_msg
+    })
