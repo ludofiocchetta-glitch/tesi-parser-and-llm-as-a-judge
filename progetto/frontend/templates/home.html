@@ -1,6 +1,27 @@
 {% extends "index.html" %}
 
+{% block title %}
+    Home page
+{% endblock title %}
+
 {% block content %}
+    <h1>Home page</h1>
+
+    <a href="{{ url_for('home') }}" class="back-link" style="display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold;"></a>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+    <div class="students-row">
+        <div class="student-item">
+            <strong>Lorenzo Castelli</strong> <span>Matricola 2115498</span>
+        </div>
+        <div class="student-item">
+            <strong>Ludovica Fiocchetta</strong> <span>Matricola 2103669</span>
+        </div>
+        <div class="student-item">
+            <strong>Alessandro Genovese</strong> <span>Matricola 2108670</span>
+        </div>
+    </div>
+    
     <div class="nav-grid">
         <a href="/analyze" class="nav-card">
             <i class="fa-solid fa-code"></i>
@@ -16,44 +37,36 @@
         </a>
     </div>
 
-    <div class="students-row">
-        <div class="student-item">
-            <strong>Lorenzo Castelli</strong> <span>Matricola 2115498</span>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;">
+        
+        <div class="domains-section" style="margin-bottom: 0;">
+            <h2>Supported domains</h2>
+            <ul class="domains-list-clean">
+                {% for domain in domains %}
+                    <li>
+                        <i class="fa-solid fa-globe"></i> {{ domain }}
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
-        <div class="student-item">
-            <strong>Ludovica Fiocchetta</strong> <span>Matricola 2103669</span>
+        
+        <div class="status-section" style="margin-bottom: 0;">
+            <h2>System status</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 10px;">
+                <div class="status-item" style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dot {% if backend_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
+                    Backend
+                </div>
+                <div class="status-item" style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dot {% if db_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
+                    MariaDB
+                </div>
+                <div class="status-item" style="display: flex; align-items: center; gap: 10px;">
+                    <span class="dot {% if ollama_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
+                    Ollama
+                </div>
+            </div>
         </div>
-        <div class="student-item">
-            <strong>Alessandro Genovese</strong> <span>Matricola 2108670</span>
-        </div>
-    </div>
 
-    <div class="status-section">
-        <h2>System status</h2>
-        <div class="status-row">
-            <div class="status-item">
-                <span class="dot {% if backend_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
-                Backend
-            </div>
-            <div class="status-item">
-                <span class="dot {% if db_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
-                MariaDB
-            </div>
-            <div class="status-item">
-                <span class="dot {% if ollama_status|lower in ['online', 'ok', 'running', 'up', 'active'] %}green{% else %}red{% endif %}"></span>
-                Ollama
-            </div>
-        </div>
-    </div>
-
-    <div class="domains-section">
-        <h2>Supported domains</h2>
-        <ul class="domains-list-clean">
-            {% for domain in domains %}
-                <li>
-                    <i class="fa-solid fa-globe"></i> {{ domain }}
-                </li>
-            {% endfor %}
-        </ul>
     </div>
 {% endblock content %}

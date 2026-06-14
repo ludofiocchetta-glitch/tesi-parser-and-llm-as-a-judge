@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request, Form
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 import httpx
 
@@ -222,3 +223,45 @@ async def gs_manage_action(
         "success": success_msg,
         "error": error_msg
     })
+
+################### STATS ###################
+
+@app.get("/stats", response_class=HTMLResponse)
+async def stats_page(request: Request):
+    domains, _ = await get_home_data()
+    db_stats = None
+    error_msg = None
+
+    async with httpx.AsyncClient(timeout=1800.0) as client:
+        try:
+            resp = await client.get(f"{BACKEND_URL}/db_stats")
+            if resp.status_code == 200:
+                db_stats = resp.json()
+            else:
+                error_msg = f"Unable to retrieve statistics: error {resp.status_code}"
+        except Exception as e:
+            error_msg = f"Backend communication error: {str(e)}"
+
+    return templates.TemplateResponse(
+        request=request, 
+        name="stats.html", 
+        context={
+            "db_stats": db_stats,
+            "error": error_msg,
+            "domains": domains
+        }
+    )
+
+################### RUN EVALUATION ###################
+
+@app.post("/run_eval")
+async def run_eval_action(request: Request, domain: str = Form(...)):
+    async with httpx.AsyncClient(timeout=1800.0) as client:
+        try:
+            resp = await client.get(f"{BACKEND_URL}/full_gs_eval", params={"domain": domain})
+            if resp.status_code != 200:
+                print(f"Errore dal backend: {resp.status_code}")
+        except Exception as e:
+            print(f"Errore di connessione durante la valutazione: {str(e)}")
+            
+    return RedirectResponse(url="/stats", status_code=303)

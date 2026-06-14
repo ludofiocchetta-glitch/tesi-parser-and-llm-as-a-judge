@@ -277,10 +277,6 @@ async def get_single_gold_standard(url: str):
     parsed_url = urlparse(url)
     domain = parsed_url.netloc
     
-    #supported_domains = ["en.wikipedia.org", "www.cbsnews.com", "www.cnbc.com", "www.viaggi-usa.it"]
-    #if domain not in supported_domains:
-       #raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
-    
     try:
         conn = get_db_connection()
         cursor = conn.cursor()

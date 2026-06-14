@@ -24,7 +24,7 @@ def get_db_connection(max_retries=5, delay=3):
     sys.exit(1)
 
 def destroy_tables(cursor):
-    # Disabilita i controlli sulle foreign key per poter eliminare le tabelle in qualsiasi ordine
+    # Disable foreign key checks
     cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
     
     cursor.execute("DROP TABLE IF EXISTS evaluation_results")
@@ -32,7 +32,7 @@ def destroy_tables(cursor):
     cursor.execute("DROP TABLE IF EXISTS gold_standard")
     cursor.execute("DROP TABLE IF EXISTS web_resources")
     
-    # Riabilita i controlli sulle foreign key
+    # Re-enable foreign key checks
     cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
 
 

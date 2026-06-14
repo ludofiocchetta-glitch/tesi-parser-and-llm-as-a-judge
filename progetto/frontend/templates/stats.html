@@ -1,0 +1,125 @@
+{% extends "index.html" %}
+
+{% block title %}
+    Database & Evaluation Stats
+{% endblock title %}
+
+{% block content %}
+    <h1>Stats & Analytics</h1>
+
+    <a href="{{ url_for('home') }}" class="back-link" style="display: inline-block; margin-bottom: 20px; color: var(--primary-color); text-decoration: none; font-weight: bold;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+
+    {% if error %}<div class="error">{{ error }}</div>{% endif %}
+
+    {% if db_stats %}
+        {% set total_wr = db_stats.web_resources.values() | sum %}
+        {% set total_gs = db_stats.gold_standard.values() | sum %}
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px;">
+            <div class="analyze-card" style="text-align: center; padding: 20px; margin-bottom: 0;">
+                <h3 style="margin-top:0; color: var(--text-secondary); font-size: 1rem; text-transform: uppercase;">Total Web Resources</h3>
+                <div style="font-size: 3rem; font-weight: bold; color: var(--text-primary);">
+                    <i class="fa-solid fa-globe" style="color: var(--border-color); margin-right: 10px; font-size: 2.5rem;"></i>{{ total_wr }}
+                </div>
+            </div>
+            <div class="analyze-card" style="text-align: center; padding: 20px; margin-bottom: 0;">
+                <h3 style="margin-top:0; color: var(--text-secondary); font-size: 1rem; text-transform: uppercase;">Total Gold Standards</h3>
+                <div style="font-size: 3rem; font-weight: bold; color: var(--text-primary);">
+                    <i class="fa-solid fa-medal" style="color: #f1c40f; margin-right: 10px; font-size: 2.5rem;"></i>{{ total_gs }}
+                </div>
+            </div>
+        </div>
+
+        {% for domain in domains %}
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; margin-bottom: 20px;">
+            <h2 style="color: var(--primary-color); margin: 0; font-size: 1.5rem;">
+                {{ domain }}
+            </h2>
+    
+        <form action="/run_eval" method="post" style="margin: 0;">
+        <input type="hidden" name="domain" value="{{ domain }}">
+        <button type="submit" 
+                style="background-color: var(--primary-color); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;"
+                onclick="this.innerHTML='<i class=\'fa-solid fa-spinner fa-spin\'></i> Evaluation in progress...'; this.style.opacity='0.7'; this.form.submit();">
+            <i class="fa-solid fa-play"></i> New full evalution
+        </button>
+        </form>
+        </div>
+
+            {% set wr_count = db_stats.web_resources.get(domain, 0) %}
+            {% set gs_count = db_stats.gold_standard.get(domain, 0) %}
+            
+            <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+                <div style="flex: 1; background: #f8f9fa; padding: 15px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: var(--text-secondary);">Resources in DB</strong> 
+                    <span style="font-size: 1.4rem; font-weight: bold; color: var(--text-primary);">{{ wr_count }}</span>
+                </div>
+                <div style="flex: 1; background: #f8f9fa; padding: 15px; border-radius: var(--border-radius-sm); border: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                    <strong style="color: var(--text-secondary);">Gold Standards</strong> 
+                    <span style="font-size: 1.4rem; font-weight: bold; color: var(--text-primary);">{{ gs_count }}</span>
+                </div>
+            </div>
+
+            {% set evals = db_stats.avg_eval.get(domain, none) %}
+            {% set judge = db_stats.avg_eval_judge.get(domain, none) %}
+
+            {% if evals and gs_count > 0 %}
+                
+                <h3 class="metrics-section-title" style="font-size: 1rem;">Average Standard Metrics</h3>
+                <div class="metrics-row-card" style="margin-bottom: 25px;">
+                    <div class="metric-box">
+                        <h4>Precision</h4>
+                        <div class="val">{{ "%.2f"|format(evals.token_level_eval.precision) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Recall</h4>
+                        <div class="val">{{ "%.2f"|format(evals.token_level_eval.recall) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>F1 score</h4>
+                        <div class="val">{{ "%.2f"|format(evals.token_level_eval.f1) }}</div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: stretch;">
+                    
+                    <div style="display: flex; flex-direction: column;">
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Advanced Metrics</h3>
+                        <div class="metrics-row-card" style="flex: 1; margin-bottom: 0;">
+                            <div class="metric-box">
+                                <h4>Jaccard</h4>
+                                <div class="val">{{ "%.2f"|format(evals.x_eval.jaccard_similarity) }}</div>
+                            </div>
+                            <div class="metric-box">
+                                <h4>Bigram</h4>
+                                <div class="val">{{ "%.2f"|format(evals.x_eval.bigram_overlap) }}</div>
+                            </div>
+                            <div class="metric-box">
+                                <h4>Cosine</h4>
+                                <div class="val">{{ "%.2f"|format(evals.x_eval.cosine_similarity) }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score</h3>
+                        <div class="metrics-row-card" style="flex: 1; display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
+                            <div class="metric-box" style="border: none;">
+                                <div class="val">{{ "%.2f"|format(judge.judge_score) if judge else "0.00" }}</div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            {% else %}
+                <div style="text-align: center; color: var(--text-secondary); padding: 30px; border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); background: #fafafa;">
+                    <i class="fa-solid fa-chart-bar" style="font-size: 2rem; opacity: 0.3; margin-bottom: 10px; display: block;"></i>
+                    No evaluations available for this domain yet. Add Gold Standards and run tests to generate metrics.
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="analyze-card" style="text-align: center; padding: 40px;">
+            <p style="color: var(--text-secondary);">No database statistics available.</p>
+        </div>
+    {% endif %}
+{% endblock content %}
