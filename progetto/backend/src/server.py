@@ -190,17 +190,19 @@ async def post_parse_article(data: ParseRequest):
         except mariadb.Error as e:
             raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
         
+    else:
+        html_text = ''
 
     parsed_result = None
     # request to the parser
     if domain == "en.wikipedia.org":
-        parsed_result = await parser_wiki(data.url,"")  
+        parsed_result = await parser_wiki(data.url,html_text)  
     elif domain == "www.cbsnews.com":
-        parsed_result =await parser_cbs(data.url,"")
+        parsed_result =await parser_cbs(data.url,html_text)
     elif domain == "www.cnbc.com":
-        parsed_result =await parser_cnbc(data.url,"")
+        parsed_result =await parser_cnbc(data.url,html_text)
     elif domain == "www.viaggi-usa.it":
-        parsed_result =await parser_viaggi_usa(data.url,"")
+        parsed_result =await parser_viaggi_usa(data.url,html_text)
     else:
         raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
     
@@ -234,6 +236,8 @@ async def post_parse_article(data: ParseRequest):
             print(f"Errore DB durante l'inserimento in parsed_pages: {str(e)}")
             
     return parsed_result
+
+    
 
     
 
