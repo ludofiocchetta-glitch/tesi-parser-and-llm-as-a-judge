@@ -190,29 +190,17 @@ async def post_parse_article(data: ParseRequest):
         except mariadb.Error as e:
             raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
         
-    # if local==False do the download
-    else: 
-        try:
-            custom_headers = {
-                "User-Agent": "DocumentParserPipeline/1.0 (progetto_universitario@uniroma1.it) httpx/0.27"
-            }
-            async with httpx.AsyncClient(headers=custom_headers) as client:
-                response = await client.get(data.url, timeout=10.0) 
-                response.raise_for_status() 
-                html_text = response.text
-        except Exception as e:
-            raise HTTPException(status_code=400, detail=f"URL unreachable: {str(e)}")
 
     parsed_result = None
     # request to the parser
     if domain == "en.wikipedia.org":
-        parsed_result = await parser_wiki(data.url,html_text)  
+        parsed_result = await parser_wiki(data.url,"")  
     elif domain == "www.cbsnews.com":
-        parsed_result =await parser_cbs(data.url,html_text)
+        parsed_result =await parser_cbs(data.url,"")
     elif domain == "www.cnbc.com":
-        parsed_result =await parser_cnbc(data.url,html_text)
+        parsed_result =await parser_cnbc(data.url,"")
     elif domain == "www.viaggi-usa.it":
-        parsed_result =await parser_viaggi_usa(data.url,html_text)
+        parsed_result =await parser_viaggi_usa(data.url,"")
     else:
         raise HTTPException(status_code=400, detail=f"Domain not supported: {domain}")
     
@@ -538,36 +526,38 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                 current_judge_score= judge_response.judge_score
                 current_judge_feedback=judge_response.judge_feedback
 
+                try:
+                    cursor.execute("""
+                        INSERT INTO evaluation_results 
+                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, judge_score, judge_feedback) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                        ON DUPLICATE KEY UPDATE 
+                            precision_val=VALUES(precision_val), 
+                            recall=VALUES(recall), 
+                            f1=VALUES(f1),
+                            jaccard_similarity=VALUES(jaccard_similarity),
+                            bigram_overlap=VALUES(bigram_overlap),
+                            cosine_similarity=VALUES(cosine_similarity),
+                            judge_score=VALUES(judge_score),
+                            judge_feedback=VALUES(judge_feedback)
+                    """, (
+                        url, 
+                        ris["precision"], 
+                        ris["recall"], 
+                        ris["f1"], 
+                        ris["jaccard_similarity"], 
+                        ris["bigram_overlap"], 
+                        ris["cosine_similarity"], 
+                        current_judge_score,
+                        current_judge_feedback
+                ))
+                    conn.commit()  
+                except mariadb.Error as db_err:
+                    print(f"Error saving results for {url}: {db_err}")
+
             tot_judge+=current_judge_score
         
-            try:
-                cursor.execute("""
-                    INSERT INTO evaluation_results 
-                        (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, judge_score, judge_feedback) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    ON DUPLICATE KEY UPDATE 
-                        precision_val=VALUES(precision_val), 
-                        recall=VALUES(recall), 
-                        f1=VALUES(f1),
-                        jaccard_similarity=VALUES(jaccard_similarity),
-                        bigram_overlap=VALUES(bigram_overlap),
-                        cosine_similarity=VALUES(cosine_similarity),
-                        judge_score=VALUES(judge_score),
-                        judge_feedback=VALUES(judge_feedback)
-                """, (
-                    url, 
-                    ris["precision"], 
-                    ris["recall"], 
-                    ris["f1"], 
-                    ris["jaccard_similarity"], 
-                    ris["bigram_overlap"], 
-                    ris["cosine_similarity"], 
-                    current_judge_score,
-                    current_judge_feedback
-                ))
-                conn.commit()  
-            except mariadb.Error as db_err:
-                print(f"Error saving results for {url}: {db_err}")
+            
             
 
         except Exception as e:
