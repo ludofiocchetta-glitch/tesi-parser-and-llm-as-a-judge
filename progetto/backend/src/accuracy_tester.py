@@ -3,6 +3,7 @@ import nltk
 from nltk.translate.meteor_score import meteor_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from bert_score import score
 
 # necessary dictionaries for meteor metrics
 try:
@@ -10,6 +11,7 @@ try:
 except LookupError:
     nltk.download('wordnet')
     nltk.download('omw-1.4')
+
 
 def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
   
@@ -27,7 +29,8 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "jaccard_similarity": 0.0, 
                 "bigram_overlap": 0.0, 
                 "cosine_similarity": 0.0,
-                "meteor": 0.0
+                "meteor": 0.0,
+                "bert_score": 0.0
             }
 
         # Token extraction
@@ -44,7 +47,8 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "jaccard_similarity": 0.0,
                 "bigram_overlap": 0.0, 
                 "cosine_similarity": 0.0,
-                "meteor": 0.0
+                "meteor": 0.0,
+                "bert_score": 0.0
             }
 
         # Sets intersection and union
@@ -82,6 +86,16 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
         except Exception:
             meteor = 0.0
 
+        # Calculation of BERTScore
+        try:
+            # distilbert for the RAM
+            P, R, F1 = score([parsed_text], [gold_text], lang="en", model_type="distilbert-base-uncased", verbose=False)
+            # BERTScore returns tensors, take the float value of the semantic F1 
+            bert_score = F1.item() 
+        except Exception as e:
+            print(f"Error BERTScore: {e}")
+            bert_score = 0.0
+
         return {
             "precision": float(precision),
             "recall": float(recall),
@@ -89,7 +103,8 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "jaccard_similarity": float(jaccard_similarity),
             "bigram_overlap": float(bigram_overlap),           
             "cosine_similarity": float(cos_similarity),
-            "meteor": float(meteor)
+            "meteor": float(meteor),
+            "bert_score": float(bert_score)
         }
         
     except Exception as e:
@@ -101,5 +116,6 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "jaccard_similarity": 0.0, 
             "bigram_overlap": 0.0, 
             "cosine_similarity": 0.0,
-            "meteor": 0.0
+            "meteor": 0.0,
+            "bert_score": 0.0
         }

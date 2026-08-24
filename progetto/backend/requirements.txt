@@ -13,8 +13,11 @@ crawl4ai
 # Library for the vectorization of cosine similarity
 scikit-learn
 
-# Library for METEOR metrics
+# Library for METEOR metric
 nltk
+
+# Library for BERTscore metric
+bert-score
 
 # Library for the connection to the database
 mariadb

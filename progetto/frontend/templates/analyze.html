@@ -116,9 +116,13 @@
                         <h4>Cosine similarity</h4>
                         <div class="val">{{ "%.2f"|format(eval_data.x_eval.cosine_similarity) }}</div>
                     </div>
-                     <div class="metric-box">
+                    <div class="metric-box">
                         <h4>Meteor</h4>
                         <div class="val">{{ "%.2f"|format(eval_data.x_eval.meteor) }}</div>
+                    </div>
+                    <div class="metric-box">
+                        <h4>Bertscore</h4>
+                        <div class="val">{{ "%.2f"|format(eval_data.x_eval.bert_score) }}</div>
                     </div>
                 </div>
 
