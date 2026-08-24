@@ -82,6 +82,7 @@ def create_tables(cursor):
             jaccard_similarity FLOAT,
             bigram_overlap FLOAT,
             cosine_similarity FLOAT,
+            meteor FLOAT,
             
             -- LLM judgments
             judge_score FLOAT,
@@ -126,12 +127,13 @@ def populate_database(conn, cursor):
 
                         cursor.execute("""
                             INSERT IGNORE INTO evaluation_results 
-                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, judge_score, judge_feedback)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, judge_score, judge_feedback)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (
                             url, 
                             None,  
                             None, 
+                            None,
                             None,  
                             None, 
                             None,  

@@ -72,6 +72,7 @@ class XEval(BaseModel):
     jaccard_similarity: float
     bigram_overlap: float
     cosine_similarity:float
+    meteor:float
 
 # Model for the input of /evaluate
 class EvaluateRequest(BaseModel):
@@ -363,7 +364,8 @@ async def evaluate_text(data: EvaluateRequest):
         "x_eval": XEval(
             jaccard_similarity=ris["jaccard_similarity"],
             bigram_overlap=ris["bigram_overlap"],
-            cosine_similarity=ris["cosine_similarity"]
+            cosine_similarity=ris["cosine_similarity"],
+            meteor=ris["meteor"]
         )
     }
 
@@ -372,7 +374,7 @@ async def evaluate_text(data: EvaluateRequest):
 @app.post("/evaluate_judge", response_model=EvaluateJudgeResponse)
 async def evaluate_judge(data: EvaluateRequest):
 
-    char_limit = 1000
+    char_limit = 500
     
     safe_parsed = data.parsed_text[:char_limit]
     if len(data.parsed_text) > char_limit:
@@ -485,6 +487,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     tot_jaccard = 0.0
     tot_bigram = 0.0
     tot_cosine = 0.0
+    tot_meteor= 0.0
     tot_judge= 0.0
     
     for row in rows:
@@ -514,6 +517,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             tot_jaccard += ris["jaccard_similarity"]
             tot_bigram += ris["bigram_overlap"]
             tot_cosine += ris["cosine_similarity"]
+            tot_meteor += ris["meteor"]
 
             # values of LLM from DB
             cursor.execute("SELECT judge_score, judge_feedback FROM evaluation_results WHERE url = ?", (url,))
@@ -533,8 +537,8 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                 try:
                     cursor.execute("""
                         INSERT INTO evaluation_results 
-                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, judge_score, judge_feedback) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, judge_score, judge_feedback) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON DUPLICATE KEY UPDATE 
                             precision_val=VALUES(precision_val), 
                             recall=VALUES(recall), 
@@ -542,6 +546,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                             jaccard_similarity=VALUES(jaccard_similarity),
                             bigram_overlap=VALUES(bigram_overlap),
                             cosine_similarity=VALUES(cosine_similarity),
+                            meteor=VALUES(meteor),
                             judge_score=VALUES(judge_score),
                             judge_feedback=VALUES(judge_feedback)
                     """, (
@@ -552,6 +557,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                         ris["jaccard_similarity"], 
                         ris["bigram_overlap"], 
                         ris["cosine_similarity"], 
+                        ris["meteor"],
                         current_judge_score,
                         current_judge_feedback
                 ))
@@ -585,7 +591,8 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
         "x_eval": XEval(
             jaccard_similarity=tot_jaccard / n,
             bigram_overlap=tot_bigram / n,
-            cosine_similarity=tot_cosine / n
+            cosine_similarity=tot_cosine / n,
+            meteor=tot_meteor / n
         )
     }
 
@@ -709,6 +716,7 @@ async def get_db_stats():
                 COALESCE(ROUND(AVG(e.jaccard_similarity), 2), 0.0), 
                 COALESCE(ROUND(AVG(e.bigram_overlap), 2), 0.0), 
                 COALESCE(ROUND(AVG(e.cosine_similarity), 2), 0.0), 
+                COALESCE(ROUND(AVG(e.meteor),2), 0.0),
                 COALESCE(ROUND(AVG(e.judge_score), 2), 0.0)
             FROM evaluation_results e
             JOIN web_resources w ON e.url = w.url
@@ -739,11 +747,12 @@ async def get_db_stats():
             x_eval=XEval(
                 jaccard_similarity=row[4],
                 bigram_overlap=row[5],
-                cosine_similarity=row[6]
+                cosine_similarity=row[6],
+                meteor=row[7]
             )
         )
         
-        avg_eval_judge_dict[domain] = DomainAvgJudge(judge_score=row[7])
+        avg_eval_judge_dict[domain] = DomainAvgJudge(judge_score=row[8])
         
     return {
         "web_resources": web_resources_dict,

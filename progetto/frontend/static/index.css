@@ -506,7 +506,7 @@ select:focus {
 
 .metrics-row-card {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     background: var(--panel-background);
     padding: 20px;
     border: 1px solid var(--border-color);

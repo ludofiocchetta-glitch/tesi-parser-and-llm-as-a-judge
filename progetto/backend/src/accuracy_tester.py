@@ -1,6 +1,15 @@
 import re
+import nltk
+from nltk.translate.meteor_score import meteor_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+
+# necessary dictionaries for meteor metrics
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
+    nltk.download('omw-1.4')
 
 def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
   
@@ -17,7 +26,8 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0, 
                 "bigram_overlap": 0.0, 
-                "cosine_similarity": 0.0
+                "cosine_similarity": 0.0,
+                "meteor": 0.0
             }
 
         # Token extraction
@@ -33,7 +43,8 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
                 "f1": 0.0, 
                 "jaccard_similarity": 0.0,
                 "bigram_overlap": 0.0, 
-                "cosine_similarity": 0.0
+                "cosine_similarity": 0.0,
+                "meteor": 0.0
             }
 
         # Sets intersection and union
@@ -65,13 +76,20 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
         except Exception:
             cos_similarity = 0.0
 
+        # Calculation of meteor
+        try:
+            meteor = meteor_score([gs_words], extracted_words)
+        except Exception:
+            meteor = 0.0
+
         return {
             "precision": float(precision),
             "recall": float(recall),
             "f1": float(f1),
             "jaccard_similarity": float(jaccard_similarity),
             "bigram_overlap": float(bigram_overlap),           
-            "cosine_similarity": float(cos_similarity)
+            "cosine_similarity": float(cos_similarity),
+            "meteor": float(meteor)
         }
         
     except Exception as e:
@@ -82,5 +100,6 @@ def calculate_metrics(parsed_text: str, gold_text: str) -> dict:
             "f1": 0.0,
             "jaccard_similarity": 0.0, 
             "bigram_overlap": 0.0, 
-            "cosine_similarity": 0.0
+            "cosine_similarity": 0.0,
+            "meteor": 0.0
         }
