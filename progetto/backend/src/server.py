@@ -15,6 +15,7 @@ from src.crawler_viaggi_usa import parser_viaggi_usa
 from src.accuracy_tester import calculate_metrics
 from src.init_db import setup_database, get_db_connection
 from src.remove_markdown import remove_markdown
+from src.clean_html import clean_html
 
 OLLAMA_URL = "http://ollama:11434/api/generate"
 
@@ -91,10 +92,16 @@ class EvaluateJudgeResponse(BaseModel):
     judge_score: int
     judge_feedback: str
 
+# Model for the input of /evaluate_judge_no_gs
+class EvaluateNoGsRequest(BaseModel):
+    parsed_text: str
+    html_text: str
+
 # Model for the output of /full_gs_eval
 class FullEvaluateResponse(BaseModel):
     token_level_eval: TokenLevelEval
     judge_score: float
+    judge_score_no_gs: float
     x_eval: XEval
    
 # Model for the input of /add_web_resource
@@ -441,7 +448,7 @@ async def evaluate_judge(data: EvaluateRequest):
                 return EvaluateJudgeResponse(
                     model_name=result.get("model", target_model),
                     judge_score=safe_score,
-                    judge_feedback=judge_output.get("judge_feedback", "Nessun feedback generato")
+                    judge_feedback=judge_output.get("judge_feedback", "No feedback generated")
                 )
                 
             except json.JSONDecodeError:
@@ -457,6 +464,91 @@ async def evaluate_judge(data: EvaluateRequest):
         raise HTTPException(status_code=504, detail="Timeout during the generation of LLM")
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal error of the LLM judge: {str(e)}")
+
+################### EVALUATE JUDGE NO GS ###################
+
+@app.post("/evaluate_judge_no_gs", response_model=EvaluateJudgeResponse)
+async def evaluate_judge_no_gs(data: EvaluateNoGsRequest):
+
+    char_limit = 500
+    
+    safe_parsed = data.parsed_text[:char_limit]
+    if len(data.parsed_text) > char_limit:
+        safe_parsed += "\n[...truncated text for time...]"
+        
+    safe_html = clean_html(data.html_text, char_limit)
+
+    # 3. Prompt no gs for Llama 3.2
+    prompt = f"""Sei un giudice esperto di Information Extraction. 
+    Devi valutare la qualità di un'estrazione testuale da una pagina web, SENZA avere un testo di riferimento.
+    Ti verranno forniti:
+    1. L'HTML grezzo della pagina web.
+    2. Il testo estratto dal parser.
+
+    Valuta da 1 a 5 se il testo estratto cattura il contenuto informativo principale presente nell'HTML, ignorando eventuali elementi strutturali mancanti.
+    1 = Testo del tutto irrilevante o estrazione fallita.
+    5 = Estrazione eccellente e coerente con l'HTML.
+
+    HTML Sorgente:
+    {safe_html}
+
+    Parsed Text:
+    {safe_parsed}
+
+    Rispondi solo ed esclusivamente con un JSON nel seguente formato:
+    {{
+        "judge_score": <inserisci il voto qui>,
+        "judge_feedback": "<inserisci la motivazione qui>"
+    }}
+    Attenzione: Alucni testi possono contenere tabelle formattate in Markdown con il simbolo |. Valuta il loro contenuto semantico ma non concentrarti solo su queste e non tentare in alcun modo di correggere, completare o formattare queste tabelle. Concentrati solo sull'estrazione del JSON.
+    """
+    
+    target_model = "llama3.2" 
+    payload = {
+        "model": target_model,
+        "prompt": prompt,
+        "stream": False,
+        "format": "json", 
+        "options": {
+            "temperature": 0.0
+        }
+    }
+    
+    try:
+        async with httpx.AsyncClient(timeout=900.0) as client:
+            response = await client.post(OLLAMA_URL, json=payload)
+            response.raise_for_status()
+            
+            result = response.json()
+            raw_response = result.get("response", "")
+            
+            try:
+                judge_output = json.loads(raw_response)
+                raw_score = judge_output.get("judge_score", 1)
+                try:
+                    safe_score = max(1, min(5, int(float(raw_score))))
+                except (ValueError, TypeError):
+                    safe_score = 1
+                
+                return EvaluateJudgeResponse(
+                    model_name=result.get("model", target_model),
+                    judge_score=safe_score,
+                    judge_feedback=judge_output.get("judge_feedback", "No feedback generated")
+                )
+                
+            except json.JSONDecodeError:
+                # Fallback if the LLM doesn't respect the format
+                # return score 0 and error
+                return EvaluateJudgeResponse(
+                    model_name=result.get("model", target_model),
+                    judge_score=0, 
+                    judge_feedback=f"FALLBACK: LLM didn't respect the JSON format. Raw response: {raw_response[:100]}..."
+                )
+            
+    except httpx.ReadTimeout:
+        raise HTTPException(status_code=504, detail="Timeout during the generation of LLM")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal error of the LLM judge no GS: {str(e)}")
 
 ################### FULL GS EVAL ###################
 
@@ -491,7 +583,8 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
     tot_cosine = 0.0
     tot_meteor = 0.0
     tot_bert = 0.0
-    tot_judge= 0.0
+    tot_judge = 0.0
+    tot_judge_no_gs = 0.0
     
     for row in rows:
         url, html_text, gold_text = row[0], row[1], row[2]
@@ -538,11 +631,28 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                 current_judge_score= judge_response.judge_score
                 current_judge_feedback=judge_response.judge_feedback
 
+            # values of LLM no gs from DB
+            cursor.execute("SELECT judge_score_no_gs, judge_feedback_no_gs FROM evaluation_results WHERE url = ?", (url,))
+            db_judge_row = cursor.fetchone()
+            
+            # Check if the values are not None for reuse
+            if db_judge_row and db_judge_row[0] is not None:
+                current_judge_score_no_gs = db_judge_row[0]
+                current_judge_feedback_no_gs = db_judge_row[1]
+            # else call the endpoint evaluate_judge with clean html
+            else:
+                safe_html=clean_html(html_text)
+                judge_payload = EvaluateNoGsRequest(parsed_text=parsed_text, html_text=safe_html)
+                judge_response = await evaluate_judge_no_gs(judge_payload)
+                current_judge_score_no_gs= judge_response.judge_score_no_gs
+                current_judge_feedback_no_gs=judge_response.judge_feedback_no_gs
+            
+
                 try:
                     cursor.execute("""
                         INSERT INTO evaluation_results 
-                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, bert_score, judge_score, judge_feedback) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, bert_score, judge_score, judge_feedback, judge_score_no_gs, judge_feedback_no_gs) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         ON DUPLICATE KEY UPDATE 
                             precision_val=VALUES(precision_val), 
                             recall=VALUES(recall), 
@@ -553,7 +663,9 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                             meteor=VALUES(meteor),
                             bert_score=VALUES(bert_score),
                             judge_score=VALUES(judge_score),
-                            judge_feedback=VALUES(judge_feedback)
+                            judge_feedback=VALUES(judge_feedback),
+                            judge_score_no_gs=VALUES(judge_score_no_gs),
+                            judge_feedback_no_gs=VALUES(judge_feedback_no_gs)
                     """, (
                         url, 
                         ris["precision"], 
@@ -565,13 +677,16 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
                         ris["meteor"],
                         ris["bert_score"],
                         current_judge_score,
-                        current_judge_feedback
+                        current_judge_feedback,
+                        current_judge_score_no_gs,
+                        current_judge_feedback_no_gs
                 ))
                     conn.commit()  
                 except mariadb.Error as db_err:
                     print(f"Error saving results for {url}: {db_err}")
 
             tot_judge+=current_judge_score
+            tot_judge_no_gs+=current_judge_score_no_gs
         
             
             
@@ -594,6 +709,7 @@ async def get_full_gs_eval(domain: str = Query(..., description="The domain for 
             f1=tot_f1 / n
         ),
         "judge_score":tot_judge / n,
+        "judge_score_no_gs":tot_judge_no_gs / n,
         "x_eval": XEval(
             jaccard_similarity=tot_jaccard / n,
             bigram_overlap=tot_bigram / n,

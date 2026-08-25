@@ -88,6 +88,8 @@ def create_tables(cursor):
             -- LLM judgments
             judge_score FLOAT,
             judge_feedback TEXT,
+            judge_score_no_gs FLOAT,
+            judge_feedback_no_gs TEXT,
             
             evaluated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY (url) REFERENCES web_resources(url) ON DELETE CASCADE
@@ -128,8 +130,8 @@ def populate_database(conn, cursor):
 
                         cursor.execute("""
                             INSERT IGNORE INTO evaluation_results 
-                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, bert_score, judge_score, judge_feedback)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                            (url, precision_val, recall, f1, jaccard_similarity, bigram_overlap, cosine_similarity, meteor, bert_score, judge_score, judge_feedback, judge_score_no_gs, judge_feedback_no_gs)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                         """, (
                             url, 
                             None,  
@@ -140,6 +142,8 @@ def populate_database(conn, cursor):
                             None, 
                             None,  
                             None,  
+                            None,
+                            None,
                             None,  
                             None
                         ))
