@@ -126,7 +126,7 @@
                     </div>
                 </div>
 
-                <h3 class="metrics-section-title">LLM Judge assessment</h3>
+                <h3 class="metrics-section-title">LLM Judge assessment with Gold Standard</h3>
                 <div class="metrics-row-card judge-card">
                     <div class="metric-box">
                         <h4>Score</h4>
@@ -138,6 +138,21 @@
                         <h4>Feedback</h4>
                         <div class="feedback-text">
                             {% if judge_data %}{{ judge_data.judge_feedback }}{% else %}Not available{% endif %}
+                        </div>
+                    </div>
+                </div>
+                <h3 class="metrics-section-title">LLM Judge assessment Reference-Free</h3>
+                 <div class="metrics-row-card judge-card">
+                    <div class="metric-box">
+                        <h4>Score</h4>
+                        <div class="val">
+                            {% if judge_data %}{{ judge_data.judge_score_no_gs }}/5{% else %}-{% endif %}
+                        </div>
+                    </div>
+                    <div class="metric-box feedback-box">
+                        <h4>Feedback</h4>
+                        <div class="feedback-text">
+                            {% if judge_data %}{{ judge_data.judge_feedback_no_gs }}{% else %}Not available{% endif %}
                         </div>
                     </div>
                 </div>

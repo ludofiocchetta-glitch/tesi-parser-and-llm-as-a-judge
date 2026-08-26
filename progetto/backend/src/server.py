@@ -125,6 +125,7 @@ class DomainAvgEval(BaseModel):
 
 class DomainAvgJudge(BaseModel):
     judge_score: float
+    judge_score_no_gs: float
 
 class DbStatsResponse(BaseModel):
     web_resources: Dict[str, int]
@@ -841,7 +842,8 @@ async def get_db_stats():
                 COALESCE(ROUND(AVG(e.cosine_similarity), 2), 0.0), 
                 COALESCE(ROUND(AVG(e.meteor),2), 0.0),
                 COALESCE(ROUND(AVG(e.bert_score),2), 0.0),
-                COALESCE(ROUND(AVG(e.judge_score), 2), 0.0)
+                COALESCE(ROUND(AVG(e.judge_score), 2), 0.0),
+                COALESCE(ROUND(AVG(e.judge_score_no_gs), 2), 0.0)
             FROM evaluation_results e
             JOIN web_resources w ON e.url = w.url
             GROUP BY w.domain
@@ -877,7 +879,7 @@ async def get_db_stats():
             )
         )
         
-        avg_eval_judge_dict[domain] = DomainAvgJudge(judge_score=row[9])
+        avg_eval_judge_dict[domain] = DomainAvgJudge(judge_score=row[9], judge_score_no_gs=row[10])
         
     return {
         "web_resources": web_resources_dict,

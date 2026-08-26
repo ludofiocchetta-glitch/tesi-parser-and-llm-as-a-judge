@@ -81,7 +81,7 @@
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; align-items: stretch;">
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 20px; align-items: stretch;">
                     
                     <div style="display: flex; flex-direction: column;">
                         <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Advanced Metrics</h3>
@@ -109,10 +109,18 @@
                         </div>
                     </div>
                     <div style="display: flex; flex-direction: column;">
-                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score</h3>
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score with Gold Standard</h3>
                         <div class="metrics-row-card" style="flex: 1; display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
                             <div class="metric-box" style="border: none;">
                                 <div class="val">{{ "%.2f"|format(judge.judge_score) if judge else "0.00" }}</div>
+                            </div>
+                        </div>
+                    </div> 
+                     <div style="display: flex; flex-direction: column;">
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score Reference-Free</h3>
+                        <div class="metrics-row-card" style="flex: 1; display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
+                            <div class="metric-box" style="border: none;">
+                                <div class="val">{{ "%.2f"|format(judge.judge_score_no_gs) if judge else "0.00" }}</div>
                             </div>
                         </div>
                     </div> 

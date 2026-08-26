@@ -104,6 +104,18 @@ async def analyze_url(request: Request, url: str = Form(...), mode: str = Form("
                     })
                     if judge_resp.status_code == 200:
                         judge_data = judge_resp.json()
+
+                    judge_no_gs_resp = await client.post(f"{BACKEND_URL}/evaluate_judge_no_gs", json={
+                        "parsed_text": parsed_data["parsed_text"],
+                        "html_text": parsed_data["html_text"]
+                    })
+                    if judge_no_gs_resp.status_code == 200:
+                        judge_no_gs_data = judge_no_gs_resp.json()
+                        if judge_data is None:
+                            judge_data = {}
+                        
+                        judge_data["judge_score_no_gs"] = judge_no_gs_data.get("judge_score")
+                        judge_data["judge_feedback_no_gs"] = judge_no_gs_data.get("judge_feedback")
             else:
                 error = parse_resp.json().get("detail", f"Error in backend: {parse_resp.status_code}")
         
