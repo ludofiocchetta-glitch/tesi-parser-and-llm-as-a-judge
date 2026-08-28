@@ -79,9 +79,10 @@ async def parser_viaggi_usa(url: str, html_text:str) -> dict:
     crawler_config = CrawlerRunConfig(
                                       cache_mode=CacheMode.BYPASS,
                                       target_elements=css_list, 
-                                      
                                       markdown_generator=md_generator,
-                                      js_code= remove_infobox_js
+                                      js_code= remove_infobox_js,
+                                      page_timeout=90000,         
+                                      wait_until="commit"
                                     )
 
     # Execute crawler

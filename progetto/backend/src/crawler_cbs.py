@@ -32,6 +32,8 @@ async def parser_cbs(url:str, html_text:str) -> dict:
                                       target_elements=css_list, # for cleaner output
                                       markdown_generator=md_generator, # for md generation with custom options
                                       js_code= remove_infobox_js,
+                                      page_timeout=90000,         
+                                      wait_until="commit"
                                     )
 
     # Execute crawler

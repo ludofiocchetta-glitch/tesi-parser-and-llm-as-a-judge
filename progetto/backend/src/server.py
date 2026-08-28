@@ -384,7 +384,7 @@ async def evaluate_text(data: EvaluateRequest):
 @app.post("/evaluate_judge", response_model=EvaluateJudgeResponse)
 async def evaluate_judge(data: EvaluateRequest):
 
-    char_limit = 500
+    char_limit = 300
     
     safe_parsed = data.parsed_text[:char_limit]
     if len(data.parsed_text) > char_limit:
@@ -425,12 +425,12 @@ async def evaluate_judge(data: EvaluateRequest):
         "stream": False,
         "format": "json", 
         "options": {
-            "temperature": 0.0 # for deterministic evaluations
+            "temperature": 0.0  # for deterministic evaluations
         }
     }
     
     try:
-        async with httpx.AsyncClient(timeout=900.0) as client:
+        async with httpx.AsyncClient(timeout=1800.0) as client:
             response = await client.post(OLLAMA_URL, json=payload)
             response.raise_for_status()
             
@@ -471,7 +471,7 @@ async def evaluate_judge(data: EvaluateRequest):
 @app.post("/evaluate_judge_no_gs", response_model=EvaluateJudgeResponse)
 async def evaluate_judge_no_gs(data: EvaluateNoGsRequest):
 
-    char_limit = 500
+    char_limit = 300
     
     safe_parsed = data.parsed_text[:char_limit]
     if len(data.parsed_text) > char_limit:
@@ -516,7 +516,7 @@ async def evaluate_judge_no_gs(data: EvaluateNoGsRequest):
     }
     
     try:
-        async with httpx.AsyncClient(timeout=900.0) as client:
+        async with httpx.AsyncClient(timeout=1800.0) as client:
             response = await client.post(OLLAMA_URL, json=payload)
             response.raise_for_status()
             

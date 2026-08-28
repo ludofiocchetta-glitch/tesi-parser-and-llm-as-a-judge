@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div style="display: flex; flex-direction: column;">
-                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score with Gold Standard</h3>
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score with GS</h3>
                         <div class="metrics-row-card" style="flex: 1; display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
                             <div class="metric-box" style="border: none;">
                                 <div class="val">{{ "%.2f"|format(judge.judge_score) if judge else "0.00" }}</div>
@@ -117,7 +117,7 @@
                         </div>
                     </div> 
                      <div style="display: flex; flex-direction: column;">
-                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score Reference-Free</h3>
+                        <h3 class="metrics-section-title" style="font-size: 1rem; margin-top: 0;">Average Judge Score no GS</h3>
                         <div class="metrics-row-card" style="flex: 1; display: flex; justify-content: center; align-items: center; margin-bottom: 0;">
                             <div class="metric-box" style="border: none;">
                                 <div class="val">{{ "%.2f"|format(judge.judge_score_no_gs) if judge else "0.00" }}</div>

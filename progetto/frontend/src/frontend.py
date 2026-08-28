@@ -80,7 +80,7 @@ async def analyze_url(request: Request, url: str = Form(...), mode: str = Form("
     is_local = (mode == "local")
 
     # Handle parsing and evaluation requests
-    async with httpx.AsyncClient(timeout=900.0) as client:
+    async with httpx.AsyncClient(timeout=1800.0) as client:
         try:
             parse_resp = await client.post(f"{BACKEND_URL}/parse", json={"url": url, "local": is_local})
             
@@ -116,6 +116,12 @@ async def analyze_url(request: Request, url: str = Form(...), mode: str = Form("
                         
                         judge_data["judge_score_no_gs"] = judge_no_gs_data.get("judge_score")
                         judge_data["judge_feedback_no_gs"] = judge_no_gs_data.get("judge_feedback")
+                    else:
+                        # SE QUALCOSA VA STORTO, LO SCRIVIAMO NEL FEEDBACK!
+                        if judge_data is None:
+                            judge_data = {}
+                        judge_data["judge_score_no_gs"] = 0
+                        judge_data["judge_feedback_no_gs"] = f"ERRORE DI SISTEMA: {judge_no_gs_resp.status_code} - {judge_no_gs_resp.text}"
             else:
                 error = parse_resp.json().get("detail", f"Error in backend: {parse_resp.status_code}")
         
