@@ -117,7 +117,6 @@ async def analyze_url(request: Request, url: str = Form(...), mode: str = Form("
                         judge_data["judge_score_no_gs"] = judge_no_gs_data.get("judge_score")
                         judge_data["judge_feedback_no_gs"] = judge_no_gs_data.get("judge_feedback")
                     else:
-                        # SE QUALCOSA VA STORTO, LO SCRIVIAMO NEL FEEDBACK!
                         if judge_data is None:
                             judge_data = {}
                         judge_data["judge_score_no_gs"] = 0
