@@ -412,7 +412,7 @@ async def evaluate_judge(data: EvaluateRequest):
         "judge_score": <inserisci il voto qui>,
         "judge_feedback": "<inserisci la motivazione qui>"
     }}
-    Attenzione: Alucni testi possono contenere tabelle formattate in Markdown con il simbolo |. Valuta il loro contenuto semantico ma non concentrarti solo su queste e non tentare in alcun modo di correggere, completare o formattare queste tabelle. Concentrati solo sull'estrazione del JSON.
+    Attenzione: Alcuni testi possono contenere tabelle formattate in Markdown con il simbolo |. Valuta il loro contenuto semantico ma non concentrarti solo su queste e non tentare in alcun modo di correggere, completare o formattare queste tabelle. Concentrati solo sull'estrazione del JSON.
     """
     
     # Model to use
@@ -501,7 +501,7 @@ async def evaluate_judge_no_gs(data: EvaluateNoGsRequest):
         "judge_score": <inserisci il voto qui>,
         "judge_feedback": "<inserisci la motivazione qui>"
     }}
-    Attenzione: Alucni testi possono contenere tabelle formattate in Markdown con il simbolo |. Valuta il loro contenuto semantico ma non concentrarti solo su queste e non tentare in alcun modo di correggere, completare o formattare queste tabelle. Concentrati solo sull'estrazione del JSON.
+    Attenzione: Alcuni testi possono contenere tabelle formattate in Markdown con il simbolo |. Valuta il loro contenuto semantico ma non concentrarti solo su queste e non tentare in alcun modo di correggere, completare o formattare queste tabelle. Concentrati solo sull'estrazione del JSON.
     """
     
     target_model = "llama3.2" 
