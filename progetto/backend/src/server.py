@@ -384,7 +384,7 @@ async def evaluate_text(data: EvaluateRequest):
 @app.post("/evaluate_judge", response_model=EvaluateJudgeResponse)
 async def evaluate_judge(data: EvaluateRequest):
 
-    char_limit = 300
+    char_limit = 1
     
     safe_parsed = data.parsed_text[:char_limit]
     if len(data.parsed_text) > char_limit:
@@ -471,7 +471,7 @@ async def evaluate_judge(data: EvaluateRequest):
 @app.post("/evaluate_judge_no_gs", response_model=EvaluateJudgeResponse)
 async def evaluate_judge_no_gs(data: EvaluateNoGsRequest):
 
-    char_limit = 300
+    char_limit = 1
     
     safe_parsed = data.parsed_text[:char_limit]
     if len(data.parsed_text) > char_limit:
