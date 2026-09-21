@@ -3,7 +3,7 @@
 
 Official repository for the Computer Engineering Bachelor's thesis project at Sapienza University of Rome. 
 
-**[Full Thesis in PDF (Italian)](./relazione_fiocchetta_ludovica.pdf)**
+**[Full Thesis in PDF](./relazione_fiocchetta_ludovica.pdf)**
 
 This project implements a microservices infrastructure for the automated extraction of clean text from the web, using the **Crawl4AI** library, and its evaluation through objective metrics. The system overcomes the limitations of traditional metrics by integrating advanced semantic evaluations and an **LLM-as-a-Judge** approach, powered by the **Ollama** engine and the **Llama 3.2** model, capable of operating even in a *Reference-Free* configuration.
 
